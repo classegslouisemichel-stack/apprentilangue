@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Apprentilangue</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+<style>
+@font-face{font-family:'Cursive Dumont maternelle';src:url('cursive.otf') format('opentype');}
+@font-face{font-family:'MDIEcole';src:url('MDIecole-Regular.otf') format('opentype'),url('mdi_ecole.ttf') format('truetype');}
+:root{--cp:#8b7355;--cpd:#5c4a2a;--cpl:#f2ead8;--fn:'MDIEcole','Calibri',Arial,sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--fn);background:#e8e4d8;min-height:100vh;}
+/* NAV */
+#nav{background:var(--cpd);color:#fff;display:flex;align-items:center;gap:10px;padding:0 18px;position:fixed;top:0;left:0;right:0;z-index:100;height:50px;}
+#nav h1{font-size:18px;font-weight:700;flex:1;}
+.nb{background:rgba(255,255,255,.15);color:#fff;border:none;padding:5px 14px;border-radius:18px;cursor:pointer;font-size:13px;font-family:var(--fn);}
+.nb:hover,.nb.active{background:rgba(255,255,255,.3);}
+#app{margin-top:50px;}
+/* PAGES */
+.pg{display:none;}.pg.on{display:block;}
+/* HOME */
+#pg-home{padding:26px;max-width:920px;margin:0 auto;}
+#pg-home h2{font-size:21px;margin-bottom:16px;color:var(--cpd);}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-bottom:22px;}
+.sc{background:#fff;border-radius:10px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.1);border-left:5px solid var(--cp);}
+.sc h3{font-size:16px;color:var(--cpd);}
+.sc p{font-size:12px;color:#777;margin-top:3px;}
+.scb{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap;}
+/* EDITOR */
+#pg-editor{padding:18px 24px;max-width:1100px;margin:0 auto;}
+.eh{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.eh h2{font-size:18px;color:var(--cpd);flex:1;}
+.wl{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:9px;}
+.wc{background:#fff;border-radius:8px;padding:10px 13px;box-shadow:0 1px 4px rgba(0,0,0,.07);border-left:4px solid var(--cpl);display:flex;align-items:center;justify-content:space-between;}
+.wc:hover{border-left-color:var(--cp);}
+/* SETTINGS */
+#pg-settings{padding:24px;max-width:1000px;margin:0 auto;}
+#pg-settings h2{font-size:20px;color:var(--cpd);margin-bottom:18px;}
+.ss{background:#fff;border-radius:10px;padding:16px;margin-bottom:16px;box-shadow:0 1px 5px rgba(0,0,0,.07);}
+.ss h3{font-size:14px;color:#444;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:6px;}
+/* BUTTONS */
+.btn{background:var(--cp);color:#fff;border:none;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600;font-family:var(--fn);}
+.btn:hover{filter:brightness(.9);}
+.bsm{padding:5px 11px;font-size:12px;}
+.bo{background:#eee;color:#444;border:1px solid #ccc;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-family:var(--fn);}
+.bo:hover{border-color:var(--cp);}
+.bd{background:#e05a5a;color:#fff;border:none;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:12px;font-family:var(--fn);}
+.bor{background:#e07a30;}
+/* MODALS */
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;align-items:center;justify-content:center;pointer-events:none;}
+.mo.on{display:flex;pointer-events:auto;}
+.mb{background:#fff;border-radius:12px;padding:22px;width:96%;max-width:880px;max-height:92vh;overflow-y:auto;box-shadow:0 12px 40px rgba(0,0,0,.25);}
+.mb h3{font-size:17px;margin-bottom:16px;color:var(--cpd);}
+.fr{display:flex;gap:12px;margin-bottom:10px;align-items:flex-start;flex-wrap:wrap;}
+.fg{display:flex;flex-direction:column;gap:3px;flex:1;min-width:100px;}
+.fg label{font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;}
+.fg input,.fg textarea,.fg select{border:1px solid #ddd;border-radius:6px;padding:6px 9px;font-size:13px;font-family:var(--fn);}
+.fg input:focus,.fg textarea:focus,.fg select:focus{outline:none;border-color:var(--cp);}
+.fg textarea{resize:vertical;min-height:60px;}
+.mf{display:flex;gap:9px;justify-content:flex-end;margin-top:16px;padding-top:12px;border-top:1px solid #eee;}
+/* PHONETIC EDITOR */
+.phs{margin-top:12px;border:1px solid #eee;border-radius:8px;padding:12px;background:#fafafa;}
+.phs h4{font-size:13px;color:#555;margin-bottom:10px;}
+.phr{display:flex;align-items:center;gap:7px;padding:5px 4px;border-bottom:1px solid #f0f0f0;flex-wrap:wrap;background:#fff;border-radius:4px;margin-bottom:3px;}
+.phl{font-size:18px;font-weight:700;min-width:44px;}
+.phs-in{border:1px solid #ddd;border-radius:4px;padding:3px 6px;font-size:12px;font-family:var(--fn);}
+.lcs{display:flex;gap:5px;align-items:flex-end;}
+.lcg{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.lcl{font-size:10px;font-weight:700;color:#666;}
+.pds{display:flex;gap:2px;}
+.pd{width:18px;height:18px;border-radius:4px;cursor:pointer;border:2px solid transparent;}
+.pd:hover{border-color:#555;}
+.pd.sel{border-color:#222;box-shadow:0 0 0 1px #fff inset;}
+.phb{background:#f0f0f0;border:1px solid #ddd;border-radius:4px;padding:2px 8px;cursor:pointer;font-size:11px;}
+.phb:hover{background:#e4e4e4;}
+/* DICT TABLE */
+.dt{width:100%;border-collapse:collapse;font-size:12px;}
+.dt th{background:var(--cpl);padding:5px 8px;text-align:left;position:sticky;top:0;z-index:1;}
+.dt td{padding:4px 7px;border-bottom:1px solid #f0f0f0;vertical-align:middle;}
+.dt input{border:1px solid #ddd;border-radius:3px;padding:2px 5px;font-size:11px;font-family:var(--fn);}
+.dt select{border:1px solid #ddd;border-radius:3px;padding:2px 4px;font-size:10px;font-family:var(--fn);}
+/* METHOD TOGGLE */
+.mt{display:flex;border:2px solid var(--cp);border-radius:8px;overflow:hidden;margin-top:4px;}
+.mtb{flex:1;padding:6px 10px;border:none;cursor:pointer;font-size:12px;font-weight:600;font-family:var(--fn);background:#fff;color:#666;}
+.mtb.on{background:var(--cp);color:#fff;}
+/* BADGE */
+.mbg{display:inline-block;padding:1px 7px;border-radius:9px;font-size:10px;font-weight:700;margin-left:5px;vertical-align:middle;}
+.beo{background:#7ab648;color:#fff;}
+.bbm{background:#4a90d9;color:#fff;}
+/* COLOR ROW */
+.cr{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.cr label{flex:1;font-size:13px;}
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:#333;color:#fff;padding:10px 16px;border-radius:8px;z-index:9999;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;}
+.toast.show{opacity:1;}
+
+/* ===== SLIDESHOW ===== */
+#ss-wrap{display:none;position:fixed;inset:0;z-index:500;background:#222;flex-direction:column;}
+#ss-wrap.on{display:flex;}
+#ss-stage{position:relative;flex:1;overflow:hidden;}
+#ss-nav{background:var(--cpd);padding:6px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0;}
+.sn{background:rgba(255,255,255,.15);color:#fff;border:none;padding:4px 12px;border-radius:16px;cursor:pointer;font-size:12px;font-family:var(--fn);}
+.sn:hover{background:rgba(255,255,255,.28);}
+.ci{color:rgba(255,255,255,.6);font-size:11px;text-align:center;flex:1;}
+/* SLIDES */
+.slide{display:none;position:absolute;inset:0;flex-direction:column;background:#f9f7ee;}
+.slide.on{display:flex;}
+.sh{background:var(--cp);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-weight:700;font-size:20px;height:58px;flex-shrink:0;}
+.grass{height:20px;flex-shrink:0;overflow:hidden;}
+.grass svg{width:100%;height:20px;display:block;}
+/* TITLE SLIDE */
+.sl-title{background:#fff;align-items:center;justify-content:center;}
+.sl-title h1{font-size:60px;font-weight:900;color:var(--cpd);letter-spacing:3px;}
+.sl-title h2{font-size:38px;color:var(--cp);margin-top:12px;font-weight:400;}
+/* SOMMAIRE */
+.sl-som{background:#f9f7ee;}
+.som-grid{flex:1;padding:12px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;overflow-y:auto;}
+.som-item{background:#fff;border:1.5px solid var(--cpl);border-radius:8px;padding:10px 14px;cursor:pointer;display:flex;gap:8px;align-items:center;font-size:17px;}
+.som-item:hover{background:var(--cpl);}
+.som-num{font-weight:700;color:var(--cpd);width:20px;}
+/* SLIDE A */
+.sab{flex:1;display:flex;flex-direction:column;padding:10px 18px 6px;overflow:hidden;position:relative;}
+.def-box{background:#fff;border:2px solid var(--cpl);border-radius:7px;padding:12px 16px;font-size:18px;color:#333;line-height:1.6;margin-bottom:10px;min-height:56px;}
+.def-line{display:none;}.def-line.on{display:block;}
+.wi{position:absolute;top:4px;right:10px;width:160px;height:140px;object-fit:contain;display:none;border-radius:10px;border:3px solid var(--cpl);background:#fff;padding:3px;box-shadow:0 2px 8px rgba(0,0,0,.12);}
+.wi.on{display:block;}
+.wz{flex:1;display:flex;align-items:center;justify-content:center;padding-right:180px;}
+/* Décor thème : images centrées dans le bandeau uniquement */
+.sh-decos{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;gap:8px;align-items:center;pointer-events:none;}
+.sh-decos img{height:42px;width:auto;opacity:.9;filter:drop-shadow(0 1px 2px rgba(0,0,0,.2));}
+.sh{position:relative;}
+/* LETTERS ROW */
+.lr{display:flex;align-items:flex-end;gap:0;}
+.ssep{width:3px;border-right:3px dashed #82c4e0;height:190px;margin:0 6px;align-self:flex-end;margin-bottom:-70px;}
+.pg-grp{display:inline-flex;align-items:flex-end;position:relative;}
+.ls{display:flex;flex-direction:column;align-items:center;width:72px;}
+.lc{font-size:70px;font-weight:700;height:82px;display:flex;align-items:flex-end;justify-content:center;opacity:0;transition:opacity .22s;line-height:1;}
+.lc.on{opacity:1;}
+.lb{width:56px;height:5px;border-radius:2px;margin:4px auto 0;}
+/* Point de liaison : centré sur le trait, déborde dessus et dessous */
+.dw{position:relative;width:0;height:0;align-self:flex-end;margin-bottom:4px;}
+.ld{position:absolute;width:20px;height:20px;border-radius:50%;
+    left:50%;top:50%;transform:translate(-50%,-50%);
+    margin-top:-2px; /* centré sur le trait de 5px */
+    z-index:2;}
+/* Sound image — one per group, centered */
+.si{width:68px;height:68px;object-fit:contain;opacity:0;transition:opacity .22s;position:absolute;left:50%;transform:translateX(-50%);bottom:-74px;pointer-events:none;}
+.si.on{opacity:1;}
+/* SLIDE B */
+.sbb{flex:1;display:flex;flex-direction:column;padding:10px 18px 6px;gap:10px;}
+.wa{display:flex;flex:1;gap:12px;align-items:stretch;min-height:0;}
+.wcv{flex:1.4;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid var(--cpl);border-radius:7px;font-family:'Cursive Dumont maternelle',serif;font-size:100px;color:#222;padding:10px;text-align:center;min-width:0;overflow:hidden;}
+.wr{flex:.85;display:flex;flex-direction:column;gap:8px;}
+.wca{flex:1;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid var(--cpl);border-radius:7px;font-size:42px;font-weight:700;color:#222;letter-spacing:2px;}
+.wsc{flex:1;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid var(--cpl);border-radius:7px;font-size:32px;color:#222;}
+.wib{flex-shrink:0;width:140px;object-fit:contain;border:2px solid var(--cpl);border-radius:7px;background:#fff;padding:3px;}
+.gb{background:var(--cpl);border-radius:7px;padding:12px 20px;display:flex;gap:40px;align-items:center;}
+.nb2{background:#f0f0f0;border-radius:7px;padding:12px 20px;display:flex;gap:30px;align-items:center;flex-wrap:wrap;}
+.ci2{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;}
+.cb{width:30px;height:30px;border:2px solid #aaa;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.cb.ok{background:#4CAF50;border-color:#4CAF50;color:#fff;}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <h1>📖 Apprentilangue</h1>
+  <button class="nb active" onclick="goPage('home')">📚 Séries</button>
+  <button class="nb" onclick="goPage('settings')">⚙️ Paramètres</button>
+</nav>
+<div id="app">
+
+<div id="pg-home" class="pg on">
+  <h2>Mes séries de vocabulaire</h2>
+  <div class="sg" id="series-grid"></div>
+  <button class="btn" type="button" onclick="openNewSeriesModal()">+ Nouvelle série</button>
+</div>
+
+<div id="pg-editor" class="pg">
+  <div class="eh">
+    <button class="bo" type="button" onclick="goPage('home')">← Retour</button>
+    <h2 id="editor-title">Éditer</h2>
+    <button class="bo bsm" type="button" onclick="openSeriesSettingsModal()">⚙️ Série</button>
+    <button class="btn bsm" type="button" onclick="openAddWordModal()">+ Mot</button>
+    <button class="btn bsm bor" type="button" onclick="launchSS()">▶ Diaporama</button>
+  </div>
+  <div class="wl" id="words-list"></div>
+</div>
+
+<div id="pg-settings" class="pg">
+  <h2>⚙️ Paramètres globaux</h2>
+  <div class="ss">
+    <h3>🎨 Couleurs</h3>
+    <div class="cr"><label>Principale</label><input type="color" id="col-p" value="#7ab648" oninput="liveCol()"></div>
+    <div class="cr"><label>Secondaire</label><input type="color" id="col-pl" value="#d4edaa" oninput="liveCol()"></div>
+    <div class="cr"><label>Sombre</label><input type="color" id="col-pd" value="#5a8a30" oninput="liveCol()"></div>
+  </div>
+  <div class="ss">
+    <h3>📂 Dossier images</h3>
+    <div class="fg" style="max-width:320px"><label>Chemin</label><input type="text" id="img-folder" value="images/"></div>
+    <p style="font-size:11px;color:#888;margin-top:6px">• Sons EO : <code>images/eo/a-avion.png</code> etc.<br>• Gestes BM : <code>images/borel/a.png</code> etc.</p>
+  </div>
+  <div class="ss">
+    <h3>📖 Dictionnaire — <span style="color:#5a8a30">📗 Enthousiasme Orthographique</span></h3>
+    <div style="max-height:380px;overflow-y:auto;border:1px solid #eee;border-radius:6px;"><table class="dt" id="tbl-eo"></table></div>
+    <div style="margin-top:8px"><button class="bo bsm" type="button" onclick="addEntry('eo')">+ Ajouter un graphème</button></div>
+  </div>
+  <div class="ss">
+    <h3>📖 Dictionnaire — <span style="color:#4a90d9">📘 Borel-Maisonny</span></h3>
+    <div style="max-height:380px;overflow-y:auto;border:1px solid #eee;border-radius:6px;"><table class="dt" id="tbl-bm"></table></div>
+    <div style="margin-top:8px"><button class="bo bsm" type="button" onclick="addEntry('bm')">+ Ajouter un graphème</button></div>
+  </div>
+  <div style="display:flex;gap:10px;margin-top:4px">
+    <button class="btn" type="button" onclick="saveSettings()">💾 Enregistrer</button>
+    <button class="bo" type="button" onclick="resetDicts()">↺ Réinitialiser dicts</button>
+  </div>
+</div>
+
+</div><!-- #app -->
+
+<!-- SLIDESHOW -->
+<div id="ss-wrap">
+  <div id="ss-stage"></div>
+  <div id="ss-nav">
+    <div style="display:flex;gap:6px">
+      <button class="sn" type="button" onclick="ssMenu()">🏠 Menu</button>
+      <button class="sn" type="button" onclick="ssBack2()">⏮−2</button>
+      <button class="sn" type="button" onclick="ssBack()">◀</button>
+    </div>
+    <span class="ci" id="ss-hint">Cliquez pour révéler</span>
+    <div style="display:flex;gap:6px">
+      <button class="sn" type="button" onclick="ssGoto(1)">📋</button>
+      <button class="sn" type="button" onclick="ssNextWord()">Mot⏭</button>
+      <button class="sn" type="button" onclick="ssNext()">▶</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: NEW SERIES -->
+<div class="mo" id="m-newseries">
+  <div class="mb" style="max-width:420px">
+    <h3>Nouvelle série</h3>
+    <div class="fg" style="margin-bottom:12px"><label>Nom</label><input type="text" id="ns-name" placeholder="ex: Le Jardin"></div>
+    <div class="fg" style="margin-bottom:12px"><label>Couleur</label><input type="color" id="ns-color" value="#8b7355"></div>
+    <div class="fg" style="margin-bottom:12px"><label>Police</label>
+      <select id="ns-font"><option value="MDIEcole">MDI École</option><option value="Calibri">Calibri</option><option value="Arial">Arial</option><option value="Times New Roman">Times New Roman</option></select></div>
+    <div class="fg" style="margin-bottom:4px"><label>Méthode</label>
+      <div class="mt"><button class="mtb on" type="button" id="ns-eo" onclick="setNsM('eo')">📗 Enthousiasme</button><button class="mtb" type="button" id="ns-bm" onclick="setNsM('bm')">📘 Borel-Maisonny</button></div>
+    </div>
+    <div class="fg" style="margin-bottom:4px"><label>🎨 Images décoratives (chemins séparés par ;)</label>
+      <input type="text" id="ns-decos" placeholder="images/deco/fleur.png;images/deco/feuille.png">
+      <span style="font-size:10px;color:#888">Seront affichées dans le bandeau et en fond d'écran (semi-transparent)</span>
+    </div>
+    <div class="mf">
+      <button class="bo" type="button" onclick="closeModal('m-newseries')">Annuler</button>
+      <button class="btn" type="button" onclick="createSeries()">Créer</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: SERIES SETTINGS -->
+<div class="mo" id="m-series-settings">
+  <div class="mb" style="max-width:420px">
+    <h3>⚙️ Paramètres de la série</h3>
+    <div class="fg" style="margin-bottom:12px"><label>Nom</label><input type="text" id="es-name"></div>
+    <div class="fg" style="margin-bottom:12px"><label>Couleur</label><input type="color" id="es-color"></div>
+    <div class="fg" style="margin-bottom:12px"><label>Police</label>
+      <select id="es-font"><option value="MDIEcole">MDI École</option><option value="Calibri">Calibri</option><option value="Arial">Arial</option><option value="Times New Roman">Times New Roman</option></select></div>
+    <div class="fg" style="margin-bottom:4px"><label>Méthode</label>
+      <div class="mt"><button class="mtb on" type="button" id="es-eo" onclick="setEsM('eo')">📗 Enthousiasme</button><button class="mtb" type="button" id="es-bm" onclick="setEsM('bm')">📘 Borel-Maisonny</button></div>
+    </div>
+    <div class="fg" style="margin-bottom:4px"><label>🎨 Images décoratives (chemins séparés par ;)</label>
+      <input type="text" id="es-decos" placeholder="images/deco/fleur.png;images/deco/feuille.png">
+      <span style="font-size:10px;color:#888">Seront affichées dans le bandeau et en fond d'écran</span>
+    </div>
+    <div class="mf">
+      <button class="bo" type="button" onclick="closeModal('m-series-settings')">Annuler</button>
+      <button class="btn" type="button" onclick="saveSeriesSettings()">💾 Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: WORD -->
+<div class="mo" id="m-word">
+  <div class="mb">
+    <h3 id="m-word-title">Mot</h3>
+    <div class="fr">
+      <div class="fg"><label>Mot</label><input type="text" id="f-word" oninput="onWordInput()" style="font-size:19px;font-weight:700;text-transform:uppercase"></div>
+      <div class="fg"><label>Thème</label><input type="text" id="f-theme"></div>
+      <div class="fg" style="flex:.35"><label>N°</label><input type="number" id="f-num" min="1"></div>
+      <div class="fg" style="flex:.35"><label>Total</label><input type="number" id="f-total" value="32"></div>
+    </div>
+    <div class="fr"><div class="fg"><label>Définition</label><textarea id="f-def"></textarea></div></div>
+    <div class="fr">
+      <div class="fg" style="flex:.45"><label>Genre</label><select id="f-gender"><option value="masc">Masculin</option><option value="fem">Féminin</option><option value="both">Les deux</option><option value="none">Aucun</option></select></div>
+      <div class="fg" style="flex:.45"><label>Nature</label><select id="f-nature"><option value="nom">NOM</option><option value="verbe">VERBE</option><option value="adjectif">ADJECTIF</option><option value="autre">AUTRE</option></select></div>
+      <div class="fg"><label>Image</label><input type="text" id="f-img" placeholder="images/mot.png"></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap">
+      <span style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase">Syllabes :</span>
+      <span id="syll-disp" style="font-size:13px;background:#f0f0f0;padding:2px 10px;border-radius:10px"></span>
+      <button type="button" class="bo bsm" onclick="editSylls()">✏️ Modifier</button>
+    </div>
+    <div class="phs">
+      <h4>🔤 Phonétique — modifier groupes, couleurs et liaisons</h4>
+      <div id="ph-ed"><p style="font-size:12px;color:#aaa">Entrez un mot ci-dessus.</p></div>
+    </div>
+    <div class="mf">
+      <button class="bo" type="button" onclick="closeModal('m-word')">Annuler</button>
+      <button class="btn" type="button" onclick="saveWord()">💾 Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ================================================================
+// PALETTE
+// ================================================================
+const PAL=[{n:'Noir',h:'#222222'},{n:'Rouge',h:'#e8002a'},{n:'Bleu clair',h:'#82c4e0'},{n:'Gris',h:'#aaaaaa'},{n:'Vert',h:'#3aaa5a'}];
+
+// ================================================================
+// DICTIONNAIRE EO
+// ================================================================
+const EO0={
+  'a':{s:'a',i:'eo/a-avion.png',c:['#222222']},'â':{s:'a',i:'eo/a-avion.png',c:['#222222']},
+  'b':{s:'b',i:'eo/b-bottes.png',c:['#222222']},'c':{s:'k',i:'eo/c-crocodile.png',c:['#222222']},
+  'ç':{s:'s',i:'eo/s-serpent.png',c:['#222222']},'ch':{s:'ch',i:'eo/ch-chat.png',c:['#222222','#222222']},
+  'd':{s:'d',i:'eo/d-danseuse.png',c:['#222222']},'e':{s:'e',i:'eo/e-chèvre.png',c:['#222222']},
+  'é':{s:'é',i:'eo/é-étoile.png',c:['#222222']},'è':{s:'è',i:'eo/è-flèche.png',c:['#222222']},
+  'ê':{s:'è',i:'eo/è-flèche.png',c:['#222222']},'eu':{s:'eu',i:'eo/eu-feu.png',c:['#222222','#222222']},
+  'f':{s:'f',i:'eo/f-fée.png',c:['#222222']},'ff':{s:'f',i:'eo/f-fée.png',c:['#222222','#222222']},
+  'g':{s:'g',i:'eo/g-gorille.png',c:['#222222']},'gn':{s:'gn',i:'eo/gn-montagne.png',c:['#222222','#222222']},
+  'h':{s:'',i:'eo/Lettre_Muette.png',c:['#aaaaaa'],silent:true},'i':{s:'i',i:'eo/i-igloo.png',c:['#222222']},
+  'î':{s:'i',i:'eo/i-igloo.png',c:['#222222']},'j':{s:'j',i:'eo/j-jumelles.png',c:['#222222']},
+  'k':{s:'k',i:'eo/c-crocodile.png',c:['#222222']},'l':{s:'l',i:'eo/l-lunettes.png',c:['#222222']},
+  'll':{s:'l',i:'eo/l-lunettes.png',c:['#222222','#222222']},'m':{s:'m',i:'eo/m-moto.png',c:['#222222']},
+  'mm':{s:'m',i:'eo/m-moto.png',c:['#222222','#222222']},'n':{s:'n',i:'eo/n-neige.png',c:['#222222']},
+  'nn':{s:'n',i:'eo/n-neige.png',c:['#222222','#222222']},'o':{s:'o',i:'eo/o-otarie.png',c:['#222222']},
+  'ô':{s:'o',i:'eo/o-ogre.png',c:['#222222']},'p':{s:'p',i:'eo/p-pirate.png',c:['#222222']},
+  'ph':{s:'f',i:'eo/f-fée.png',c:['#222222','#222222']},'pp':{s:'p',i:'eo/p-pirate.png',c:['#222222','#222222']},
+  'qu':{s:'k',i:'eo/c-crocodile.png',c:['#222222','#aaaaaa']},'r':{s:'r',i:'eo/r-rat.png',c:['#222222']},
+  'rr':{s:'r',i:'eo/r-rat.png',c:['#222222','#222222']},'s':{s:'s',i:'eo/s-serpent.png',c:['#222222']},
+  'ss':{s:'s',i:'eo/s-serpent.png',c:['#222222','#222222']},'sc':{s:'s',i:'eo/s-serpent.png',c:['#222222','#222222']},
+  't':{s:'t',i:'eo/t-téléphone.png',c:['#222222']},'tt':{s:'t',i:'eo/t-téléphone.png',c:['#222222','#222222']},
+  'u':{s:'u',i:'eo/u-usine.png',c:['#222222']},'û':{s:'u',i:'eo/u-usine.png',c:['#222222']},
+  'v':{s:'v',i:'eo/v-vache.png',c:['#222222']},'w':{s:'v',i:'eo/v-vache.png',c:['#222222']},
+  'x':{s:'ks',i:'eo/x-taxi.png',c:['#222222']},'y':{s:'i',i:'eo/i-igloo.png',c:['#222222']},
+  'z':{s:'z',i:'eo/z-zèbre.png',c:['#222222']},
+  'an':{s:'an',i:'eo/an-ange.png',c:['#222222','#222222']},'en':{s:'an',i:'eo/an-ange.png',c:['#e8002a','#222222']},
+  'em':{s:'an',i:'eo/an-ange.png',c:['#e8002a','#82c4e0']},'am':{s:'an',i:'eo/an-ange.png',c:['#aaaaaa','#82c4e0']},
+  'on':{s:'on',i:'eo/on-bonbon.png',c:['#222222','#222222']},'om':{s:'on',i:'eo/on-bonbon.png',c:['#222222','#222222']},
+  'in':{s:'in',i:'eo/in-idien.png',c:['#222222','#222222']},
+  'ain':{s:'in',i:'eo/in-idien.png',c:['#222222','#aaaaaa','#222222']},'ein':{s:'in',i:'eo/in-idien.png',c:['#222222','#aaaaaa','#222222']},
+  'un':{s:'in',i:'eo/in-idien.png',c:['#222222','#222222']},
+  'ou':{s:'ou',i:'eo/ou-loup.png',c:['#222222','#222222']},'oi':{s:'oi',i:'eo/oi-oie.png',c:['#222222','#222222']},
+  'oin':{s:'oin',i:'eo/oin-pointe.png',c:['#222222','#222222','#222222']},
+  'au':{s:'o',i:'eo/o-ogre.png',c:['#222222','#222222']},'eau':{s:'o',i:'eo/o-ogre.png',c:['#222222','#222222','#222222']},
+  'ai':{s:'è',i:'eo/è-flèche.png',c:['#222222','#222222']},'ei':{s:'è',i:'eo/è-flèche.png',c:['#222222','#222222']},
+  'er':{s:'é',i:'eo/é-étoile.png',c:['#222222','#222222']},'ez':{s:'é',i:'eo/é-étoile.png',c:['#222222','#222222']},
+  'ill':{s:'il',i:'eo/il-oeil.png',c:['#222222','#222222','#222222']},'il':{s:'il',i:'eo/il-oeil.png',c:['#222222','#222222']},
+  'ail':{s:'il',i:'eo/il-oeil.png',c:['#222222','#222222','#222222']},
+};
+// DICT BM
+const BM0={
+  'a':{s:'a',i:'borel/a.png',c:['#222222']},'â':{s:'a',i:'borel/a.png',c:['#222222']},
+  'e':{s:'e',i:'borel/e.png',c:['#222222']},'é':{s:'é',i:'borel/e_accent_aigu.png',c:['#222222']},
+  'è':{s:'è',i:'borel/e_accent_grave.png',c:['#222222']},'ê':{s:'è',i:'borel/e_accent_grave.png',c:['#222222']},
+  'i':{s:'i',i:'borel/i.png',c:['#222222']},'î':{s:'i',i:'borel/i.png',c:['#222222']},
+  'o':{s:'o',i:'borel/o.png',c:['#222222']},'ô':{s:'o',i:'borel/o.png',c:['#222222']},
+  'u':{s:'u',i:'borel/u.png',c:['#222222']},'û':{s:'u',i:'borel/u.png',c:['#222222']},
+  'y':{s:'i',i:'borel/i.png',c:['#222222']},
+  'b':{s:'b',i:'borel/b.png',c:['#222222']},'c':{s:'k',i:'borel/k.png',c:['#222222']},
+  'ç':{s:'s',i:'borel/s.png',c:['#222222']},'d':{s:'d',i:'borel/d.png',c:['#222222']},
+  'f':{s:'f',i:'borel/f.png',c:['#222222']},'g':{s:'g',i:'borel/g.png',c:['#222222']},
+  'h':{s:'',i:'borel/a.png',c:['#aaaaaa'],silent:true},'j':{s:'j',i:'borel/j.png',c:['#222222']},
+  'k':{s:'k',i:'borel/k.png',c:['#222222']},'l':{s:'l',i:'borel/l.png',c:['#222222']},
+  'm':{s:'m',i:'borel/m.png',c:['#222222']},'n':{s:'n',i:'borel/n.png',c:['#222222']},
+  'p':{s:'p',i:'borel/p.png',c:['#222222']},'r':{s:'r',i:'borel/r.png',c:['#222222']},
+  's':{s:'s',i:'borel/s.png',c:['#222222']},'t':{s:'t',i:'borel/t.png',c:['#222222']},
+  'v':{s:'v',i:'borel/v.png',c:['#222222']},'w':{s:'v',i:'borel/v.png',c:['#222222']},
+  'x':{s:'ks',i:'borel/ks.png',c:['#222222']},'z':{s:'z',i:'borel/z.png',c:['#222222']},
+  'ch':{s:'ch',i:'borel/ch.png',c:['#222222','#222222']},'ph':{s:'f',i:'borel/f.png',c:['#222222','#222222']},
+  'gn':{s:'gn',i:'borel/gn.png',c:['#222222','#222222']},'qu':{s:'k',i:'borel/k.png',c:['#222222','#aaaaaa']},
+  'll':{s:'l',i:'borel/l.png',c:['#222222','#222222']},'ss':{s:'s',i:'borel/s.png',c:['#222222','#222222']},
+  'ff':{s:'f',i:'borel/f.png',c:['#222222','#222222']},'rr':{s:'r',i:'borel/r.png',c:['#222222','#222222']},
+  'mm':{s:'m',i:'borel/m.png',c:['#222222','#222222']},'nn':{s:'n',i:'borel/n.png',c:['#222222','#222222']},
+  'tt':{s:'t',i:'borel/t.png',c:['#222222','#222222']},'pp':{s:'p',i:'borel/p.png',c:['#222222','#222222']},
+  'an':{s:'an',i:'borel/an.png',c:['#222222','#222222']},'am':{s:'an',i:'borel/an.png',c:['#222222','#222222']},
+  'en':{s:'an',i:'borel/an.png',c:['#222222','#222222']},'em':{s:'an',i:'borel/an.png',c:['#222222','#222222']},
+  'in':{s:'in',i:'borel/in.png',c:['#222222','#222222']},
+  'ain':{s:'in',i:'borel/in.png',c:['#222222','#222222','#222222']},'ein':{s:'in',i:'borel/in.png',c:['#222222','#222222','#222222']},
+  'un':{s:'in',i:'borel/un.png',c:['#222222','#222222']},
+  'on':{s:'on',i:'borel/on.png',c:['#222222','#222222']},'om':{s:'on',i:'borel/on.png',c:['#222222','#222222']},
+  'ou':{s:'ou',i:'borel/ou.png',c:['#222222','#222222']},'oi':{s:'oi',i:'borel/oi.png',c:['#222222','#222222']},
+  'oin':{s:'oin',i:'borel/oin.png',c:['#222222','#222222','#222222']},
+  'eu':{s:'eu',i:'borel/eu.png',c:['#222222','#222222']},
+  'ai':{s:'è',i:'borel/e_accent_grave.png',c:['#222222','#222222']},'ei':{s:'è',i:'borel/e_accent_grave.png',c:['#222222','#222222']},
+  'au':{s:'o',i:'borel/o.png',c:['#222222','#222222']},'eau':{s:'o',i:'borel/o.png',c:['#222222','#222222','#222222']},
+  'er':{s:'é',i:'borel/e_accent_aigu.png',c:['#222222','#222222']},'ez':{s:'é',i:'borel/e_accent_aigu.png',c:['#222222','#222222']},
+  'ill':{s:'il',i:'borel/ill.png',c:['#222222','#222222','#222222']},'il':{s:'il',i:'borel/ill.png',c:['#222222','#222222']},
+  'ail':{s:'il',i:'borel/ill.png',c:['#222222','#222222','#222222']},'eil':{s:'il',i:'borel/ill.png',c:['#222222','#222222','#222222']},
+};
+const PAT_EO=['eau','ain','ein','oin','ill','eil','ail','ch','ph','gn','qu','ng',
+  'an','am','en','em','on','om','ou','oi','in','eu','ai','ei','au','un','er','ez','il',
+  'ff','ll','mm','nn','pp','rr','ss','sc','tt','â','ê','î','û','ô','é','è','ç',
+  'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','r','s','t','u','v','w','x','y','z'];
+const PAT_BM=['eau','ain','ein','oin','ill','eil','ail','ch','ph','gn','qu',
+  'an','am','en','em','on','om','ou','oi','in','eu','ai','ei','au','un','er','ez','il',
+  'll','ss','ff','rr','mm','nn','tt','pp','â','ê','î','û','ô','é','è','ç',
+  'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','r','s','t','u','v','w','x','y','z'];
+
+// ================================================================
+// WORD ANALYSIS
+// ================================================================
+function analyzeWord(word,method){
+  const dict=method==='bm'?AD.bm:AD.eo;
+  const pats=method==='bm'?PAT_BM:PAT_EO;
+  const low=word.toLowerCase().normalize('NFC');
+  const groups=[];let i=0;
+  while(i<low.length){
+    let matched=false;
+    for(const pat of pats){
+      if(low.startsWith(pat,i)&&dict[pat]){
+        const d=dict[pat];
+        groups.push({letters:word.slice(i,i+pat.length),sound:d.s,img:d.i,lc:[...d.c],silent:!!d.silent,linked:pat.length>1});
+        i+=pat.length;matched=true;break;
+      }
+    }
+    if(!matched){
+      const ch=low[i],d=dict[ch];
+      groups.push({letters:word[i],sound:d?d.s:ch,img:d?d.i:ch+'.png',lc:[d?d.c[0]:'#222222'],silent:false,linked:false});
+      i++;
+    }
+  }
+  return groups;
+}
+function syllabify(word){
+  const w=word.toLowerCase(),V='aeiouyâêîôûéèàù',isV=c=>V.includes(c);
+  let sylls=[],cur='';
+  for(let i=0;i<w.length;i++){
+    cur+=w[i];
+    if(isV(w[i])){
+      const nx=w[i+1],nx2=w[i+2];
+      if(nx&&!isV(nx)){if(nx2&&!isV(nx2)&&nx!=='l'&&nx!=='r'){cur+=nx;sylls.push(cur);cur='';i++;}else if(nx2&&isV(nx2)){sylls.push(cur);cur='';}}
+    }
+  }
+  if(cur)sylls.push(cur);
+  let pos=0,res=[];
+  for(const s of sylls){res.push(word.slice(pos,pos+s.length));pos+=s.length;}
+  if(pos<word.length){if(res.length)res[res.length-1]+=word.slice(pos);else res.push(word.slice(pos));}
+  return res.length?res:[word];
+}
+
+// ================================================================
+// APP STATE
+// ================================================================
+let AD={eo:JSON.parse(JSON.stringify(EO0)),bm:JSON.parse(JSON.stringify(BM0))};
+let appData={series:[],settings:{colorPrimary:'#8b7355',colorPrimaryLight:'#f2ead8',colorPrimaryDark:'#5c4a2a',imagesFolder:'images/'}};
+let curSeries=null,editIdx=null,curPh=[],curSylls=null,nsMethod='eo',esMethod='eo';
+
+function loadData(){
+  try{
+    const raw=localStorage.getItem('al_v6');
+    if(raw){
+      const p=JSON.parse(raw);
+      appData={...appData,...p};
+      AD.eo={...JSON.parse(JSON.stringify(EO0)),...(p.dictEO||{})};
+      AD.bm={...JSON.parse(JSON.stringify(BM0)),...(p.dictBM||{})};
+    }
+  }catch(e){}
+  if(!appData.series||!appData.series.length) appData.series=[makeDemo()];
+  // Toujours garder la série démo disponible
+  if(!appData.series.find(s=>s.id==='demo')) appData.series.unshift(makeDemo());
+}
+function saveData(){
+  const save={...appData,dictEO:AD.eo,dictBM:AD.bm};
+  localStorage.setItem('al_v6',JSON.stringify(save));
+  toast('Sauvegardé ✓');
+}
+function makeDemo(){
+  const mk=(w,n,def,g,nat,img)=>({word:w,theme:'LE JARDIN',num:n,total:8,definition:def,gender:g,nature:nat,image:img||'',phonetics:analyzeWord(w,'eo'),syllables:syllabify(w)});
+  return{id:'demo',name:'LE JARDIN',color:'#7ab648',font:'MDIEcole',method:'eo',words:[
+    mk('JARDIN',1,"C'est un terrain où l'on cultive des végétaux.\nC'est un nom masculin.",'masc','nom','images/jardin.png'),
+    mk('BROUETTE',2,"C'est un petit véhicule avec une roue.\nOn s'en sert pour transporter des choses.\nC'est un nom féminin.",'fem','nom','images/brouette.png'),
+    mk('SÉCATEUR',3,"C'est un outil pour couper des branches.\nC'est un nom masculin.",'masc','nom','images/secateur.png'),
+    mk('RÂTEAU',4,"Outil de jardinage avec des dents.\nC'est un nom masculin.",'masc','nom','images/rateau.png'),
+    mk('ARROSOIR',5,"Il sert à arroser les plantes.\nC'est un nom masculin.",'masc','nom','images/arrosoir.png'),
+    mk('GRAINE',6,"On la sème pour obtenir une plante.\nC'est un nom féminin.",'fem','nom','images/graine.png'),
+    mk('SEMER',7,"C'est jeter des graines sur la terre.\nC'est un verbe.",'none','verbe','images/semer.png'),
+    mk('LÉGER',8,"C'est facile à porter.\nC'est un adjectif.",'masc','adjectif','images/leger.png'),
+  ]};
+}
+
+// ================================================================
+// NAV
+// ================================================================
+function goPage(p){
+  document.querySelectorAll('.pg').forEach(e=>e.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(e=>e.classList.remove('active'));
+  document.getElementById('pg-'+p).classList.add('on');
+  if(p==='home'){restoreAppColors();renderHome();}
+  if(p==='settings') renderSettings();
+}
+function openModal(id){document.getElementById(id).classList.add('on');}
+function closeModal(id){document.getElementById(id).classList.remove('on');}
+
+// ================================================================
+// HOME
+// ================================================================
+function renderHome(){
+  const g=document.getElementById('series-grid');g.innerHTML='';
+  (appData.series||[]).forEach(function(s){
+    const d=document.createElement('div');
+    d.className='sc';
+    d.style.borderLeftColor=s.color||'#8b7355';
+    // Title
+    const h3=document.createElement('h3');
+    h3.textContent=s.name;
+    const badge=document.createElement('span');
+    badge.className='mbg '+(s.method==='bm'?'bbm':'beo');
+    badge.textContent=s.method==='bm'?'📘 BM':'📗 EO';
+    h3.appendChild(badge);
+    // Meta
+    const p=document.createElement('p');
+    p.textContent=((s.words||[]).length)+' mot(s) · '+(s.font||'MDI École');
+    // Buttons
+    const btns=document.createElement('div');btns.className='scb';
+    const bEdit=document.createElement('button');
+    bEdit.className='btn bsm';bEdit.type='button';bEdit.textContent='✏️ Éditer';
+    bEdit.onclick=function(){openEditor(s.id);};
+    const bPlay=document.createElement('button');
+    bPlay.className='btn bsm bor';bPlay.type='button';bPlay.textContent='▶ Jouer';
+    bPlay.onclick=function(){startSS(s.id);};
+    btns.appendChild(bEdit);btns.appendChild(bPlay);
+    if(s.id==='demo'){
+      const lbl=document.createElement('span');
+      lbl.style.cssText='font-size:10px;color:#aaa;padding:4px 6px';
+      lbl.textContent='exemple';btns.appendChild(lbl);
+    }else{
+      const bDel=document.createElement('button');
+      bDel.className='bd';bDel.type='button';bDel.textContent='🗑';
+      bDel.onclick=function(e){delSeries(s.id,e);};
+      btns.appendChild(bDel);
+    }
+    d.appendChild(h3);d.appendChild(p);d.appendChild(btns);
+    g.appendChild(d);
+  });
+}
+function openNewSeriesModal(){nsMethod='eo';setNsM('eo');document.getElementById('ns-name').value='';openModal('m-newseries');}
+function setNsM(m){nsMethod=m;document.getElementById('ns-eo').classList.toggle('on',m==='eo');document.getElementById('ns-bm').classList.toggle('on',m==='bm');}
+function createSeries(){
+  const name=document.getElementById('ns-name').value.trim();if(!name){toast('Nom requis');return;}
+  const id='s'+Date.now();
+  const decos=document.getElementById('ns-decos').value.split(';').map(s=>s.trim()).filter(Boolean);
+  appData.series.push({id,name:name.toUpperCase(),color:document.getElementById('ns-color').value,font:document.getElementById('ns-font').value,method:nsMethod,decos,words:[]});
+  saveData();closeModal('m-newseries');openEditor(id);
+}
+function delSeries(id,e){
+  e.stopPropagation();if(!confirm('Supprimer cette série ?'))return;
+  appData.series=appData.series.filter(s=>s.id!==id);saveData();renderHome();
+}
+
+// ================================================================
+// EDITOR
+// ================================================================
+function openEditor(id){
+  curSeries=appData.series.find(s=>s.id===id);if(!curSeries)return;
+  document.getElementById('editor-title').textContent='✏️ '+curSeries.name;
+  applySeriesColors(curSeries);
+  renderWords();goPage('editor');
+}
+function renderWords(){
+  const list=document.getElementById('words-list');list.innerHTML='';
+  (curSeries.words||[]).forEach((w,i)=>{
+    const d=document.createElement('div');d.className='wc';
+    d.innerHTML=`<div><div style="font-size:15px;font-weight:700">${w.word}</div><div style="font-size:11px;color:#999;margin-top:2px">${w.num}/${w.total} · ${w.gender==='masc'?'M':w.gender==='fem'?'F':''} · ${(w.nature||'').toUpperCase()}</div></div>
+      <div style="display:flex;gap:5px"><button class="bo bsm" type="button" onclick="openEditWord(${i})">✏️</button><button class="bd" type="button" onclick="delWord(${i})">🗑</button></div>`;
+    list.appendChild(d);
+  });
+}
+function openSeriesSettingsModal(){
+  const s=curSeries;if(!s)return;
+  document.getElementById('es-name').value=s.name;
+  document.getElementById('es-color').value=s.color||'#7ab648';
+  document.getElementById('es-font').value=s.font||'MDIEcole';
+  document.getElementById('es-decos').value=(s.decos||[]).join(';');
+  esMethod=s.method||'eo';setEsM(esMethod);openModal('m-series-settings');
+}
+function setEsM(m){esMethod=m;document.getElementById('es-eo').classList.toggle('on',m==='eo');document.getElementById('es-bm').classList.toggle('on',m==='bm');}
+function saveSeriesSettings(){
+  const s=curSeries;if(!s)return;
+  s.name=document.getElementById('es-name').value.trim().toUpperCase()||s.name;
+  s.color=document.getElementById('es-color').value;
+  s.font=document.getElementById('es-font').value;
+  s.method=esMethod;
+  s.decos=document.getElementById('es-decos').value.split(';').map(x=>x.trim()).filter(Boolean);
+  document.getElementById('editor-title').textContent='✏️ '+s.name;
+  closeModal('m-series-settings');saveData();
+}
+function openAddWordModal(){
+  editIdx=null;curSylls=null;curPh=[];
+  document.getElementById('m-word-title').textContent='Ajouter un mot';
+  document.getElementById('f-word').value='';
+  document.getElementById('f-theme').value=curSeries?.name||'';
+  document.getElementById('f-num').value=(curSeries?.words?.length||0)+1;
+  document.getElementById('f-total').value=curSeries?.words?.[0]?.total||32;
+  document.getElementById('f-def').value='';
+  document.getElementById('f-gender').value='masc';
+  document.getElementById('f-nature').value='nom';
+  document.getElementById('f-img').value='';
+  document.getElementById('ph-ed').innerHTML='<p style="font-size:12px;color:#aaa">Entrez un mot.</p>';
+  document.getElementById('syll-disp').textContent='';
+  openModal('m-word');
+}
+function openEditWord(idx){
+  const w=curSeries.words[idx];
+  editIdx=idx;curSylls=w.syllables?[...w.syllables]:null;
+  document.getElementById('m-word-title').textContent='Modifier : '+w.word;
+  document.getElementById('f-word').value=w.word;
+  document.getElementById('f-theme').value=w.theme||'';
+  document.getElementById('f-num').value=w.num;
+  document.getElementById('f-total').value=w.total;
+  document.getElementById('f-def').value=w.definition||'';
+  document.getElementById('f-gender').value=w.gender||'masc';
+  document.getElementById('f-nature').value=w.nature||'nom';
+  document.getElementById('f-img').value=w.image||'';
+  curPh=JSON.parse(JSON.stringify(w.phonetics||[]));
+  updateSyllDisp();renderPhEd();openModal('m-word');
+}
+function delWord(idx){if(!confirm('Supprimer ?'))return;curSeries.words.splice(idx,1);saveData();renderWords();}
+
+// ================================================================
+// PHONETIC EDITOR
+// ================================================================
+function onWordInput(){
+  const w=document.getElementById('f-word').value.trim().toUpperCase();
+  if(!w){curPh=[];document.getElementById('ph-ed').innerHTML='';return;}
+  curPh=analyzeWord(w,curSeries?.method||'eo');curSylls=null;
+  updateSyllDisp();renderPhEd();
+}
+function updateSyllDisp(){
+  const w=document.getElementById('f-word').value.trim().toUpperCase();
+  document.getElementById('syll-disp').textContent=(curSylls||syllabify(w)).join(' · ');
+}
+function renderPhEd(){
+  const c=document.getElementById('ph-ed');
+  if(!curPh||!curPh.length){c.innerHTML='<p style="font-size:12px;color:#aaa">Entrez un mot.</p>';return;}
+  let h='<div>';
+  curPh.forEach((g,gi)=>{
+    const lch=g.lc.map((col,li)=>{
+      const dots=PAL.map(p=>`<div class="pd${col===p.h?' sel':''}" style="background:${p.h}" title="${p.n}" onclick="setLC(${gi},${li},'${p.h}')"></div>`).join('');
+      return `<div class="lcg"><div class="lcl">${g.letters[li]||''}</div><div class="pds">${dots}</div></div>`;
+    }).join('');
+    const cm=gi<curPh.length-1,cs=g.letters.length>1;
+    h+=`<div class="phr">
+      <span class="phl">${g.letters}</span>
+      <input class="phs-in" style="width:62px" value="${g.sound}" onchange="updPh(${gi},'sound',this.value)" title="Son">
+      <input class="phs-in" style="width:160px" value="${g.img}" onchange="updPh(${gi},'img',this.value)" title="Image">
+      <label style="font-size:11px;cursor:pointer;display:flex;align-items:center;gap:3px"><input type="checkbox" ${g.silent?'checked':''} onchange="updPh(${gi},'silent',this.checked)"> muet</label>
+      <label style="font-size:11px;cursor:pointer;display:flex;align-items:center;gap:3px"><input type="checkbox" ${g.linked!==false?'checked':''} onchange="updPh(${gi},'linked',this.checked)"> lié</label>
+      <div style="display:flex;gap:3px">
+        ${cm?`<button class="phb" type="button" onclick="mergeG(${gi})" title="Fusionner avec le suivant">⊕</button>`:''}
+        ${cs?`<button class="phb" type="button" onclick="splitG(${gi})" title="Séparer">⊗</button>`:''}
+      </div>
+      <div class="lcs">${lch}</div>
+    </div>`;
+  });
+  h+='</div>';c.innerHTML=h;
+}
+function setLC(gi,li,hex){if(curPh[gi])curPh[gi].lc[li]=hex;renderPhEd();}
+function updPh(gi,f,v){if(curPh[gi]){curPh[gi][f]=v;if(f==='silent'||f==='linked')renderPhEd();}}
+function mergeG(gi){
+  const a=curPh[gi],b=curPh[gi+1];if(!b)return;
+  const dict=curSeries?.method==='bm'?AD.bm:AD.eo;
+  const mk=(a.letters+b.letters).toLowerCase();const info=dict[mk];
+  curPh.splice(gi,2,{letters:a.letters+b.letters,sound:info?info.s:(a.sound+b.sound),img:info?info.i:a.img,lc:info?[...info.c]:[...a.lc,...b.lc],silent:a.silent&&b.silent,linked:true});
+  renderPhEd();
+}
+function splitG(gi){
+  const g=curPh[gi];if(g.letters.length<2)return;
+  const dict=curSeries?.method==='bm'?AD.bm:AD.eo;
+  const newG=g.letters.split('').map((letter,li)=>{const info=dict[letter.toLowerCase()];return{letters:letter,sound:info?info.s:letter.toLowerCase(),img:info?info.i:letter.toLowerCase()+'.png',lc:[g.lc[li]||'#222222'],silent:false,linked:false};});
+  curPh.splice(gi,1,...newG);renderPhEd();
+}
+function editSylls(){
+  const w=document.getElementById('f-word').value.trim().toUpperCase();
+  const cur=(curSylls||syllabify(w)).join('-');
+  const inp=prompt('Segmentation syllabique (tirets) :\nEx: BRO-UE-TTE',cur);
+  if(inp===null)return;
+  const parts=inp.trim().toUpperCase().split('-').map(p=>p.trim()).filter(Boolean);
+  if(parts.join('')===w){curSylls=parts;updateSyllDisp();toast('Segmentation OK ✓');}
+  else alert('"'+parts.join('')+'" ≠ "'+w+'"');
+}
+function saveWord(){
+  const w=document.getElementById('f-word').value.trim().toUpperCase();if(!w){toast('Mot vide');return;}
+  const data={word:w,theme:document.getElementById('f-theme').value.trim(),num:+document.getElementById('f-num').value||1,total:+document.getElementById('f-total').value||32,definition:document.getElementById('f-def').value.trim(),gender:document.getElementById('f-gender').value,nature:document.getElementById('f-nature').value,image:document.getElementById('f-img').value.trim(),phonetics:curPh.length?curPh:analyzeWord(w,curSeries?.method||'eo'),syllables:curSylls||syllabify(w)};
+  if(editIdx!==null)curSeries.words[editIdx]=data;else curSeries.words.push(data);
+  curSylls=null;saveData();renderWords();closeModal('m-word');
+}
+
+// ================================================================
+// SETTINGS
+// ================================================================
+function renderSettings(){
+  const st=appData.settings||{};
+  document.getElementById('col-p').value=st.colorPrimary||'#7ab648';
+  document.getElementById('col-pl').value=st.colorPrimaryLight||'#d4edaa';
+  document.getElementById('col-pd').value=st.colorPrimaryDark||'#5a8a30';
+  document.getElementById('img-folder').value=st.imagesFolder||'images/';
+  renderDictTbl('tbl-eo',AD.eo,'eo');
+  renderDictTbl('tbl-bm',AD.bm,'bm');
+}
+function renderDictTbl(id,dict,key){
+  const tbl=document.getElementById(id);
+  let h='<thead><tr><th>Graphème</th><th>Son</th><th>Image</th><th>Couleurs</th><th></th></tr></thead><tbody>';
+  Object.keys(dict).sort().forEach(k=>{
+    const v=dict[k];
+    const sels=v.c.map((col,li)=>`<select onchange="updDict('${key}','${k}',${li},this.value)">${PAL.map(p=>`<option value="${p.h}"${col===p.h?' selected':''}>${p.n}</option>`).join('')}</select>`).join(' ');
+    h+=`<tr><td><strong>${k}</strong></td><td><input value="${v.s}" onchange="updDictF('${key}','${k}','s',this.value)" style="width:55px"></td><td><input value="${v.i}" onchange="updDictF('${key}','${k}','i',this.value)" style="width:180px"></td><td style="white-space:nowrap">${sels}</td><td><button class="bd" style="padding:2px 6px;font-size:10px" type="button" onclick="delEntry('${key}','${k}')">✕</button></td></tr>`;
+  });
+  h+='</tbody>';tbl.innerHTML=h;
+}
+function updDictF(key,k,f,v){const d=key==='bm'?AD.bm:AD.eo;if(d[k])d[k][f]=v;}
+function updDict(key,k,li,v){const d=key==='bm'?AD.bm:AD.eo;if(d[k]&&d[k].c)d[k].c[li]=v;}
+function addEntry(key){
+  const g=prompt('Nouveau graphème (ex: th, eau) :','');if(!g||!g.trim())return;
+  const k=g.trim().toLowerCase();const d=key==='bm'?AD.bm:AD.eo;
+  if(d[k]){toast('Graphème déjà existant');return;}
+  const s=prompt('Son phonétique :',k)||k;
+  const img=prompt('Fichier image :',key==='bm'?`borel/${k}.png`:`${k}.png`)||'';
+  d[k]={s,i:img,c:['#222222']};
+  toast('"'+k+'" ajouté ✓');renderDictTbl(key==='bm'?'tbl-bm':'tbl-eo',d,key);
+}
+function delEntry(key,k){
+  if(!confirm('Supprimer "'+k+'" ?'))return;
+  const d=key==='bm'?AD.bm:AD.eo;delete d[k];
+  renderDictTbl(key==='bm'?'tbl-bm':'tbl-eo',d,key);toast('"'+k+'" supprimé');
+}
+function liveCol(){
+  document.documentElement.style.setProperty('--cp',document.getElementById('col-p').value);
+  document.documentElement.style.setProperty('--cpl',document.getElementById('col-pl').value);
+  document.documentElement.style.setProperty('--cpd',document.getElementById('col-pd').value);
+}
+function saveSettings(){
+  appData.settings={colorPrimary:document.getElementById('col-p').value,colorPrimaryLight:document.getElementById('col-pl').value,colorPrimaryDark:document.getElementById('col-pd').value,imagesFolder:document.getElementById('img-folder').value||'images/'};
+  saveData();
+}
+function resetDicts(){if(!confirm('Réinitialiser les dictionnaires ?'))return;AD.eo=JSON.parse(JSON.stringify(EO0));AD.bm=JSON.parse(JSON.stringify(BM0));saveData();renderSettings();}
+
+// ================================================================
+// SLIDESHOW
+// ================================================================
+let SS={series:null,slides:[],idx:0,step:0};
+
+function startSS(id){
+  curSeries=appData.series.find(s=>s.id===id);
+  if(!curSeries||!curSeries.words||!curSeries.words.length){toast('Aucun mot dans cette série');return;}
+  launchSS();
+}
+function launchSS(){
+  if(!curSeries||!curSeries.words||!curSeries.words.length){toast('Aucun mot');return;}
+  SS.series=curSeries;
+  applySeriesColors(curSeries);
+  buildSS(curSeries);
+  document.getElementById('ss-wrap').classList.add('on');
+  ssGoto(0);
+}
+function buildSS(series){
+  const stage=document.getElementById('ss-stage');stage.innerHTML='';
+  const font=series.font||'MDIEcole';
+  const folder=appData.settings?.imagesFolder||'images/';
+  // Title
+  const decos=series.decos||[];
+  const shDecos=decos.length
+    ?('<div class="sh-decos">'+decos.map(function(d){return '<img src="'+d+'" onerror="this.style.display=\'none\'">';}).join('')+'</div>')
+    :'';
+  const waveColor=series.color||'#7ab648';
+  const wave=`<div class="grass"><svg viewBox="0 0 1200 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 20 Q50 4 100 20 Q150 4 200 20 Q250 4 300 20 Q350 4 400 20 Q450 4 500 20 Q550 4 600 20 Q650 4 700 20 Q750 4 800 20 Q850 4 900 20 Q950 4 1000 20 Q1050 4 1100 20 Q1150 4 1200 20 Z" fill="${waveColor}"/></svg></div>`;
+
+  const tEl=mkEl('div','slide sl-title');tEl.id='ss-title';
+  tEl.innerHTML=`<h1>APPRENTILANGUE</h1><h2>${series.name}</h2>${wave}`;stage.appendChild(tEl);
+  // Sommaire
+  const sEl=mkEl('div','slide sl-som');sEl.id='ss-som';
+  sEl.innerHTML=`<div class="sh" style="position:relative"><span>${series.name}</span>${shDecos}<span>SOMMAIRE</span></div>
+    <div class="som-grid">${series.words.map((w,i)=>`<div class="som-item" onclick="ssGotoWord(${i})"><span class="som-num">${String(w.num).padStart(2,'0')}</span><span>${w.word}</span></div>`).join('')}</div>
+    ${wave}`;
+  stage.appendChild(sEl);
+  // Words
+  series.words.forEach((w,wi)=>{
+    stage.appendChild(buildSlideA(w,wi,series.name,font,folder,wave,shDecos));
+    stage.appendChild(buildSlideB(w,wi,series.name,font,wave,shDecos));
+  });
+  SS.slides=[{el:tEl,type:'title'},{el:sEl,type:'som'}];
+  series.words.forEach((w,wi)=>{
+    SS.slides.push({el:document.getElementById('sa-'+wi),type:'a',word:w,wi});
+    SS.slides.push({el:document.getElementById('sb-'+wi),type:'b',word:w,wi});
+  });
+}
+function mkEl(tag,cls){const e=document.createElement(tag);e.className=cls;return e;}
+
+function buildSlideA(word,wi,seriesName,font,folder,wave,shDecos){
+  const ph=word.phonetics||[];
+  const sylls=word.syllables||syllabify(word.word);
+  const defLines=(word.definition||'').split('\n');
+  const syllBounds=new Set();let pos=0;
+  sylls.forEach((s,i)=>{if(i>0)syllBounds.add(pos);pos+=s.length;});
+  let wordPos=0,rowH='';
+  ph.forEach((g,gi)=>{
+    if(wordPos>0&&syllBounds.has(wordPos))rowH+=`<div class="ssep"></div>`;
+    rowH+=`<div class="pg-grp">`;
+    g.letters.split('').forEach((letter,li)=>{
+      const col=(g.lc&&g.lc[li])||'#222222';
+      const notLast=li<g.letters.length-1;
+      rowH+=`<div class="ls"><div class="lc" id="lc-${wi}-${gi}-${li}" style="color:${col};font-family:'${font}',MDIEcole,Calibri,sans-serif">${letter}</div><div class="lb" style="background:${col}"></div></div>`;
+      if(notLast&&g.linked!==false)rowH+=`<div class="dw" style="margin-bottom:2px"><div class="ld" style="background:#222222"></div></div>`;
+    });
+    if(!g.silent)rowH+=`<img class="si" id="si-${wi}-${gi}" src="${folder}${g.img}" alt="${g.sound}" onerror="this.style.visibility='hidden'">`;
+    rowH+=`</div>`;
+    wordPos+=g.letters.length;
+  });
+  const el=mkEl('div','slide');el.id='sa-'+wi;
+  el.innerHTML=`<div class="sh" style="position:relative"><span>${word.theme||seriesName}</span>${shDecos||''}<span>${word.num}/${word.total}</span></div>
+    <div class="sab">
+      <div class="def-box">${defLines.map((l,i)=>`<div class="def-line" id="dl-${wi}-${i}">${l||'&nbsp;'}</div>`).join('')}</div>
+      ${word.image?`<img class="wi" id="wi-${wi}" src="${word.image}" alt="${word.word}" onerror="this.style.display='none'">`:`<div style="position:absolute;top:4px;right:10px;width:160px;height:140px;border:2px dashed #ccc;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#bbb;z-index:2">image</div>`}
+      <div class="wz"><div class="lr" style="margin-bottom:80px">${rowH}</div></div>
+    </div>${wave||''}`;
+  return el;
+}
+function buildSlideB(word,wi,seriesName,font,wave,shDecos){
+  const el=mkEl('div','slide');el.id='sb-'+wi;
+  el.innerHTML=`<div class="sh" style="position:relative"><span>${word.theme||seriesName}</span>${shDecos||''}<span>${word.num}/${word.total}</span></div>
+    <div class="sbb">
+      <div class="wa">
+        <div class="wcv">${word.word.toLowerCase()}</div>
+        <div class="wr">
+          <div class="wca" style="font-family:'${font}',MDIEcole,Calibri,sans-serif">${word.word.toUpperCase()}</div>
+          <div class="wsc" style="font-family:'${font}',MDIEcole,Calibri,sans-serif">${word.word.toLowerCase()}</div>
+        </div>
+        ${word.image?`<img class="wib" src="${word.image}" alt="${word.word}" onerror="this.style.display='none'">` :''}
+      </div>
+      <div class="gb">
+        <div class="ci2"><div class="cb" id="cbm-${wi}"></div><span style="color:#4a90d9">MASCULIN</span></div>
+        <div class="ci2"><div class="cb" id="cbf-${wi}"></div><span style="color:#e85d9a">FÉMININ</span></div>
+      </div>
+      <div class="nb2">
+        <div class="ci2"><div class="cb" id="cbn-${wi}"></div><span style="color:#4a90d9">NOM</span></div>
+        <div class="ci2"><div class="cb" id="cbv-${wi}"></div><span style="color:#e85d9a">VERBE</span></div>
+        <div class="ci2"><div class="cb" id="cba-${wi}"></div><span style="color:#3aaa5a">ADJECTIF</span></div>
+        <div class="ci2"><div class="cb" id="cbo-${wi}"></div><span style="color:#888">AUTRE</span></div>
+      </div>
+    </div>${wave||''}`;
+  return el;
+}
+
+// SS CONTROL
+function ssGoto(idx){
+  document.querySelectorAll('#ss-stage .slide').forEach(e=>e.classList.remove('on'));
+  SS.idx=Math.max(0,Math.min(idx,SS.slides.length-1));SS.step=0;
+  const s=SS.slides[SS.idx];if(!s)return;
+  s.el.classList.add('on');
+  if(s.type==='a'){
+    s.el.querySelectorAll('.lc').forEach(e=>e.classList.remove('on'));
+    s.el.querySelectorAll('.si').forEach(e=>e.classList.remove('on'));
+    s.el.querySelectorAll('.def-line').forEach(e=>e.classList.remove('on'));
+    const img=document.getElementById('wi-'+s.wi);if(img)img.classList.remove('on');
+    document.getElementById('ss-hint').textContent='→ def → image → 🔊son → lettre';
+  }else if(s.type==='b'){
+    const wi=s.wi;
+    ['cbm','cbf','cbn','cbv','cba','cbo'].forEach(id=>{const el=document.getElementById(id+'-'+wi);if(el){el.classList.remove('ok');el.innerHTML='';}});
+    document.getElementById('ss-hint').textContent='→ genre → nature → suivant';
+  }else{document.getElementById('ss-hint').textContent='';}
+}
+function ssClick(){
+  const s=SS.slides[SS.idx];if(!s)return;
+  if(s.type==='title'){ssGoto(1);return;}
+  if(s.type==='som')return;
+  if(s.type==='a')ssAdvA(s);
+  if(s.type==='b')ssAdvB(s);
+}
+function ssAdvA(s){
+  const wi=s.wi,word=s.word,ph=word.phonetics||[];
+  const defs=(word.definition||'').split('\n').filter(l=>l.trim());
+  if(SS.step===0){defs.forEach((_,i)=>{const el=document.getElementById('dl-'+wi+'-'+i);if(el)el.classList.add('on');});SS.step=1;}
+  else if(SS.step===1){const img=document.getElementById('wi-'+wi);if(img)img.classList.add('on');SS.step=2;}
+  else{
+    let rem=SS.step-2;
+    for(let g=0;g<ph.length;g++){
+      const steps=ph[g].silent?1:2;
+      if(rem<steps){
+        if(!ph[g].silent&&rem===0){const imgEl=document.getElementById('si-'+wi+'-'+g);if(imgEl)imgEl.classList.add('on');}
+        else{ph[g].letters.split('').forEach((_,li)=>{const el=document.getElementById('lc-'+wi+'-'+g+'-'+li);if(el)el.classList.add('on');});}
+        SS.step++;
+        const total=ph.reduce((sum,p)=>sum+(p.silent?1:2),0);
+        if(SS.step-2>=total)setTimeout(ssNext,400);
+        return;
+      }
+      rem-=steps;
+    }
+  }
+}
+function ssAdvB(s){
+  const wi=s.wi,word=s.word,isLast=wi===SS.series.words.length-1;
+  if(SS.step===0){const g=word.gender==='masc'?'cbm':'cbf';const el=document.getElementById(g+'-'+wi);if(el){el.classList.add('ok');el.innerHTML='✓';}SS.step=1;}
+  else if(SS.step===1){const map={nom:'cbn',verbe:'cbv',adjectif:'cba',autre:'cbo'};const el=document.getElementById((map[word.nature||'nom'])+'-'+wi);if(el){el.classList.add('ok');el.innerHTML='✓';}SS.step=2;}
+  else{if(isLast)ssGoto(1);else ssNextWord();}
+}
+function ssGotoWord(wi){ssGoto(2+wi*2);}
+function ssNext(){ssGoto(SS.idx+1);}
+function ssBack(){ssGoto(SS.idx-1);}
+function ssBack2(){ssGoto(SS.idx-2);}
+function ssNextWord(){const s=SS.slides[SS.idx];if(s&&(s.type==='a'||s.type==='b')){const nx=2+(s.wi+1)*2;ssGoto(nx<SS.slides.length?nx:1);}else ssNext();}
+function ssMenu(){
+  document.getElementById('ss-wrap').classList.remove('on');
+  restoreAppColors();
+  if(curSeries){
+    document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+    document.getElementById('pg-editor').classList.add('on');
+    renderWords();
+  }else{goPage('home');}
+}
+// SS keyboard
+document.addEventListener('keydown',function(e){
+  if(!document.getElementById('ss-wrap').classList.contains('on'))return;
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();ssClick();}
+  if(e.key==='ArrowLeft'){e.preventDefault();ssBack();}
+  if(e.key==='Escape')ssMenu();
+});
+// SS click on stage
+document.getElementById('ss-stage').addEventListener('click',ssClick);
+
+// TOAST
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+
+
+// ================================================================
+// COLOR UTILS — derive light/dark from series base color
+// ================================================================
+function hexToHSL(hex){
+  let r=parseInt(hex.slice(1,3),16)/255,g=parseInt(hex.slice(3,5),16)/255,b=parseInt(hex.slice(5,7),16)/255;
+  const max=Math.max(r,g,b),min=Math.min(r,g,b);let h,s,l=(max+min)/2;
+  if(max===min){h=s=0;}else{
+    const d=max-min;s=l>0.5?d/(2-max-min):d/(max+min);
+    switch(max){case r:h=((g-b)/d+(g<b?6:0))/6;break;case g:h=((b-r)/d+2)/6;break;case b:h=((r-g)/d+4)/6;break;}
+  }
+  return[Math.round(h*360),Math.round(s*100),Math.round(l*100)];
+}
+function hslToHex(h,s,l){
+  s/=100;l/=100;
+  const a=s*Math.min(l,1-l);
+  const f=n=>{const k=(n+h/30)%12;const color=l-a*Math.max(Math.min(k-3,9-k,1),-1);return Math.round(255*color).toString(16).padStart(2,'0');};
+  return '#'+f(0)+f(8)+f(4);
+}
+function deriveColors(hex){
+  const [h,s,l]=hexToHSL(hex);
+  const cp=hex;
+  const cpd=hslToHex(h,Math.min(s+10,100),Math.max(l-18,8));    // darker + saturated
+  const cpl=hslToHex(h,Math.min(s+5,80),Math.min(l+38,93));     // lighter, keeps hue
+  return{cp,cpd,cpl};
+}
+function applyColors(cp,cpd,cpl){
+  document.documentElement.style.setProperty('--cp',cp);
+  document.documentElement.style.setProperty('--cpd',cpd);
+  document.documentElement.style.setProperty('--cpl',cpl);
+}
+function applySeriesColors(series){
+  if(series&&series.color){
+    const {cp,cpd,cpl}=deriveColors(series.color);
+    applyColors(cp,cpd,cpl);
+  }
+}
+function restoreAppColors(){
+  const st=appData.settings||{};
+  applyColors(st.colorPrimary||'#8b7355',st.colorPrimaryDark||'#5c4a2a',st.colorPrimaryLight||'#f2ead8');
+}
+// ================================================================
+// INIT
+// ================================================================
+loadData();
+// Appliquer les couleurs sauvegardées (ou beige par défaut)
+restoreAppColors();
+renderHome();
+</script>
+</body>
+</html>
