@@ -515,6 +515,36 @@ const PAT_BM=['eau','ain','ein','oin','ill','eil','ail','ch','ph','gn','qu',
 // ================================================================
 // WORD ANALYSIS
 // ================================================================
+// Lettres muettes en fin de mot (règle contextuelle)
+const SILENT_FINAL=new Set(['x','s','t','d','z','e','p','g','c']);
+// Renvoie true si le groupe est muet en position finale dans le mot donné
+function isSilentFinal(group,word,isLast){
+  if(!isLast)return false;
+  var let1=group.letters.toLowerCase();
+  // Lettre seule muette en finale
+  if(let1.length===1&&SILENT_FINAL.has(let1))return true;
+  // Groupe "ent" verbal muet (finales verbales)
+  if(let1==='ent')return true;
+  return false;
+}
+// Image muette (même chemin EO et BM)
+const IMG_MUETTE='images/eo/Lettre_Muette.png';
+const COL_MUETTE='#aaaaaa';
+
+function markSilentFinal(groups,word){
+  if(!groups.length)return groups;
+  var last=groups.length-1;
+  if(isSilentFinal(groups[last],word,true)){
+    var g=groups[last];
+    groups[last]=Object.assign({},g,{
+      silent:true,
+      img:IMG_MUETTE,
+      lc:g.letters.split('').map(function(){return COL_MUETTE;})
+    });
+  }
+  return groups;
+}
+
 function analyzeWord(word,method){
   const dict=method==='bm'?AD.bm:AD.eo;
   const pats=method==='bm'?PAT_BM:PAT_EO;
@@ -535,6 +565,8 @@ function analyzeWord(word,method){
       i++;
     }
   }
+  // Marquer lettre muette finale
+  markSilentFinal(groups,word);
   return groups;
 }
 function syllabify(word){
@@ -1475,6 +1507,9 @@ function parsePhonetics(mot,segRaw,lienRaw,colRaw,method){
         var subGroups=analyzeWord(syll,method);
         subGroups.forEach(function(g){phonGroups.push(g);});
       });
+      // Re-marquer la finale sur le MOT ENTIER (pas seulement la dernière syllabe)
+      // car analyzeWord ne connaît pas la position dans le mot global
+      markSilentFinal(phonGroups,mot);
     }
   } else {
     // Pas de segmentation → découpage auto sur le mot entier
