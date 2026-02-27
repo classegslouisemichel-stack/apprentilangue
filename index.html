@@ -110,7 +110,7 @@ body{font-family:var(--fn);background:#e8e4d8;min-height:100vh;}
 .grass{height:20px;flex-shrink:0;overflow:hidden;}
 .grass svg{width:100%;height:20px;display:block;}
 /* TITLE SLIDE */
-.sl-title{background:#fff;align-items:center;justify-content:center;}
+.sl-title{background:#fff;align-items:center;justify-content:center;flex-direction:column;}
 .sl-title h1{font-size:60px;font-weight:900;color:var(--cpd);letter-spacing:3px;}
 .sl-title h2{font-size:38px;color:var(--cp);margin-top:12px;font-weight:400;}
 /* SOMMAIRE */
@@ -155,11 +155,14 @@ body{font-family:var(--fn);background:#e8e4d8;min-height:100vh;}
 .wca{flex:1;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid var(--cpl);border-radius:7px;font-size:42px;font-weight:700;color:#222;letter-spacing:2px;}
 .wsc{flex:1;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid var(--cpl);border-radius:7px;font-size:32px;color:#222;}
 .wib{flex-shrink:0;width:140px;object-fit:contain;border:2px solid var(--cpl);border-radius:7px;background:#fff;padding:3px;}
+.sb-cat-label{font-size:11px;font-weight:700;color:#aaa;letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;width:100%;text-align:left;padding-left:4px;}
 .gb{background:var(--cpl);border-radius:7px;padding:12px 20px;display:flex;gap:40px;align-items:center;}
 .nb2{background:#f0f0f0;border-radius:7px;padding:12px 20px;display:flex;gap:30px;align-items:center;flex-wrap:wrap;}
 .ci2{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;}
 .cb{width:30px;height:30px;border:2px solid #aaa;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
 .cb.ok{background:#4CAF50;border-color:#4CAF50;color:#fff;}
+.cb.nope{border-color:#e8002a;color:#e8002a;background:#fff0f0;font-size:20px;}
+.cb.ko{background:#e8002a;color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
@@ -1001,7 +1004,7 @@ function buildSS(series){
   const wave=`<div class="grass"><svg viewBox="0 0 1200 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 20 Q50 4 100 20 Q150 4 200 20 Q250 4 300 20 Q350 4 400 20 Q450 4 500 20 Q550 4 600 20 Q650 4 700 20 Q750 4 800 20 Q850 4 900 20 Q950 4 1000 20 Q1050 4 1100 20 Q1150 4 1200 20 Z" fill="${waveColor}"/></svg></div>`;
 
   const tEl=mkEl('div','slide sl-title');tEl.id='ss-title';
-  tEl.innerHTML=`<h1>APPRENTILANGUE</h1><h2>${series.name}</h2>${wave}`;stage.appendChild(tEl);
+  tEl.innerHTML=`<h1>APPRENTILANGUE</h1><h2>${series.name}</h2><div style="margin-top:auto;width:100%">${wave}</div>`;stage.appendChild(tEl);
   // Sommaire
   const sEl=mkEl('div','slide sl-som');sEl.id='ss-som';
   sEl.innerHTML=`<div class="sh" style="position:relative"><span>${series.name}</span>${shDecos}<span>SOMMAIRE</span></div>
@@ -1063,10 +1066,12 @@ function buildSlideB(word,wi,seriesName,font,wave,shDecos){
         ${word.image?`<img class="wib" src="${word.image}" alt="${word.word}" onerror="this.style.display='none'">` :''}
       </div>
       <div class="gb">
-        <div class="ci2"><div class="cb" id="cbm-${wi}"></div><span style="color:#4a90d9">MASCULIN</span></div>
-        <div class="ci2"><div class="cb" id="cbf-${wi}"></div><span style="color:#e85d9a">FÉMININ</span></div>
+        <div class="sb-cat-label">GENRE</div>
+        <div class="ci2"><div class="cb" id="cbm-${wi}"></div><span style="color:#5a8a6a">MASCULIN</span></div>
+        <div class="ci2"><div class="cb" id="cbf-${wi}"></div><span style="color:#c2724f">FÉMININ</span></div>
       </div>
       <div class="nb2">
+        <div class="sb-cat-label">NATURE</div>
         <div class="ci2"><div class="cb" id="cbn-${wi}"></div><span style="color:#4a90d9">NOM</span></div>
         <div class="ci2"><div class="cb" id="cbv-${wi}"></div><span style="color:#e85d9a">VERBE</span></div>
         <div class="ci2"><div class="cb" id="cba-${wi}"></div><span style="color:#3aaa5a">ADJECTIF</span></div>
@@ -1090,7 +1095,7 @@ function ssGoto(idx){
     document.getElementById('ss-hint').textContent='→ def → image → 🔊son → lettre';
   }else if(s.type==='b'){
     const wi=s.wi;
-    ['cbm','cbf','cbn','cbv','cba','cbo'].forEach(id=>{const el=document.getElementById(id+'-'+wi);if(el){el.classList.remove('ok');el.innerHTML='';}});
+    ['cbm','cbf','cbn','cbv','cba','cbo'].forEach(id=>{const el=document.getElementById(id+'-'+wi);if(el){el.classList.remove('ok','ko');el.innerHTML=''}});
     document.getElementById('ss-hint').textContent='→ genre → nature → suivant';
   }else{document.getElementById('ss-hint').textContent='';}
 }
@@ -1115,7 +1120,7 @@ function ssAdvA(s){
         else{ph[g].letters.split('').forEach((_,li)=>{const el=document.getElementById('lc-'+wi+'-'+g+'-'+li);if(el)el.classList.add('on');});}
         SS.step++;
         const total=ph.reduce((sum,p)=>sum+(p.silent?1:2),0);
-        if(SS.step-2>=total)setTimeout(ssNext,400);
+        // Fin de slide A : on attend le clic suivant (pas de passage auto)
         return;
       }
       rem-=steps;
@@ -1124,7 +1129,21 @@ function ssAdvA(s){
 }
 function ssAdvB(s){
   const wi=s.wi,word=s.word,isLast=wi===SS.series.words.length-1;
-  if(SS.step===0){const g=word.gender==='masc'?'cbm':'cbf';const el=document.getElementById(g+'-'+wi);if(el){el.classList.add('ok');el.innerHTML='✓';}SS.step=1;}
+  if(SS.step===0){
+    const gender=word.gender||'masc';
+    if(gender==='none'||gender==='both'){
+      // Ni masculin ni féminin : deux ✗ rouges
+      ['cbm','cbf'].forEach(function(id){
+        const el=document.getElementById(id+'-'+wi);
+        if(el){el.classList.add('ko');el.innerHTML='✗';}
+      });
+    } else {
+      const g=gender==='masc'?'cbm':'cbf';
+      const el=document.getElementById(g+'-'+wi);
+      if(el){el.classList.add('ok');el.innerHTML='✓';}
+    }
+    SS.step=1;
+  }
   else if(SS.step===1){const map={nom:'cbn',verbe:'cbv',adjectif:'cba',autre:'cbo'};const el=document.getElementById((map[word.nature||'nom'])+'-'+wi);if(el){el.classList.add('ok');el.innerHTML='✓';}SS.step=2;}
   else{if(isLast)ssGoto(1);else ssNextWord();}
 }
