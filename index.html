@@ -1506,10 +1506,42 @@ function parseSylls(mot,segRaw){
 }
 
 // ================================================================
+// AUTO-RELOAD — détection de nouvelle version sur GitHub
+// ================================================================
+// Principe : à chaque déploiement, le fichier version.json contient
+// un timestamp. Le site compare avec la version mise en cache.
+// Si différente → rechargement forcé (bypass cache navigateur).
+function checkForUpdate(){
+  // Ne pas tourner en local (file://) pour ne pas boucler inutilement
+  if(window.location.protocol==='file:')return;
+  fetch('version.json?t='+Date.now())
+    .then(function(r){return r.ok?r.json():null;})
+    .then(function(data){
+      if(!data||!data.v)return;
+      var stored=sessionStorage.getItem('al_version');
+      if(!stored){
+        // Première visite de la session : mémoriser et continuer
+        sessionStorage.setItem('al_version',data.v);
+      } else if(stored!==data.v){
+        // Nouvelle version détectée → recharger avec cache-bust
+        sessionStorage.setItem('al_version',data.v);
+        window.location.href=window.location.pathname+'?v='+data.v;
+      }
+      // Vérifier de nouveau toutes les 5 minutes (pour les onglets ouverts longtemps)
+      setTimeout(checkForUpdate, 5*60*1000);
+    })
+    .catch(function(){
+      // version.json absent ou réseau indispo → on ne fait rien
+    });
+}
+
+// ================================================================
 // INIT
 // ================================================================
 loadData();
 restoreAppColors();
+// Vérifier les mises à jour en premier
+checkForUpdate();
 // Charger les séries partagées depuis GitHub, puis afficher
 loadSharedSeries(function(){renderHome();});
 </script>
