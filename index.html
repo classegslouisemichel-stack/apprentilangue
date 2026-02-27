@@ -604,6 +604,17 @@ function loadData(){
       appData={...appData,...p};
       AD.eo={...JSON.parse(JSON.stringify(EO0)),...(p.dictEO||{})};
       AD.bm={...JSON.parse(JSON.stringify(BM0)),...(p.dictBM||{})};
+      // Corriger les groupes sauvegardés avec silent:true sur Lettre_Muette
+      // (ancienne version marquait les finales muettes avec silent:true)
+      (appData.series||[]).forEach(function(s){
+        (s.words||[]).forEach(function(w){
+          (w.phonetics||[]).forEach(function(g){
+            if(g.silent && g.img && g.img.indexOf('Lettre_Muette')>-1){
+              g.silent=false;
+            }
+          });
+        });
+      });
     }
   }catch(e){}
   if(!appData.series||!appData.series.length) appData.series=[makeDemo()];
