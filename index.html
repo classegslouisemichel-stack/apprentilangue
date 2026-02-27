@@ -1022,7 +1022,16 @@ function buildSlideA(word,wi,seriesName,font,folder,wave,shDecos){
       rowH+=`<div class="ls"><div class="lc" id="lc-${wi}-${gi}-${li}" style="color:${col};font-family:'${font}',MDIEcole,Calibri,sans-serif">${letter}</div><div class="lb" style="background:${col}"></div></div>`;
       if(notLast&&g.linked!==false)rowH+=`<div class="dw" style="margin-bottom:2px"><div class="ld" style="background:#222222"></div></div>`;
     });
-    rowH+=`<img class="si" id="si-${wi}-${gi}" src="${folder}${g.img}" alt="${g.sound}" onerror="this.style.visibility='hidden'">`;
+    rowH+=`<img class="si" id="si-${wi}-${gi}" src="${folder}${g.img}" alt="${g.sound}" onerror="
+  var s=this.src;
+  if(s.indexOf('Lettre_Muette')>-1&&s.indexOf('lettre_muette')<0){
+    this.src=s.replace('Lettre_Muette','lettre_muette');
+  } else if(s.indexOf('lettre_muette')>-1&&s.indexOf('Lettre_Muette')<0){
+    this.src=s.replace('lettre_muette','Lettre_Muette');
+  } else {
+    this.style.visibility='hidden';
+  }
+">`;
     rowH+=`</div>`;
     wordPos+=g.letters.length;
   });
