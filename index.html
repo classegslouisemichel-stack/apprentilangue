@@ -1109,6 +1109,9 @@ function ssClick(){
 function ssAdvA(s){
   const wi=s.wi,word=s.word,ph=word.phonetics||[];
   const defs=(word.definition||'').split('\n').filter(l=>l.trim());
+  const total=ph.reduce((sum,p)=>sum+(p.silent?1:2),0);
+  // Tout est déjà affiché → clic passe à la slide B
+  if(SS.step>=2+total){ssNext();return;}
   if(SS.step===0){defs.forEach((_,i)=>{const el=document.getElementById('dl-'+wi+'-'+i);if(el)el.classList.add('on');});SS.step=1;}
   else if(SS.step===1){const img=document.getElementById('wi-'+wi);if(img)img.classList.add('on');SS.step=2;}
   else{
@@ -1119,12 +1122,12 @@ function ssAdvA(s){
         if(!ph[g].silent&&rem===0){const imgEl=document.getElementById('si-'+wi+'-'+g);if(imgEl)imgEl.classList.add('on');}
         else{ph[g].letters.split('').forEach((_,li)=>{const el=document.getElementById('lc-'+wi+'-'+g+'-'+li);if(el)el.classList.add('on');});}
         SS.step++;
-        const total=ph.reduce((sum,p)=>sum+(p.silent?1:2),0);
-        // Fin de slide A : on attend le clic suivant (pas de passage auto)
         return;
       }
       rem-=steps;
     }
+    // Sorti de la boucle sans rien afficher → tout est affiché → slide B
+    ssNext();
   }
 }
 function ssAdvB(s){
