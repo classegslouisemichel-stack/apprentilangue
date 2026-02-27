@@ -163,6 +163,24 @@ body{font-family:var(--fn);background:#e8e4d8;min-height:100vh;}
 .cb.ok{background:#4CAF50;border-color:#4CAF50;color:#fff;}
 .cb.nope{border-color:#e8002a;color:#e8002a;background:#fff0f0;font-size:20px;}
 .cb.ko{background:#e8002a;color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;}
+
+/* ── GUIDE UTILISATEUR ── */
+.guide-content{font-size:14px;line-height:1.7;color:#333;}
+.guide-content h3{font-size:15px;font-weight:700;color:var(--cpd);margin:22px 0 8px;padding-bottom:4px;border-bottom:2px solid var(--cpl);}
+.guide-content p{margin:6px 0 10px;}
+.guide-content ol,.guide-content ul{margin:6px 0 10px;padding-left:20px;}
+.guide-content li{margin-bottom:4px;}
+.guide-content strong{color:#333;}
+.guide-content code{background:#f0ede8;padding:1px 5px;border-radius:3px;font-size:12px;font-family:monospace;}
+.guide-tip{background:#fef9e7;border-left:3px solid #f0c040;padding:10px 14px;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#555;}
+.guide-table{width:100%;border-collapse:collapse;margin:10px 0 14px;font-size:13px;}
+.guide-table th{background:var(--cpl);color:var(--cpd);padding:7px 10px;text-align:left;font-weight:600;}
+.guide-table td{padding:6px 10px;border-bottom:1px solid #eee;}
+.guide-table tr:last-child td{border-bottom:none;}
+.guide-faq{display:flex;flex-direction:column;gap:0;}
+.guide-q{background:var(--cpl);color:var(--cpd);padding:8px 12px;font-weight:600;font-size:13px;margin-top:8px;border-radius:6px 6px 0 0;}
+.guide-a{background:#faf8f4;padding:8px 12px;font-size:13px;color:#555;border-radius:0 0 6px 6px;border:1px solid var(--cpl);border-top:none;}
+kbd{background:#eee;border:1px solid #ccc;border-radius:3px;padding:1px 6px;font-size:12px;font-family:monospace;}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
@@ -173,6 +191,7 @@ body{font-family:var(--fn);background:#e8e4d8;min-height:100vh;}
   <button class="nb" onclick="goPage('settings')">⚙️ Paramètres</button>
   <button class="nb" onclick="openExportModal()" title="Exporter / Partager">⬇️ Export</button>
   <button class="nb" onclick="openImportModal()" title="Importer séries ou mots">⬆️ Import</button>
+  <button class="nb" onclick="openGuide()" title="Guide utilisateur">❓ Aide</button>
 </nav>
 <div id="app">
 
@@ -1259,6 +1278,7 @@ document.addEventListener('keydown',function(e){
 document.getElementById('ss-stage').addEventListener('click',ssClick);
 
 // TOAST
+function openGuide(){openModal('m-guide');}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
 
 
@@ -1701,5 +1721,108 @@ checkForUpdate();
 // Charger les séries partagées depuis GitHub, puis afficher
 loadSharedSeries(function(){renderHome();});
 </script>
+
+<!-- MODAL: GUIDE UTILISATEUR -->
+<div class="mo" id="m-guide" style="align-items:flex-start;padding:20px 0">
+  <div class="mb" style="max-width:720px;width:95%;max-height:90vh;overflow-y:auto;padding:28px 32px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;position:sticky;top:-28px;background:#fff;padding:10px 0;z-index:2;border-bottom:1px solid #eee">
+      <h2 style="margin:0;font-size:20px;color:var(--cpd)">📖 Guide utilisateur</h2>
+      <button class="bo" type="button" onclick="closeModal('m-guide')" style="font-size:18px;padding:4px 12px">✕</button>
+    </div>
+    <div class="guide-content">
+
+      <div class="guide-tip">Ce guide est destiné aux enseignantes qui utilisent Apprentilangue. Pas besoin de connaissances informatiques particulières !</div>
+
+      <h3>Qu'est-ce qu'Apprentilangue ?</h3>
+      <p>Un outil pour créer des <strong>diaporamas interactifs</strong> pour travailler le vocabulaire avec vos élèves. Pour chaque mot, l'application affiche la définition, l'image du mot, les sons lettre par lettre, le genre et la nature. Tout se passe dans votre navigateur — rien à installer.</p>
+
+      <h3>1. Lancer un diaporama</h3>
+      <ol>
+        <li>Repérez la série sur l'écran d'accueil</li>
+        <li>Cliquez sur <strong>▶ Jouer</strong></li>
+        <li>Choisissez l'affichage des lettres : <strong>Scriptes</strong> (habituel), <strong>Capitales</strong>, ou <strong>Cursive</strong></li>
+        <li>Cliquez sur <strong>▶ Lancer</strong></li>
+      </ol>
+
+      <h3>2. Naviguer dans le diaporama</h3>
+      <table class="guide-table">
+        <tr><th>Action</th><th>Comment faire</th></tr>
+        <tr><td>Avancer</td><td>Clic sur la diapositive — ou touche <kbd>→</kbd> ou <kbd>Espace</kbd></td></tr>
+        <tr><td>Reculer</td><td>Touche <kbd>←</kbd></td></tr>
+        <tr><td>Quitter</td><td>Touche <kbd>Échap</kbd></td></tr>
+      </table>
+      <p><strong>Diapositive 1</strong> — chaque clic révèle : définition → image → image du son → lettre. Le dernier clic passe à la diapositive 2.</p>
+      <p><strong>Diapositive 2</strong> — genre (MASCULIN / FÉMININ), nature (NOM / VERBE…), écriture cursive et scripte.</p>
+      <p><strong>Sommaire</strong> — cliquez directement sur un mot pour y accéder.</p>
+
+      <h3>3. Créer une nouvelle série</h3>
+      <ol>
+        <li>Cliquez sur <strong>+ Nouvelle série</strong></li>
+        <li>Remplissez le nom, la couleur, la police et la méthode (EO ou BM)</li>
+        <li>Cliquez sur <strong>Créer</strong></li>
+      </ol>
+
+      <h3>4. Ajouter des mots à la main</h3>
+      <ol>
+        <li>Dans l'éditeur de série, cliquez sur <strong>+ Ajouter un mot</strong></li>
+        <li>Remplissez : mot (en majuscules), définition, genre, nature, image</li>
+        <li>Cliquez sur <strong>Enregistrer</strong></li>
+      </ol>
+      <div class="guide-tip">💡 Les sons sont générés automatiquement. Vous pouvez les corriger manuellement si besoin.</div>
+
+      <h3>5. Importer depuis Excel</h3>
+      <p>La méthode la plus rapide pour de nombreux mots. Votre fichier doit avoir ces colonnes :</p>
+      <table class="guide-table">
+        <tr><th>Col.</th><th>Contenu</th><th>Exemple</th></tr>
+        <tr><td><strong>A</strong></td><td>Numéro</td><td>1</td></tr>
+        <tr><td><strong>B</strong></td><td>Mot (majuscules)</td><td>AMOUREUX</td></tr>
+        <tr><td><strong>C</strong></td><td>Définition</td><td>C'est quelqu'un qui aime…</td></tr>
+        <tr><td><strong>D</strong></td><td>Genre</td><td>masc / fem / none</td></tr>
+        <tr><td><strong>E</strong></td><td>Nature</td><td>nom / verbe / adjectif / autre</td></tr>
+        <tr><td><strong>F</strong></td><td>Image <em>(optionnel)</em></td><td>laisser vide</td></tr>
+        <tr><td><strong>G</strong></td><td>Segmentation <em>(optionnel)</em></td><td>a-mou-reux</td></tr>
+        <tr><td><strong>H</strong></td><td>Liaisons <em>(optionnel)</em></td><td>ou;eu</td></tr>
+        <tr><td><strong>I</strong></td><td>Couleurs <em>(optionnel)</em></td><td>ou=rouge</td></tr>
+      </table>
+      <p>Pour importer : <strong>⬆️ Import</strong> → <strong>📥 Importer depuis Excel</strong> → choisir le fichier → remplir le nom de série et le numéro de dossier → <strong>Importer</strong>.</p>
+
+      <h3>6. Corriger les sons d'un mot</h3>
+      <ol>
+        <li>Dans l'éditeur, cliquez sur le mot</li>
+        <li>Section <strong>Sons</strong> : modifiez son, image, liaison de chaque groupe</li>
+        <li>Utilisez <strong>⊕</strong> pour fusionner deux groupes, <strong>⊗</strong> pour séparer</li>
+        <li>Cliquez sur <strong>Enregistrer</strong></li>
+      </ol>
+
+      <h3>7. Partager avec vos collègues</h3>
+      <ol>
+        <li><strong>⬇️ Export</strong> → <strong>📤 Générer series_partagees.json</strong></li>
+        <li>Lancez <code>MAJ_VERSION.bat</code> (Windows) ou <code>MAJ_VERSION.sh</code> (Mac)</li>
+        <li>Déposez les deux fichiers sur GitHub</li>
+      </ol>
+      <p>Vos collègues voient les nouvelles séries automatiquement, sans Ctrl+F5.</p>
+      <p>Pour <strong>supprimer</strong> une série partagée : bouton 🗑 sur sa carte → déposer le fichier téléchargé sur GitHub.</p>
+
+      <h3>8. Questions fréquentes</h3>
+      <div class="guide-faq">
+        <div class="guide-q">❓ Les nouveautés n'apparaissent pas</div>
+        <div class="guide-a">Attendez 5 minutes (mise à jour automatique) ou faites <kbd>Ctrl + F5</kbd>.</div>
+        <div class="guide-q">❓ Mes séries ont disparu</div>
+        <div class="guide-a">Elles sont dans votre navigateur. Exportez-les régulièrement (bouton ⬇️ sur chaque carte) pour les sauvegarder.</div>
+        <div class="guide-q">❓ Les images ne s'affichent pas</div>
+        <div class="guide-a">Vérifiez que l'image est sur GitHub dans le bon dossier et que le chemin correspond exactement (majuscules, accents…).</div>
+        <div class="guide-q">❓ Un mot s'affiche en CAPITALES au lieu de scriptes</div>
+        <div class="guide-a">Au lancement, choisissez <strong>Scriptes</strong> — les lettres accentuées seront converties automatiquement.</div>
+        <div class="guide-q">❓ Quelque chose ne fonctionne pas</div>
+        <div class="guide-a">Essayez <kbd>F5</kbd> puis <kbd>Ctrl + F5</kbd>. Si le problème persiste, notez le nom du mot et de la série et contactez votre coordinatrice.</div>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:24px">
+      <button class="btn bor" type="button" onclick="closeModal('m-guide')">Fermer</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
