@@ -246,6 +246,32 @@ body{font-family:var(--fn);background:#e8e4d8;min-height:100vh;}
 </div>
 
 <!-- MODAL: NEW SERIES -->
+
+<!-- MODAL: LANCEMENT DIAPORAMA -->
+<div class="mo" id="m-launch">
+  <div class="mb" style="max-width:360px">
+    <h3>Lancer le diaporama</h3>
+    <div class="fg" style="margin-bottom:16px">
+      <label style="margin-bottom:8px;display:block">Affichage des lettres</label>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
+          <input type="radio" name="ss-casse" value="script" checked> <span style="font-size:22px;font-family:'MDIEcole',sans-serif">abc</span> Scriptes (MDI École)
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
+          <input type="radio" name="ss-casse" value="upper"> <span style="font-size:22px;font-weight:700;letter-spacing:1px">ABC</span> Capitales
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
+          <input type="radio" name="ss-casse" value="cursive"> <span style="font-size:22px;font-family:'Cursive Dumont maternelle',cursive">abc</span> Cursive
+        </label>
+      </div>
+    </div>
+    <div class="mf">
+      <button class="bo" type="button" onclick="closeModal('m-launch')">Annuler</button>
+      <button class="btn bor" type="button" onclick="confirmLaunchSS()">▶ Lancer</button>
+    </div>
+  </div>
+</div>
+
 <div class="mo" id="m-newseries">
   <div class="mb" style="max-width:420px">
     <h3>Nouvelle série</h3>
@@ -997,15 +1023,22 @@ function resetDicts(){if(!confirm('Réinitialiser les dictionnaires ?'))return;A
 // ================================================================
 // SLIDESHOW
 // ================================================================
-let SS={series:null,slides:[],idx:0,step:0};
+let SS={series:null,slides:[],idx:0,step:0,casse:'script'};
 
 function startSS(id,seriesObj){
   if(seriesObj){
-    curSeries=seriesObj; // série partagée passée directement
+    curSeries=seriesObj;
   }else{
     curSeries=appData.series.find(s=>s.id===id);
   }
   if(!curSeries||!curSeries.words||!curSeries.words.length){toast('Aucun mot dans cette série');return;}
+  // Ouvrir le modal de choix de casse
+  openModal('m-launch');
+}
+function confirmLaunchSS(){
+  closeModal('m-launch');
+  const casse=document.querySelector('input[name="ss-casse"]:checked')?.value||'script';
+  SS.casse=casse;
   launchSS();
 }
 function launchSS(){
@@ -1018,7 +1051,8 @@ function launchSS(){
 }
 function buildSS(series){
   const stage=document.getElementById('ss-stage');stage.innerHTML='';
-  const font=series.font||'MDIEcole';
+  const casse=SS.casse||'script';
+  const font=casse==='script'?'MDIEcole':casse==='cursive'?'Cursive Dumont maternelle':(series.font||'MDIEcole');
   const folder=appData.settings?.imagesFolder||'images/';
   // Title
   const decos=series.decos||[];
@@ -1038,8 +1072,8 @@ function buildSS(series){
   stage.appendChild(sEl);
   // Words
   series.words.forEach((w,wi)=>{
-    stage.appendChild(buildSlideA(w,wi,series.name,font,folder,wave,shDecos));
-    stage.appendChild(buildSlideB(w,wi,series.name,font,wave,shDecos));
+    stage.appendChild(buildSlideA(w,wi,series.name,font,folder,wave,shDecos,casse));
+    stage.appendChild(buildSlideB(w,wi,series.name,font,wave,shDecos,casse));
   });
   SS.slides=[{el:tEl,type:'title'},{el:sEl,type:'som'}];
   series.words.forEach((w,wi)=>{
@@ -1049,7 +1083,7 @@ function buildSS(series){
 }
 function mkEl(tag,cls){const e=document.createElement(tag);e.className=cls;return e;}
 
-function buildSlideA(word,wi,seriesName,font,folder,wave,shDecos){
+function buildSlideA(word,wi,seriesName,font,folder,wave,shDecos,casse){
   const ph=word.phonetics||[];
   // Déterminer le "dernier mot" : la partie après le dernier espace ou apostrophe
   const rawWord=word.word||'';
@@ -1085,7 +1119,8 @@ function buildSlideA(word,wi,seriesName,font,folder,wave,shDecos){
     g.letters.split('').forEach((letter,li)=>{
       const col=(g.lc&&g.lc[li])||'#222222';
       const notLast=li<g.letters.length-1;
-      rowH+=`<div class="ls"><div class="lc" id="lc-${wi}-${gi}-${li}" style="color:${col};font-family:'${font}',MDIEcole,Calibri,sans-serif">${letter}</div><div class="lb" style="background:${col}"></div></div>`;
+      const dispLetter=casse==='upper'?letter.toUpperCase():letter.toLowerCase();
+      rowH+=`<div class="ls"><div class="lc" id="lc-${wi}-${gi}-${li}" style="color:${col};font-family:'${font}',MDIEcole,Calibri,sans-serif">${dispLetter}</div><div class="lb" style="background:${col}"></div></div>`;
       if(notLast&&g.linked!==false)rowH+=`<div class="dw" style="margin-bottom:2px"><div class="ld" style="background:#222222"></div></div>`;
     });
     rowH+=`<img class="si" id="si-${wi}-${gi}" src="${folder}${g.img}" alt="${g.sound}" onerror="this.style.visibility='hidden'">`;
@@ -1102,14 +1137,14 @@ function buildSlideA(word,wi,seriesName,font,folder,wave,shDecos){
     </div>${wave||''}`;
   return el;
 }
-function buildSlideB(word,wi,seriesName,font,wave,shDecos){
+function buildSlideB(word,wi,seriesName,font,wave,shDecos,casse){
   const el=mkEl('div','slide');el.id='sb-'+wi;
   el.innerHTML=`<div class="sh" style="position:relative"><span>${word.theme||seriesName}</span>${shDecos||''}<span>${word.num}/${word.total}</span></div>
     <div class="sbb">
       <div class="wa">
         <div class="wcv">${word.word.toLowerCase()}</div>
         <div class="wr">
-          <div class="wca" style="font-family:'${font}',MDIEcole,Calibri,sans-serif">${word.word.toUpperCase()}</div>
+          <div class="wca" style="font-family:'${font}',MDIEcole,Calibri,sans-serif">${casse==='upper'?word.word.toUpperCase():word.word.toLowerCase()}</div>
           <div class="wsc" style="font-family:'${font}',MDIEcole,Calibri,sans-serif">${word.word.toLowerCase()}</div>
         </div>
         ${word.image?`<img class="wib" src="${word.image}" alt="${word.word}" onerror="this.style.display='none'">` :''}
