@@ -161,19 +161,25 @@ body{font-family:var(--fn);background:#e8e4d8;min-height:100vh;}
 .cb{width:30px;height:30px;border:2px solid #aaa;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
 .cb.ok{background:#4CAF50;border-color:#4CAF50;color:#fff;}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 <nav id="nav">
   <h1>📖 Apprentilangue</h1>
   <button class="nb active" onclick="goPage('home')">📚 Séries</button>
   <button class="nb" onclick="goPage('settings')">⚙️ Paramètres</button>
+  <button class="nb" onclick="openExportModal()" title="Exporter / Partager">⬇️ Export</button>
+  <button class="nb" onclick="openImportModal()" title="Importer séries ou mots">⬆️ Import</button>
 </nav>
 <div id="app">
 
 <div id="pg-home" class="pg on">
   <h2>Mes séries de vocabulaire</h2>
   <div class="sg" id="series-grid"></div>
-  <button class="btn" type="button" onclick="openNewSeriesModal()">+ Nouvelle série</button>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+    <button class="btn" type="button" onclick="openNewSeriesModal()">+ Nouvelle série</button>
+    <a class="btn" style="text-decoration:none;padding:8px 16px" href="modele_import.xlsx" download>📥 Modèle Excel</a>
+  </div>
 </div>
 
 <div id="pg-editor" class="pg">
@@ -313,6 +319,101 @@ body{font-family:var(--fn);background:#e8e4d8;min-height:100vh;}
 </div>
 
 <div class="toast" id="toast"></div>
+
+<!-- MODAL: EXPORT -->
+<div class="mo" id="m-export">
+  <div class="mb" style="max-width:500px">
+    <h3>⬇️ Exporter</h3>
+
+    <div style="background:#f8f5f0;border-radius:8px;padding:14px;margin-bottom:14px;border:1px solid #e0d5c5">
+      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:6px">💾 Sauvegarde locale</div>
+      <p style="font-size:12px;color:#888;margin-bottom:10px">Toutes mes séries dans un fichier .json — pour sauvegarder ou transférer sur un autre ordinateur.</p>
+      <button class="btn" type="button" onclick="exportAllSeries()">⬇️ Télécharger la sauvegarde complète</button>
+    </div>
+
+    <div style="background:#f0f5ff;border-radius:8px;padding:14px;border:1px solid #c5d5e8">
+      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:6px">📤 Partager sur GitHub</div>
+      <p style="font-size:12px;color:#555;margin-bottom:4px">Génère le fichier <code style="background:#e8e0d4;padding:1px 5px;border-radius:3px">series_partagees.json</code> à déposer dans votre dépôt GitHub.</p>
+      <p style="font-size:12px;color:#555;margin-bottom:10px">Toutes vos collègues verront vos séries automatiquement à l'ouverture du site.</p>
+      <div style="background:#fff8e8;border-radius:6px;padding:8px 10px;font-size:11px;color:#8b7355;margin-bottom:10px;border:1px solid #e8d8a0">
+        <strong>Étapes :</strong><br>
+        1. Cliquez sur le bouton ci-dessous<br>
+        2. Le fichier <code>series_partagees.json</code> se télécharge<br>
+        3. Dans GitHub, faites glisser ce fichier dans votre dépôt<br>
+        4. Vos collègues verront vos séries dès le rechargement du site
+      </div>
+      <button class="btn" type="button" onclick="exportForGitHub()">📤 Générer series_partagees.json</button>
+    </div>
+
+    <div class="mf">
+      <button class="bo" type="button" onclick="closeModal('m-export')">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: IMPORT -->
+<div class="mo" id="m-import">
+  <div class="mb" style="max-width:560px">
+    <h3>⬆️ Importer</h3>
+
+    <!-- Section 1 : Import séries JSON -->
+    <div style="background:#f8f5f0;border-radius:8px;padding:14px;margin-bottom:16px;border:1px solid #e0d5c5">
+      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:8px">📦 Importer des séries sauvegardées (.json)</div>
+      <p style="font-size:12px;color:#888;margin-bottom:10px">Fichier exporté depuis Apprentilangue (format .json)</p>
+      <label style="display:inline-block;background:#8b7355;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
+        Choisir un fichier JSON
+        <input type="file" id="imp-json" accept=".json" style="display:none" onchange="importJSON(this)">
+      </label>
+      <span id="imp-json-status" style="font-size:12px;color:#888;margin-left:10px"></span>
+    </div>
+
+    <!-- Section 2 : Import Excel -->
+    <div style="background:#f8f5f0;border-radius:8px;padding:14px;border:1px solid #e0d5c5">
+      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:8px">📊 Importer une liste de mots (.xlsx)</div>
+      <p style="font-size:12px;color:#888;margin-bottom:10px">Utilisez le modèle Excel disponible sur la page d'accueil.</p>
+      <div class="fg" style="margin-bottom:10px">
+        <label>Nom de la nouvelle série</label>
+        <input type="text" id="imp-xl-name" placeholder="ex: LES ÉMOTIONS" oninput="updatePathPreview()" style="font-weight:700;text-transform:uppercase">
+      </div>
+      <div class="fg" style="margin-bottom:10px">
+        <label>Numéro du dossier images <span style="font-weight:400;color:#aaa">(ex: 05 pour images/05-Émotions/)</span></label>
+        <input type="text" id="imp-xl-dossier" placeholder="ex: 05" oninput="updatePathPreview()" style="width:80px">
+        <div style="font-size:11px;color:#aaa;margin-top:3px">
+          Génère automatiquement : <code id="imp-xl-path-preview" style="background:#f0ece5;padding:1px 5px;border-radius:3px">images/05-NomSérie/1-mot.jpg</code>
+        </div>
+      </div>
+      <div class="fg" style="margin-bottom:10px">
+        <label>Couleur de la série</label>
+        <input type="color" id="imp-xl-color" value="#8b7355">
+      </div>
+      <div class="fg" style="margin-bottom:10px">
+        <label>Police</label>
+        <select id="imp-xl-font">
+          <option value="MDIEcole">MDI École</option>
+          <option value="Calibri">Calibri</option>
+          <option value="Arial">Arial</option>
+          <option value="Times New Roman">Times New Roman</option>
+        </select>
+      </div>
+      <div class="fg" style="margin-bottom:10px">
+        <label>Méthode</label>
+        <div class="mt">
+          <button class="mtb on" type="button" id="imp-xl-eo" onclick="setImpM('eo')">📗 Enthousiasme</button>
+          <button class="mtb" type="button" id="imp-xl-bm" onclick="setImpM('bm')">📘 Borel-Maisonny</button>
+        </div>
+      </div>
+      <label style="display:inline-block;background:#8b7355;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
+        Choisir un fichier Excel
+        <input type="file" id="imp-xl" accept=".xlsx,.xls" style="display:none" onchange="importExcel(this)">
+      </label>
+      <span id="imp-xl-status" style="font-size:12px;color:#888;margin-left:10px"></span>
+    </div>
+
+    <div class="mf">
+      <button class="bo" type="button" onclick="closeModal('m-import')">Fermer</button>
+    </div>
+  </div>
+</div>
 
 <script>
 // ================================================================
@@ -459,6 +560,9 @@ function syllabify(word){
 let AD={eo:JSON.parse(JSON.stringify(EO0)),bm:JSON.parse(JSON.stringify(BM0))};
 let appData={series:[],settings:{colorPrimary:'#8b7355',colorPrimaryLight:'#f2ead8',colorPrimaryDark:'#5c4a2a',imagesFolder:'images/'}};
 let curSeries=null,editIdx=null,curPh=[],curSylls=null,nsMethod='eo',esMethod='eo';
+// Séries partagées chargées depuis GitHub (lecture seule)
+let sharedSeries=[];
+let sharedLoaded=false;
 
 function loadData(){
   try{
@@ -471,8 +575,28 @@ function loadData(){
     }
   }catch(e){}
   if(!appData.series||!appData.series.length) appData.series=[makeDemo()];
-  // Toujours garder la série démo disponible
   if(!appData.series.find(s=>s.id==='demo')) appData.series.unshift(makeDemo());
+}
+
+// Charge les séries partagées depuis series_partagees.json dans le dépôt
+function loadSharedSeries(callback){
+  if(sharedLoaded){if(callback)callback();return;}
+  fetch('series_partagees.json?t='+Date.now())
+    .then(function(r){
+      if(!r.ok)throw new Error('Fichier absent');
+      return r.json();
+    })
+    .then(function(data){
+      sharedSeries=(data.series||[]).map(function(s){
+        return Object.assign({},s,{_shared:true});
+      });
+      sharedLoaded=true;
+      if(callback)callback();
+    })
+    .catch(function(){
+      sharedSeries=[];sharedLoaded=true;
+      if(callback)callback();
+    });
 }
 function saveData(){
   const save={...appData,dictEO:AD.eo,dictBM:AD.bm};
@@ -511,29 +635,74 @@ function closeModal(id){document.getElementById(id).classList.remove('on');}
 // ================================================================
 function renderHome(){
   const g=document.getElementById('series-grid');g.innerHTML='';
+
+  // ── Séries partagées (lecture seule) ──────────────────────────
+  if(sharedSeries.length){
+    const sh=document.createElement('div');
+    sh.style.cssText='grid-column:1/-1;font-size:13px;font-weight:700;color:var(--cpd);'+
+      'padding:4px 0 8px;border-bottom:2px solid var(--cpl);margin-bottom:4px;';
+    sh.innerHTML='📌 Séries partagées';
+    g.appendChild(sh);
+    sharedSeries.forEach(function(s){
+      g.appendChild(makeSeriesCard(s,true));
+    });
+    const sep=document.createElement('div');
+    sep.style.cssText='grid-column:1/-1;font-size:13px;font-weight:700;color:var(--cpd);'+
+      'padding:12px 0 8px;border-bottom:2px solid var(--cpl);margin-bottom:4px;margin-top:8px;';
+    sep.innerHTML='📁 Mes séries';
+    g.appendChild(sep);
+  }
+
+  // ── Mes séries (locales) ──────────────────────────────────────
   (appData.series||[]).forEach(function(s){
-    const d=document.createElement('div');
-    d.className='sc';
-    d.style.borderLeftColor=s.color||'#8b7355';
-    // Title
-    const h3=document.createElement('h3');
-    h3.textContent=s.name;
-    const badge=document.createElement('span');
-    badge.className='mbg '+(s.method==='bm'?'bbm':'beo');
-    badge.textContent=s.method==='bm'?'📘 BM':'📗 EO';
-    h3.appendChild(badge);
-    // Meta
-    const p=document.createElement('p');
-    p.textContent=((s.words||[]).length)+' mot(s) · '+(s.font||'MDI École');
-    // Buttons
-    const btns=document.createElement('div');btns.className='scb';
+    g.appendChild(makeSeriesCard(s,false));
+  });
+}
+
+function makeSeriesCard(s,isShared){
+  const d=document.createElement('div');
+  d.className='sc';
+  d.style.borderLeftColor=s.color||'#8b7355';
+  if(isShared)d.style.background='#faf8f4';
+
+  const h3=document.createElement('h3');
+  h3.textContent=s.name;
+  const badge=document.createElement('span');
+  badge.className='mbg '+(s.method==='bm'?'bbm':'beo');
+  badge.textContent=s.method==='bm'?'📘 BM':'📗 EO';
+  h3.appendChild(badge);
+  if(isShared){
+    const sb=document.createElement('span');
+    sb.style.cssText='font-size:9px;background:#e8e0d4;color:#8b7355;border-radius:4px;padding:2px 5px;margin-left:5px;font-weight:600;';
+    sb.textContent='PARTAGÉE';h3.appendChild(sb);
+  }
+
+  const p=document.createElement('p');
+  p.textContent=((s.words||[]).length)+' mot(s) · '+(s.font||'MDI École');
+
+  const btns=document.createElement('div');btns.className='scb';
+
+  if(!isShared){
     const bEdit=document.createElement('button');
     bEdit.className='btn bsm';bEdit.type='button';bEdit.textContent='✏️ Éditer';
     bEdit.onclick=function(){openEditor(s.id);};
-    const bPlay=document.createElement('button');
-    bPlay.className='btn bsm bor';bPlay.type='button';bPlay.textContent='▶ Jouer';
-    bPlay.onclick=function(){startSS(s.id);};
-    btns.appendChild(bEdit);btns.appendChild(bPlay);
+    btns.appendChild(bEdit);
+  }
+
+  const bPlay=document.createElement('button');
+  bPlay.className='btn bsm bor';bPlay.type='button';bPlay.textContent='▶ Jouer';
+  bPlay.onclick=function(){
+    if(isShared){startSS(s.id,s);}else{startSS(s.id);}
+  };
+  btns.appendChild(bPlay);
+
+  const bExp=document.createElement('button');
+  bExp.className='bo bsm';bExp.type='button';bExp.textContent='⬇️';
+  bExp.title=isShared?'Télécharger cette série':'Exporter cette série';
+  bExp.onclick=function(e){e.stopPropagation();exportSeriesObj(s);};
+  btns.appendChild(bExp);
+
+  if(!isShared){
     if(s.id==='demo'){
       const lbl=document.createElement('span');
       lbl.style.cssText='font-size:10px;color:#aaa;padding:4px 6px';
@@ -544,9 +713,10 @@ function renderHome(){
       bDel.onclick=function(e){delSeries(s.id,e);};
       btns.appendChild(bDel);
     }
-    d.appendChild(h3);d.appendChild(p);d.appendChild(btns);
-    g.appendChild(d);
-  });
+  }
+
+  d.appendChild(h3);d.appendChild(p);d.appendChild(btns);
+  return d;
 }
 function openNewSeriesModal(){nsMethod='eo';setNsM('eo');document.getElementById('ns-name').value='';openModal('m-newseries');}
 function setNsM(m){nsMethod=m;document.getElementById('ns-eo').classList.toggle('on',m==='eo');document.getElementById('ns-bm').classList.toggle('on',m==='bm');}
@@ -754,8 +924,12 @@ function resetDicts(){if(!confirm('Réinitialiser les dictionnaires ?'))return;A
 // ================================================================
 let SS={series:null,slides:[],idx:0,step:0};
 
-function startSS(id){
-  curSeries=appData.series.find(s=>s.id===id);
+function startSS(id,seriesObj){
+  if(seriesObj){
+    curSeries=seriesObj; // série partagée passée directement
+  }else{
+    curSeries=appData.series.find(s=>s.id===id);
+  }
   if(!curSeries||!curSeries.words||!curSeries.words.length){toast('Aucun mot dans cette série');return;}
   launchSS();
 }
@@ -976,12 +1150,368 @@ function restoreAppColors(){
   applyColors(st.colorPrimary||'#8b7355',st.colorPrimaryDark||'#5c4a2a',st.colorPrimaryLight||'#f2ead8');
 }
 // ================================================================
+// EXPORT / IMPORT
+// ================================================================
+let impXlMethod='eo';
+function setImpM(m){impXlMethod=m;document.getElementById('imp-xl-eo').classList.toggle('on',m==='eo');document.getElementById('imp-xl-bm').classList.toggle('on',m==='bm');}
+function openImportModal(){openModal('m-import');updatePathPreview();}
+
+// Génère le chemin image selon la convention : images/05-NomSérie/1-mot.jpg
+function buildImgPath(num, mot, sName){
+  var dos=document.getElementById('imp-xl-dossier');
+  var dosVal=dos?dos.value.trim():'';
+  if(!dosVal)return ''; // pas de dossier renseigné → chemin vide
+  // Nettoyer le nom de série pour le dossier : "LES ÉMOTIONS" → "Émotions"
+  // On prend le dernier mot (après LES / LA / LE / L')
+  var parts=sName.trim().split(/\s+/);
+  var folderName=parts[parts.length-1]; // ex: ÉMOTIONS
+  // Capitaliser : ÉMOTIONS → Émotions
+  folderName=folderName.charAt(0).toUpperCase()+folderName.slice(1).toLowerCase();
+  // Accents conservés, espaces remplacés par -
+  folderName=folderName.replace(/\s+/g,'-');
+  // Nom de fichier : numéro + tiret + mot en minuscules sans accents pour la recherche
+  // mais on garde les accents car vos fichiers les ont (ex: 1-amoureux.jpg)
+  var motLow=mot.toLowerCase();
+  return 'images/'+dosVal+'-'+folderName+'/'+num+'-'+motLow+'.jpg';
+}
+
+// Aperçu live dans le modal
+function updatePathPreview(){
+  var prev=document.getElementById('imp-xl-path-preview');
+  if(!prev)return;
+  var name=(document.getElementById('imp-xl-name')||{}).value||'LES ÉMOTIONS';
+  var dos=(document.getElementById('imp-xl-dossier')||{}).value||'05';
+  if(!dos){prev.textContent='(entrez un numéro de dossier)';return;}
+  // Simuler buildImgPath avec valeurs fictives
+  var parts=name.trim().toUpperCase().split(/\s+/);
+  var fn=parts[parts.length-1]||'Série';
+  fn=fn.charAt(0).toUpperCase()+fn.slice(1).toLowerCase();
+  prev.textContent='images/'+dos+'-'+fn+'/1-mot.jpg';
+}
+function openExportModal(){openModal('m-export');}
+
+// ── EXPORT ALL SERIES → JSON (sauvegarde locale) ──────────────
+function exportAllSeries(){
+  const data={version:'al_v7',exported:new Date().toISOString(),series:appData.series,dictEO:AD.eo,dictBM:AD.bm};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='apprentilangue_sauvegarde_'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();URL.revokeObjectURL(a.href);
+  toast('Sauvegarde téléchargée ✓');
+}
+
+// ── EXPORT POUR GITHUB (génère series_partagees.json) ──────────
+function exportForGitHub(){
+  // Exporte toutes mes séries (sauf démo) au format à déposer sur GitHub
+  const series=appData.series.filter(function(s){return s.id!=='demo';});
+  if(!series.length){toast('Aucune série à partager');return;}
+  const data={
+    version:'al_v7',
+    updated:new Date().toISOString(),
+    description:'Séries partagées Apprentilangue — déposer ce fichier dans le dépôt GitHub',
+    series:series
+  };
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='series_partagees.json';
+  a.click();URL.revokeObjectURL(a.href);
+  toast('Fichier GitHub prêt — déposez series_partagees.json dans votre dépôt ✓');
+}
+
+// ── EXPORT ONE SERIES → JSON ──────────────────────────────────
+function exportSeries(id){
+  const s=appData.series.find(x=>x.id===id);if(!s)return;
+  exportSeriesObj(s);
+}
+function exportSeriesObj(s){
+  const data={version:'al_v7',exported:new Date().toISOString(),series:[s]};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='serie_'+s.name.toLowerCase().replace(/[\s']/g,'_')+'.json';
+  a.click();URL.revokeObjectURL(a.href);
+  toast('Série exportée ✓');
+}
+
+// ── IMPORT JSON ───────────────────────────────────────────────
+function importJSON(input){
+  const file=input.files[0];if(!file)return;
+  const st=document.getElementById('imp-json-status');
+  st.textContent='Lecture...';
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const data=JSON.parse(e.target.result);
+      const series=data.series||[];
+      if(!series.length){st.textContent='❌ Aucune série trouvée';return;}
+      let added=0,updated=0;
+      series.forEach(function(s){
+        if(s.id==='demo')return; // ne pas écraser la démo
+        const existing=appData.series.findIndex(x=>x.id===s.id);
+        if(existing>-1){appData.series[existing]=s;updated++;}
+        else{appData.series.push(s);added++;}
+      });
+      // Merge dicts if present
+      if(data.dictEO)AD.eo=Object.assign(JSON.parse(JSON.stringify(EO0)),data.dictEO);
+      if(data.dictBM)AD.bm=Object.assign(JSON.parse(JSON.stringify(BM0)),data.dictBM);
+      saveData();renderHome();
+      st.textContent='✅ '+added+' ajoutée(s), '+updated+' mise(s) à jour';
+      input.value='';
+    }catch(err){st.textContent='❌ Fichier invalide: '+err.message;}
+  };
+  reader.readAsText(file);
+}
+
+// ── IMPORT EXCEL → NOUVELLE SÉRIE ────────────────────────────
+function importExcel(input){
+  const file=input.files[0];if(!file)return;
+  const st=document.getElementById('imp-xl-status');
+  const sName=document.getElementById('imp-xl-name').value.trim().toUpperCase();
+  if(!sName){st.textContent='❌ Entrez un nom de série';input.value='';return;}
+  st.textContent='Lecture...';
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      if(typeof XLSX==='undefined'){st.textContent='❌ SheetJS non chargé (vérifiez votre connexion)';return;}
+      const wb=XLSX.read(new Uint8Array(e.target.result),{type:'array'});
+      const ws=wb.Sheets[wb.SheetNames[0]];
+      const rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
+      // Find first data row (skip title/header/instruction/example rows)
+      // Data rows: col A is a number, col B is non-empty text
+      const words=[];
+      for(let ri=0;ri<rows.length;ri++){
+        const row=rows[ri];
+        const num=parseInt(row[0]);
+        const mot=String(row[1]||'').trim().toUpperCase();
+        if(isNaN(num)||num<1||!mot)continue;
+        const theme=String(row[2]||sName).trim().toUpperCase()||sName;
+        const def=String(row[3]||'').trim().replace(/\\n/g,'\n');
+        const gender=String(row[4]||'masc').trim().toLowerCase()||'masc';
+        const nature=String(row[5]||'nom').trim().toLowerCase()||'nom';
+        const segRaw=String(row[6]||'').trim();
+        const lienRaw=String(row[7]||'').trim();
+        const colRaw=String(row[8]||'').trim();
+        const imgRaw=String(row[9]||'').trim();
+        const total=parseInt(row[10])||32;
+        // Générer chemin auto si colonne vide : images/05-NomSérie/1-mot.jpg
+        const img=imgRaw||buildImgPath(num,mot,sName);
+        // Parse phonetics from segmentation + liaisons + couleurs
+        const ph=parsePhonetics(mot,segRaw,lienRaw,colRaw,impXlMethod);
+        // Parse syllables from segmentation (use | as syllable sep if no phonetic grouping)
+        const sylls=parseSylls(mot,segRaw);
+        words.push({word:mot,theme,num,total,definition:def,gender,nature,image:img,phonetics:ph,syllables:sylls});
+      }
+      if(!words.length){st.textContent='❌ Aucun mot trouvé (vérifiez le format)';input.value='';return;}
+      // Create series
+      const id='s'+Date.now();
+      const newSeries={
+        id,name:sName,
+        color:document.getElementById('imp-xl-color').value,
+        font:document.getElementById('imp-xl-font').value,
+        method:impXlMethod,decos:[],words
+      };
+      appData.series.push(newSeries);
+      saveData();renderHome();closeModal('m-import');
+      curSeries=newSeries;openEditor(id);
+      st.textContent='✅ '+words.length+' mot(s) importé(s)';
+      input.value='';
+    }catch(err){st.textContent='❌ Erreur: '+err.message;console.error(err);}
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+// ── PALETTE NOMS → HEX ───────────────────────────────────────
+var COLOR_NAMES={
+  'noir':'#222222','black':'#222222',
+  'rouge':'#e8002a','red':'#e8002a',
+  'bleu clair':'#82c4e0','bleu':'#82c4e0','blue':'#82c4e0','cyan':'#82c4e0',
+  'gris':'#aaaaaa','grey':'#aaaaaa','gray':'#aaaaaa',
+  'vert':'#3aaa5a','green':'#3aaa5a'
+};
+function resolveColor(s){
+  s=(s||'').trim().toLowerCase();
+  if(!s)return'#222222';
+  if(COLOR_NAMES[s])return COLOR_NAMES[s];
+  // accept hex with or without #
+  if(/^#?[0-9a-f]{3,6}$/i.test(s))return s.startsWith('#')?s:'#'+s;
+  return'#222222';
+}
+
+// ── PARSE SYLLABES (colonne Segmentation) ───────────────────
+// Sert uniquement à l'affichage visuel des syllabes (séparation par tiret).
+// N'affecte PAS les groupes phonétiques (déduits automatiquement).
+function parseSyllsFromRaw(mot,segRaw){
+  if(!segRaw||!segRaw.trim())return syllabify(mot);
+  var sep=segRaw.indexOf('|')>-1?'|':'-';
+  var parts=segRaw.split(sep).map(function(g){return g.trim();}).filter(Boolean);
+  // Vérifier que ça reconstruit bien le mot
+  if(parts.join('').toUpperCase()===mot.toUpperCase())return parts;
+  return syllabify(mot);
+}
+
+// ── PARSE LIAISONS ────────────────────────────────────────────
+// Format : "ou;eu"  → les GROUPES PHONÉTIQUES nommés seront liés.
+// Les groupes phonétiques sont ceux produits par analyzeWord (ex: ou, eu, on…).
+// Quand lienRaw est vide : comportement par défaut du dictionnaire.
+// Quand lienRaw est fourni : SEULS les groupes listés sont liés.
+// "on;on" lie la 1ère ET la 2ème occurrence du groupe ON.
+function applyLiens(phonGroups, lienRaw){
+  if(!lienRaw||!lienRaw.trim()){
+    // Défaut : lié si le groupe a >1 lettre ET est dans le dictionnaire comme digraphe
+    return phonGroups.map(function(g){return g.linked;});
+  }
+  // Construire la liste des demandes avec comptage d'occurrences
+  var demandes=lienRaw.split(';').map(function(x){return x.trim().toUpperCase();}).filter(Boolean);
+  var demOcc={};
+  demandes.forEach(function(d){
+    if(!demOcc[d])demOcc[d]=0;
+    demOcc[d]++;
+  });
+  // Convertir en liste d'occurrences à lier : {OU:[0], ON:[0,1], EU:[0]}
+  var demTarget={};
+  demandes.forEach(function(d){
+    if(!demTarget[d])demTarget[d]=[];
+    demTarget[d].push(demTarget[d].length);
+  });
+  // Parcourir les groupes phonétiques réels et cocher ceux demandés
+  var occFound={};
+  return phonGroups.map(function(g){
+    var key=g.letters.toUpperCase();
+    if(!occFound[key])occFound[key]=0;
+    var occ=occFound[key];
+    occFound[key]++;
+    if(demTarget[key]&&demTarget[key].indexOf(occ)>-1)return true;
+    return false;
+  });
+}
+
+// ── PARSE COULEURS ────────────────────────────────────────────
+// Format : "u=bleu clair;m=bleu clair"
+// Toutes les lettres sont noires par défaut.
+// On précise seulement celles qui changent : lettre=couleur séparés par ;
+// Gère les groupes phonétiques : "ou=rouge" colorie les 2 lettres du groupe OU.
+// Gère les occurrences : "a=rouge;a=bleu" → 1er A rouge, 2e A bleu.
+function applyCouleurs(mot, phonGroups, colRaw){
+  // Tableau plat de couleurs : une couleur par position de lettre dans le mot
+  var allLetters=mot.toUpperCase();
+  var flatColors=allLetters.split('').map(function(){return'#222222';});
+
+  if(colRaw&&colRaw.trim()){
+    var items=colRaw.split(';').map(function(x){return x.trim();}).filter(Boolean);
+    // Construire map : "U:0"->hex, "M:0"->hex, "OU:0"->hex ...
+    var colorMap={};
+    var occDemand={};
+    items.forEach(function(item){
+      var eq=item.indexOf('=');
+      if(eq<0)return;
+      var letPart=item.slice(0,eq).trim().toUpperCase();
+      var colPart=item.slice(eq+1).trim();
+      var hex=resolveColor(colPart);
+      if(!occDemand[letPart])occDemand[letPart]=0;
+      colorMap[letPart+':'+occDemand[letPart]]=hex;
+      occDemand[letPart]++;
+    });
+    // Appliquer au niveau des GROUPES PHONÉTIQUES (pour gérer "ou=rouge" → 2 lettres)
+    var occGroup={};
+    var pos=0;
+    phonGroups.forEach(function(g){
+      var key=g.letters.toUpperCase();
+      if(!occGroup[key])occGroup[key]=0;
+      var occ=occGroup[key];
+      var groupHex=colorMap[key+':'+occ]||null;
+      for(var li=0;li<g.letters.length;li++){
+        if(groupHex){
+          flatColors[pos]=groupHex; // couleur du groupe entier
+        } else {
+          // Chercher couleur lettre individuelle
+          var ch=g.letters[li].toUpperCase();
+          if(!occGroup[ch])occGroup[ch]=0;
+          var chOcc=occGroup[ch];
+          var chHex=colorMap[ch+':'+chOcc]||null;
+          if(chHex)flatColors[pos]=chHex;
+          occGroup[ch]++;
+        }
+        pos++;
+      }
+      occGroup[key]++;
+    });
+  }
+
+  // Répartir les couleurs par groupe phonétique
+  var pos2=0;
+  return phonGroups.map(function(g){
+    var lc=[];
+    for(var i=0;i<g.letters.length;i++){lc.push(flatColors[pos2]||'#222222');pos2++;}
+    return lc;
+  });
+}
+
+// ── PARSE PHONETICS FROM EXCEL COLUMNS ───────────────────────
+// Stratégie en deux étapes :
+//   1. Segmentation → découpe le mot en syllabes (ex: "a-mou-reux" → [a][mou][reux])
+//   2. analyzeWord appliqué à CHAQUE syllabe séparément
+//      → "a"   donne [A]
+//      → "mou" donne [M][OU]   (OU est lié car digraphe du dict)
+//      → "reux" donne [R][EU][X]  (EU est lié)
+//   3. Liaisons → écraser linked sur les groupes phonétiques résultants
+//   4. Couleurs → écraser lc sur les groupes phonétiques résultants
+function parsePhonetics(mot,segRaw,lienRaw,colRaw,method){
+  var phonGroups;
+
+  if(segRaw&&segRaw.trim()){
+    // Étape 1 : découper en syllabes selon la segmentation
+    var sep=segRaw.indexOf('|')>-1?'|':'-';
+    var sylls=segRaw.split(sep).map(function(g){return g.trim();}).filter(Boolean);
+    // Vérifier cohérence avec le mot
+    if(sylls.join('').toUpperCase()!==mot.toUpperCase()){
+      // Segmentation incohérente → fallback auto
+      phonGroups=analyzeWord(mot,method);
+    } else {
+      // Étape 2 : analyzeWord sur chaque syllabe → aplatir les résultats
+      phonGroups=[];
+      sylls.forEach(function(syll){
+        var subGroups=analyzeWord(syll,method);
+        subGroups.forEach(function(g){phonGroups.push(g);});
+      });
+    }
+  } else {
+    // Pas de segmentation → découpage auto sur le mot entier
+    phonGroups=analyzeWord(mot,method);
+  }
+
+  // Étape 3 : appliquer les liaisons demandées
+  if(lienRaw&&lienRaw.trim()){
+    var linked=applyLiens(phonGroups,lienRaw);
+    phonGroups=phonGroups.map(function(g,i){
+      return Object.assign({},g,{linked:linked[i]});
+    });
+  }
+
+  // Étape 4 : appliquer les couleurs demandées
+  if(colRaw&&colRaw.trim()){
+    var groupColors=applyCouleurs(mot,phonGroups,colRaw);
+    phonGroups=phonGroups.map(function(g,i){
+      return Object.assign({},g,{lc:groupColors[i]});
+    });
+  }
+
+  return phonGroups;
+}
+
+// ── PARSE SYLLABLES FROM SEGMENTATION ────────────────────────
+function parseSylls(mot,segRaw){
+  return parseSyllsFromRaw(mot,segRaw);
+}
+
+// ================================================================
 // INIT
 // ================================================================
 loadData();
-// Appliquer les couleurs sauvegardées (ou beige par défaut)
 restoreAppColors();
-renderHome();
+// Charger les séries partagées depuis GitHub, puis afficher
+loadSharedSeries(function(){renderHome();});
 </script>
 </body>
 </html>

@@ -1,56 +1,69 @@
-# Apprentilangue — Guide d'installation
+# 📖 Apprentilangue
 
-## ⚠️ Comment ouvrir l'application
+Outil pédagogique pour l'enseignement du vocabulaire avec analyse phonétique (méthodes Enthousiasme Orthographique et Borel-Maisonny).
 
-**Ne pas ouvrir index.html directement dans Chrome/Edge** — les images ne s'afficheront pas.
+## 🚀 Utilisation
 
-### ✅ Windows : double-cliquer sur LANCER.bat
-### ✅ Mac : double-cliquer sur LANCER.sh  
-### ✅ Firefox : fonctionne directement avec index.html
-### ✅ VS Code : extension "Live Server" → Go Live
+### Lancer le site en local
+**Windows** : double-cliquer sur `LANCER.bat`  
+**Mac/Linux** : double-cliquer sur `LANCER.sh`  
+(Ne pas ouvrir `index.html` directement dans Chrome — utilisez Firefox ou un serveur HTTP)
+
+### Lancer depuis GitHub Pages
+Le site est accessible directement à l'adresse de votre GitHub Pages.
 
 ---
 
-## Structure des fichiers
+## 📤 Partager des séries avec vos collègues
+
+Le fichier `series_partagees.json` contient les séries visibles par toutes les utilisatrices du site.
+
+### Pour publier vos séries :
+1. Créez et éditez vos séries dans le site
+2. Cliquez sur **⬇️ Export** → **📤 Générer series_partagees.json**
+3. Téléversez le fichier `series_partagees.json` dans ce dépôt GitHub
+4. Vos collègues voient vos séries automatiquement au prochain chargement
+
+### Ce que voient vos collègues :
+- ✅ Les séries partagées (lecture seule, avec le badge **PARTAGÉE**)
+- ✅ Leurs propres séries créées localement
+- ❌ Les séries locales des autres (stockées sur leur propre machine)
+
+---
+
+## 📥 Importer une liste de mots (Excel)
+
+Téléchargez le modèle depuis le site (bouton **📥 Modèle Excel** sur l'accueil).
+
+| Colonne | Contenu | Format |
+|---------|---------|--------|
+| A | N° du mot | Entier (1, 2, 3…) |
+| B | MOT | MAJUSCULES |
+| C | Thème | ex: LE JARDIN |
+| D | Définition | Texte (Alt+Entrée = retour ligne) |
+| E | Genre | masc / fem / both / none |
+| F | Nature | nom / verbe / adjectif / autre |
+| G | Segmentation | tirets : `sé-ca-teur` |
+| H | Liaisons | digraphes liés séparés par `;` : `on;on` |
+| I | Couleurs | `lettre=couleur` séparés par `;` : `u=bleu clair;m=bleu clair` |
+| J | Image | chemin relatif : `images/jardin.png` |
+| K | Total série | Entier (ex: 8) |
+
+---
+
+## 🗂️ Structure des dossiers
 
 ```
 apprentilangue/
-├── index.html
-├── cursive.otf
-├── MDIecole-Regular.otf
-├── MDIecole-Bold.otf
-├── LANCER.bat
-├── LANCER.sh
-│
+├── index.html              ← Application principale
+├── series_partagees.json   ← Séries visibles par tous (à mettre à jour sur GitHub)
+├── modele_import.xlsx      ← Modèle Excel pour importer des mots
+├── cursive.otf             ← Police cursive
+├── MDIecole-Regular.otf    ← Police MDI École
 ├── images/
-│   ├── eo/          ← Images des sons Enthousiasme Orthographique
-│   │   ├── a-avion.png
-│   │   ├── an-ange.png
-│   │   ├── ch-chat.png
-│   │   ├── é-étoile.png
-│   │   └── ...
-│   │
-│   ├── borel/       ← Gestes Borel-Maisonny
-│   │   ├── a.png
-│   │   ├── an.png
-│   │   └── ...
-│   │
-│   └── jardin.png   ← Images des mots (dans images/ directement)
+│   ├── eo/                 ← Images sons (Enthousiasme Orthographique)
+│   ├── borel/              ← Gestes Borel-Maisonny
+│   └── [mots].png          ← Images des mots
+├── LANCER.bat              ← Lanceur Windows
+└── LANCER.sh               ← Lanceur Mac/Linux
 ```
-
-## Images EO — noms attendus
-Placez vos images dans `images/eo/` :
-a-avion.png · b-bottes.png · c-crocodile.png · ch-chat.png
-d-danseuse.png · e-chèvre.png · é-étoile.png · è-flèche.png
-eu-feu.png · f-fée.png · g-gorille.png · gn-montagne.png
-i-igloo.png · in-idien.png · j-jumelles.png · l-lunettes.png
-m-moto.png · n-neige.png · o-ogre.png · oi-oie.png
-on-bonbon.png · ou-loup.png · p-pirate.png · r-rat.png
-s-serpent.png · t-téléphone.png · u-usine.png · v-vache.png
-z-zèbre.png · an-ange.png · ain-idien.png · au-ogre.png
-eau-ogre.png · il-oeil.png · oin-pointe.png
-
-> Les noms sont modifiables dans Paramètres → Dictionnaire EO
-
-## Images mots
-Placez les images des mots dans `images/` directement (ex: `images/jardin.png`)
