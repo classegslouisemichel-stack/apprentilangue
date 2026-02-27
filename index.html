@@ -748,7 +748,13 @@ function makeSeriesCard(s,isShared){
   bExp.onclick=function(e){e.stopPropagation();exportSeriesObj(s);};
   btns.appendChild(bExp);
 
-  if(!isShared){
+  if(isShared){
+    const bDel=document.createElement('button');
+    bDel.className='bd';bDel.type='button';bDel.textContent='🗑';
+    bDel.title='Retirer des séries partagées';
+    bDel.onclick=function(e){e.stopPropagation();delSharedSeries(s.id);};
+    btns.appendChild(bDel);
+  } else {
     if(s.id==='demo'){
       const lbl=document.createElement('span');
       lbl.style.cssText='font-size:10px;color:#aaa;padding:4px 6px';
@@ -776,6 +782,25 @@ function createSeries(){
 function delSeries(id,e){
   e.stopPropagation();if(!confirm('Supprimer cette série ?'))return;
   appData.series=appData.series.filter(s=>s.id!==id);saveData();renderHome();
+}
+function delSharedSeries(id){
+  if(!confirm('Retirer cette série des séries partagées ?\nUn fichier series_partagees.json sera téléchargé.\nDéposez-le sur GitHub pour que la suppression soit visible par tous.'))return;
+  // Retirer la série de la liste partagée en mémoire
+  sharedSeries=sharedSeries.filter(function(s){return s.id!==id;});
+  // Générer et télécharger le nouveau series_partagees.json
+  const data={
+    version:'al_v7',
+    updated:new Date().toISOString().slice(0,10),
+    description:'Séries partagées Apprentilangue',
+    series:sharedSeries.map(function(s){const c=Object.assign({},s);delete c._shared;return c;})
+  };
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='series_partagees.json';
+  a.click();URL.revokeObjectURL(a.href);
+  renderHome();
+  toast('series_partagees.json téléchargé — déposez-le sur GitHub ✓');
 }
 
 // ================================================================
