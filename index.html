@@ -601,7 +601,7 @@ let sharedLoaded=false;
 
 function loadData(){
   try{
-    const raw=localStorage.getItem('al_v6');
+    const raw=localStorage.getItem('al_v7');
     if(raw){
       const p=JSON.parse(raw);
       appData={...appData,...p};
@@ -646,7 +646,7 @@ function loadSharedSeries(callback){
 }
 function saveData(){
   const save={...appData,dictEO:AD.eo,dictBM:AD.bm};
-  localStorage.setItem('al_v6',JSON.stringify(save));
+  localStorage.setItem('al_v7',JSON.stringify(save));
   toast('Sauvegardé ✓');
 }
 function makeDemo(){
