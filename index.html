@@ -181,6 +181,9 @@ body{font-family:var(--fn);background:#e8e4d8;min-height:100vh;}
 .guide-q{background:var(--cpl);color:var(--cpd);padding:8px 12px;font-weight:600;font-size:13px;margin-top:8px;border-radius:6px 6px 0 0;}
 .guide-a{background:#faf8f4;padding:8px 12px;font-size:13px;color:#555;border-radius:0 0 6px 6px;border:1px solid var(--cpl);border-top:none;}
 kbd{background:#eee;border:1px solid #ccc;border-radius:3px;padding:1px 6px;font-size:12px;font-family:monospace;}
+.guide-zoom{background:#e8f4fd;border:1px solid #aed6f1;border-radius:8px;padding:14px 16px;margin:0 0 18px;color:#1a5276;font-size:13px;}
+.guide-zoom ul{margin:4px 0;padding-left:18px;}
+.guide-zoom li{margin-bottom:3px;}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
@@ -1733,6 +1736,18 @@ loadSharedSeries(function(){renderHome();});
 
       <div class="guide-tip">Ce guide est destiné aux enseignantes qui utilisent Apprentilangue. Pas besoin de connaissances informatiques particulières !</div>
 
+      <div class="guide-zoom">
+        <div style="font-size:22px;margin-bottom:6px">🔍</div>
+        <strong>Conseil avant de commencer — ajustez le zoom de votre navigateur</strong>
+        <p style="margin:6px 0 4px">Pour que les diapositives occupent bien tout votre écran, adaptez le zoom à votre affichage :</p>
+        <ul style="margin:4px 0;padding-left:18px">
+          <li><strong>Firefox / Chrome</strong> : maintenez <kbd>Ctrl</kbd> et tournez la <kbd>roulette</kbd> de la souris</li>
+          <li><strong>Tous navigateurs</strong> : <kbd>Ctrl</kbd> + <kbd>+</kbd> pour agrandir, <kbd>Ctrl</kbd> + <kbd>−</kbd> pour réduire, <kbd>Ctrl</kbd> + <kbd>0</kbd> pour revenir à la normale</li>
+          <li><strong>Mac</strong> : remplacez <kbd>Ctrl</kbd> par <kbd>Cmd</kbd></li>
+        </ul>
+        <p style="margin:4px 0 0;font-size:12px;color:#888">Le bon zoom est celui où les diapositives remplissent bien l'écran sans barre de défilement.</p>
+      </div>
+
       <h3>Qu'est-ce qu'Apprentilangue ?</h3>
       <p>Un outil pour créer des <strong>diaporamas interactifs</strong> pour travailler le vocabulaire avec vos élèves. Pour chaque mot, l'application affiche la définition, l'image du mot, les sons lettre par lettre, le genre et la nature. Tout se passe dans votre navigateur — rien à installer.</p>
 
@@ -1814,7 +1829,7 @@ loadSharedSeries(function(){renderHome();});
         <div class="guide-q">❓ Un mot s'affiche en CAPITALES au lieu de scriptes</div>
         <div class="guide-a">Au lancement, choisissez <strong>Scriptes</strong> — les lettres accentuées seront converties automatiquement.</div>
         <div class="guide-q">❓ Quelque chose ne fonctionne pas</div>
-        <div class="guide-a">Essayez <kbd>F5</kbd> puis <kbd>Ctrl + F5</kbd>. Si le problème persiste, notez le nom du mot et de la série et contactez votre coordinatrice.</div>
+        <div class="guide-a">Essayez <kbd>F5</kbd> puis <kbd>Ctrl + F5</kbd>. Si le problème persiste, notez le nom du mot et de la série et contactez votre coordinateur.</div>
       </div>
 
     </div>
