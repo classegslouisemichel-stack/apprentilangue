@@ -1,6 +1,2400 @@
 {
   "version": "al_v7",
-  "updated": "2026-02-27",
-  "description": "Séries partagées Apprentilangue — généré depuis le site via Export > Partager sur GitHub",
-  "series": []
+  "updated": "2026-02-27T21:37:42.744Z",
+  "description": "Séries partagées Apprentilangue — déposer ce fichier dans le dépôt GitHub",
+  "series": [
+    {
+      "id": "s1772225420591",
+      "name": "LES ÉMOTIONS",
+      "color": "#b164ff",
+      "font": "MDIEcole",
+      "method": "eo",
+      "decos": [],
+      "words": [
+        {
+          "word": "AMOUREUX",
+          "theme": "LES ÉMOTIONS",
+          "num": 1,
+          "total": 6,
+          "definition": "Quand on aime quelqu’un, on dit qu’on est ...",
+          "gender": "masc",
+          "nature": "adjectif",
+          "image": "images/05-Émotions/1-amoureux.jpg",
+          "phonetics": [
+            {
+              "letters": "a",
+              "sound": "a",
+              "img": "eo/a-avion.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "m",
+              "sound": "m",
+              "img": "eo/m-moto.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "ou",
+              "sound": "ou",
+              "img": "eo/ou-loup.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "eu",
+              "sound": "eu",
+              "img": "eo/eu-feu.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "x",
+              "sound": "ks",
+              "img": "eo/Lettre_Muette.png",
+              "lc": [
+                "#aaaaaa"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "a",
+            "mou",
+            "reux"
+          ]
+        },
+        {
+          "word": "AMI",
+          "theme": "LES ÉMOTIONS",
+          "num": 2,
+          "total": 6,
+          "definition": "Quelqu’un avec qui on est lié d’amitié, est un ... .",
+          "gender": "masc",
+          "nature": "nom",
+          "image": "images/05-Émotions/2-ami.jpg",
+          "phonetics": [
+            {
+              "letters": "a",
+              "sound": "a",
+              "img": "eo/a-avion.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "m",
+              "sound": "m",
+              "img": "eo/m-moto.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "i",
+              "sound": "i",
+              "img": "eo/i-igloo.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "a",
+            "mi"
+          ]
+        },
+        {
+          "word": "FÊTE",
+          "theme": "LES ÉMOTIONS",
+          "num": 3,
+          "total": 6,
+          "definition": "Quand on invite des amis pour fêter quelque chose, on dit qu’on fait une … .",
+          "gender": "fem",
+          "nature": "nom",
+          "image": "images/05-Émotions/3-fête.jpg",
+          "phonetics": [
+            {
+              "letters": "f",
+              "sound": "f",
+              "img": "eo/f-fée.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "ê",
+              "sound": "è",
+              "img": "eo/è-flèche.png",
+              "lc": [
+                "#e8002a"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "t",
+              "sound": "t",
+              "img": "eo/t-téléphone.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "e",
+              "sound": "e",
+              "img": "eo/e-chèvre.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "fê",
+            "te"
+          ]
+        },
+        {
+          "word": "CÂLIN",
+          "theme": "LES ÉMOTIONS",
+          "num": 4,
+          "total": 6,
+          "definition": "Quand on prend dans ses bras quelqu’un qu’on aime bien, on lui fait un … .",
+          "gender": "masc",
+          "nature": "nom",
+          "image": "images/05-Émotions/4-câlin.jpg",
+          "phonetics": [
+            {
+              "letters": "c",
+              "sound": "k",
+              "img": "eo/c-crocodile.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "â",
+              "sound": "a",
+              "img": "eo/a-avion.png",
+              "lc": [
+                "#3aaa5a"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "l",
+              "sound": "l",
+              "img": "eo/l-lunettes.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "in",
+              "sound": "in",
+              "img": "eo/in-idien.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            }
+          ],
+          "syllables": [
+            "câ",
+            "lin"
+          ]
+        },
+        {
+          "word": "SOURIRE",
+          "theme": "LES ÉMOTIONS",
+          "num": 5,
+          "total": 6,
+          "definition": "Quand on est heureux, on le montre sur son visage en faisant un … .",
+          "gender": "masc",
+          "nature": "nom",
+          "image": "images/05-Émotions/5-sourire.jpg",
+          "phonetics": [
+            {
+              "letters": "s",
+              "sound": "s",
+              "img": "eo/s-serpent.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "ou",
+              "sound": "ou",
+              "img": "eo/ou-loup.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "i",
+              "sound": "i",
+              "img": "eo/i-igloo.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "e",
+              "sound": "e",
+              "img": "eo/e-chèvre.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "sou",
+            "ri",
+            "re"
+          ]
+        },
+        {
+          "word": "RIRE",
+          "theme": "LES ÉMOTIONS",
+          "num": 6,
+          "total": 32,
+          "definition": "Quand on nous raconte une histoire très drôle, cela nous fait ... .",
+          "gender": "none",
+          "nature": "verbe",
+          "image": "images/05-Émotions/6-rire.jpg",
+          "phonetics": [
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "i",
+              "sound": "i",
+              "img": "eo/i-igloo.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "e",
+              "sound": "e",
+              "img": "eo/e-chèvre.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "ri",
+            "re"
+          ]
+        },
+        {
+          "word": "JOYEUSE",
+          "theme": "LES ÉMOTIONS",
+          "num": 7,
+          "total": 32,
+          "definition": "C'est le contraire de triste.",
+          "gender": "fem",
+          "nature": "adjectif",
+          "image": "images/05-Émotions/7-joyeuse.jpg",
+          "phonetics": [
+            {
+              "letters": "j",
+              "sound": "j",
+              "img": "eo/j-jumelles.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "oy",
+              "sound": "oi",
+              "img": "eo/oi-oie.png",
+              "lc": [
+                "#aaaaaa",
+                "#3aaa5a"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "eu",
+              "sound": "eu",
+              "img": "eo/eu-feu.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "s",
+              "sound": "z",
+              "img": "eo/z-zèbre.png",
+              "lc": [
+                "#e8002a"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "e",
+              "sound": "e",
+              "img": "eo/e-chèvre.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "joy",
+            "eu",
+            "se"
+          ]
+        },
+        {
+          "word": "DRÔLE",
+          "theme": "LES ÉMOTIONS",
+          "num": 8,
+          "total": 32,
+          "definition": "On rit quand quelque chose est …",
+          "gender": "both",
+          "nature": "adjectif",
+          "image": "images/05-Émotions/8-drôle.jpg",
+          "phonetics": [
+            {
+              "letters": "d",
+              "sound": "d",
+              "img": "eo/d-danseuse.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "ô",
+              "sound": "o",
+              "img": "eo/o-otarie.png",
+              "lc": [
+                "#82c4e0"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "l",
+              "sound": "l",
+              "img": "eo/l-lunettes.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "e",
+              "sound": "e",
+              "img": "eo/e-chèvre.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "drô",
+            "le"
+          ]
+        },
+        {
+          "word": "CHAGRIN",
+          "theme": "LES ÉMOTIONS",
+          "num": 9,
+          "total": 32,
+          "definition": "Quand on est triste, on dit qu’on a de la peine ou qu’on a du …..",
+          "gender": "masc",
+          "nature": "nom",
+          "image": "images/05-Émotions/9-chagrin.jpg",
+          "phonetics": [
+            {
+              "letters": "ch",
+              "sound": "ch",
+              "img": "eo/ch-chat.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "a",
+              "sound": "a",
+              "img": "eo/a-avion.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "g",
+              "sound": "g",
+              "img": "eo/g-gorille.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "in",
+              "sound": "in",
+              "img": "eo/in-idien.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            }
+          ],
+          "syllables": [
+            "cha",
+            "grin"
+          ]
+        },
+        {
+          "word": "CONSOLER",
+          "theme": "LES ÉMOTIONS",
+          "num": 10,
+          "total": 32,
+          "definition": "Quand quelqu’un est triste, qu’il a du chagrin, on le prend dans ses bras et on lui dit des mots gentils pour le …",
+          "gender": "none",
+          "nature": "verbe",
+          "image": "images/05-Émotions/10-consoler.jpg",
+          "phonetics": [
+            {
+              "letters": "c",
+              "sound": "k",
+              "img": "eo/c-crocodile.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "on",
+              "sound": "on",
+              "img": "eo/on-bonbon.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "s",
+              "sound": "s",
+              "img": "eo/s-serpent.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "o",
+              "sound": "o",
+              "img": "eo/o-otarie.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "l",
+              "sound": "l",
+              "img": "eo/l-lunettes.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "er",
+              "sound": "é",
+              "img": "eo/é-étoile.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            }
+          ],
+          "syllables": [
+            "con",
+            "so",
+            "ler"
+          ]
+        },
+        {
+          "word": "DÉÇU",
+          "theme": "LES ÉMOTIONS",
+          "num": 11,
+          "total": 32,
+          "definition": "Quand on ne reçoit pas ce qu’on attendait, on est ....",
+          "gender": "masc",
+          "nature": "adjectif",
+          "image": "images/05-Émotions/11-déçu.jpg",
+          "phonetics": [
+            {
+              "letters": "d",
+              "sound": "d",
+              "img": "eo/d-danseuse.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "é",
+              "sound": "é",
+              "img": "eo/é-étoile.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "ç",
+              "sound": "s",
+              "img": "eo/s-serpent.png",
+              "lc": [
+                "#82c4e0"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "u",
+              "sound": "u",
+              "img": "eo/u-usine.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "dé",
+            "çu"
+          ]
+        },
+        {
+          "word": "MALHEUREUX",
+          "theme": "LES ÉMOTIONS",
+          "num": 12,
+          "total": 32,
+          "definition": "Quand on est triste et qu’on a envie de pleurer, on est …",
+          "gender": "masc",
+          "nature": "adjectif",
+          "image": "images/05-Émotions/12-malheureux.jpg",
+          "phonetics": [
+            {
+              "letters": "m",
+              "sound": "m",
+              "img": "eo/m-moto.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "a",
+              "sound": "a",
+              "img": "eo/a-avion.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "l",
+              "sound": "l",
+              "img": "eo/l-lunettes.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "h",
+              "sound": "",
+              "img": "eo/Lettre_Muette.png",
+              "lc": [
+                "#aaaaaa"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "eu",
+              "sound": "eu",
+              "img": "eo/eu-feu.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "eu",
+              "sound": "eu",
+              "img": "eo/eu-feu.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "x",
+              "sound": "ks",
+              "img": "eo/Lettre_Muette.png",
+              "lc": [
+                "#aaaaaa"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "ma",
+            "lheu",
+            "reux"
+          ]
+        },
+        {
+          "word": "LARME",
+          "theme": "LES ÉMOTIONS",
+          "num": 13,
+          "total": 32,
+          "definition": "C’est un liquide qui se trouve dans les yeux. \nC’est un nom féminin, c’est-à-dire que l’on dit « une » ou « la ».",
+          "gender": "fem",
+          "nature": "nom",
+          "image": "images/05-Émotions/13-larme.jpg",
+          "phonetics": [
+            {
+              "letters": "l",
+              "sound": "l",
+              "img": "eo/l-lunettes.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "a",
+              "sound": "a",
+              "img": "eo/a-avion.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "m",
+              "sound": "m",
+              "img": "eo/m-moto.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "e",
+              "sound": "e",
+              "img": "eo/e-chèvre.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "lar",
+            "me"
+          ]
+        },
+        {
+          "word": "SANGLOTER",
+          "theme": "LES ÉMOTIONS",
+          "num": 14,
+          "total": 32,
+          "definition": "C’est pleurer en respirant bruyamment.",
+          "gender": "none",
+          "nature": "verbe",
+          "image": "images/05-Émotions/14-sangloter.jpg",
+          "phonetics": [
+            {
+              "letters": "s",
+              "sound": "s",
+              "img": "eo/s-serpent.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "an",
+              "sound": "an",
+              "img": "eo/an-ange.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "g",
+              "sound": "g",
+              "img": "eo/g-gorille.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "l",
+              "sound": "l",
+              "img": "eo/l-lunettes.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "o",
+              "sound": "o",
+              "img": "eo/o-otarie.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "t",
+              "sound": "t",
+              "img": "eo/t-téléphone.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "er",
+              "sound": "é",
+              "img": "eo/é-étoile.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            }
+          ],
+          "syllables": [
+            "san",
+            "glo",
+            "ter"
+          ]
+        },
+        {
+          "word": "S'ENNUYER",
+          "theme": "LES ÉMOTIONS",
+          "num": 15,
+          "total": 32,
+          "definition": "C'est trouver le temps long. \nC'est s'embêter.",
+          "gender": "none",
+          "nature": "verbe",
+          "image": "images/05-Émotions/15-s'ennuyer.jpg",
+          "phonetics": [
+            {
+              "letters": "s",
+              "sound": "s",
+              "img": "eo/s-serpent.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "'",
+              "sound": "'",
+              "img": "'.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "en",
+              "sound": "an",
+              "img": "eo/an-ange.png",
+              "lc": [
+                "#e8002a",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "n",
+              "sound": "n",
+              "img": "eo/n-neige.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "u",
+              "sound": "u",
+              "img": "eo/u-usine.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "y",
+              "sound": "i",
+              "img": "eo/i-igloo.png",
+              "lc": [
+                "#3aaa5a"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "er",
+              "sound": "é",
+              "img": "eo/é-étoile.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "s'",
+            "en",
+            "nuy",
+            "er"
+          ]
+        },
+        {
+          "word": "HURLER",
+          "theme": "LES ÉMOTIONS",
+          "num": 16,
+          "total": 32,
+          "definition": "C’est crier de toutes ses forces.",
+          "gender": "none",
+          "nature": "verbe",
+          "image": "images/05-Émotions/16-hurler.jpg",
+          "phonetics": [
+            {
+              "letters": "h",
+              "sound": "",
+              "img": "eo/Lettre_Muette.png",
+              "lc": [
+                "#aaaaaa"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "u",
+              "sound": "u",
+              "img": "eo/u-usine.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "l",
+              "sound": "l",
+              "img": "eo/l-lunettes.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "er",
+              "sound": "é",
+              "img": "eo/é-étoile.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            }
+          ],
+          "syllables": [
+            "hur",
+            "ler"
+          ]
+        },
+        {
+          "word": "SE DISPUTER",
+          "theme": "LES ÉMOTIONS",
+          "num": 17,
+          "total": 32,
+          "definition": "C’est se dire des choses désagréables quand on n’est pas d’accord.",
+          "gender": "none",
+          "nature": "verbe",
+          "image": "images/05-Émotions/17-se disputer.jpg",
+          "phonetics": [
+            {
+              "letters": "S",
+              "sound": "s",
+              "img": "eo/s-serpent.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "E",
+              "sound": "e",
+              "img": "eo/e-chèvre.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": " ",
+              "sound": " ",
+              "img": " .png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "D",
+              "sound": "d",
+              "img": "eo/d-danseuse.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "I",
+              "sound": "i",
+              "img": "eo/i-igloo.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "S",
+              "sound": "s",
+              "img": "eo/s-serpent.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "P",
+              "sound": "p",
+              "img": "eo/p-pirate.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "U",
+              "sound": "u",
+              "img": "eo/u-usine.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "T",
+              "sound": "t",
+              "img": "eo/t-téléphone.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "ER",
+              "sound": "é",
+              "img": "eo/é-étoile.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            }
+          ],
+          "syllables": [
+            "SE ",
+            "DIS",
+            "PU",
+            "TER"
+          ]
+        },
+        {
+          "word": "BAGARRE",
+          "theme": "LES ÉMOTIONS",
+          "num": 18,
+          "total": 32,
+          "definition": "C’est ce qui se passe quand des personnes se battent. \nC’est un nom féminin, c’est-à-dire que l’on dit « une » ou « la ».",
+          "gender": "fem",
+          "nature": "nom",
+          "image": "images/05-Émotions/18-bagarre.jpg",
+          "phonetics": [
+            {
+              "letters": "b",
+              "sound": "b",
+              "img": "eo/b-bottes.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "a",
+              "sound": "a",
+              "img": "eo/a-avion.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "g",
+              "sound": "g",
+              "img": "eo/g-gorille.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "a",
+              "sound": "a",
+              "img": "eo/a-avion.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "rr",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#e8002a",
+                "#aaaaaa"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "e",
+              "sound": "e",
+              "img": "eo/e-chèvre.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "ba",
+            "ga",
+            "rre"
+          ]
+        },
+        {
+          "word": "AGRESSIF",
+          "theme": "LES ÉMOTIONS",
+          "num": 19,
+          "total": 32,
+          "definition": "Quand quelqu’un cherche et provoque souvent des disputes, des bagarres, on dit qu’il est …",
+          "gender": "masc",
+          "nature": "adjectif",
+          "image": "images/05-Émotions/19-agressif.jpg",
+          "phonetics": [
+            {
+              "letters": "a",
+              "sound": "a",
+              "img": "eo/a-avion.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "g",
+              "sound": "g",
+              "img": "eo/g-gorille.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "e",
+              "sound": "è",
+              "img": "eo/è-flèche.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "ss",
+              "sound": "s",
+              "img": "eo/s-serpent.png",
+              "lc": [
+                "#e8002a",
+                "#aaaaaa"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "i",
+              "sound": "i",
+              "img": "eo/i-igloo.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "f",
+              "sound": "f",
+              "img": "eo/f-fée.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "a",
+            "gre",
+            "ssif"
+          ]
+        },
+        {
+          "word": "IRRITÉ",
+          "theme": "LES ÉMOTIONS",
+          "num": 20,
+          "total": 32,
+          "definition": "Quand on est de mauvaise humeur, quand on est en colère, on est …",
+          "gender": "masc",
+          "nature": "adjectif",
+          "image": "images/05-Émotions/20-irrité.jpg",
+          "phonetics": [
+            {
+              "letters": "I",
+              "sound": "i",
+              "img": "eo/i-igloo.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "RR",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#e8002a",
+                "#aaaaaa"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "I",
+              "sound": "i",
+              "img": "eo/i-igloo.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "T",
+              "sound": "t",
+              "img": "eo/t-téléphone.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "É",
+              "sound": "é",
+              "img": "eo/é-étoile.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "IRRI",
+            "TÉ"
+          ]
+        },
+        {
+          "word": "BOUDEUR",
+          "theme": "LES ÉMOTIONS",
+          "num": 21,
+          "total": 32,
+          "definition": "Quand quelqu’un montre sur son visage et par son comportement qu’il n’est pas content, on dit qu’il est …",
+          "gender": "masc",
+          "nature": "adjectif",
+          "image": "images/05-Émotions/21-boudeur.jpg",
+          "phonetics": [
+            {
+              "letters": "b",
+              "sound": "b",
+              "img": "eo/b-bottes.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "ou",
+              "sound": "ou",
+              "img": "eo/ou-loup.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "d",
+              "sound": "d",
+              "img": "eo/d-danseuse.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "eu",
+              "sound": "eu",
+              "img": "eo/eu-feu.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "bou",
+            "deur"
+          ]
+        },
+        {
+          "word": "RONCHONNER",
+          "theme": "LES ÉMOTIONS",
+          "num": 22,
+          "total": 32,
+          "definition": "C’est montrer son mécontentement en grognant.",
+          "gender": "none",
+          "nature": "verbe",
+          "image": "images/05-Émotions/22-ronchonner.jpg",
+          "phonetics": [
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "on",
+              "sound": "on",
+              "img": "eo/on-bonbon.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "ch",
+              "sound": "ch",
+              "img": "eo/ch-chat.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "o",
+              "sound": "o",
+              "img": "eo/o-otarie.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "nn",
+              "sound": "n",
+              "img": "eo/n-neige.png",
+              "lc": [
+                "#3aaa5a",
+                "#aaaaaa"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "er",
+              "sound": "é",
+              "img": "eo/é-étoile.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            }
+          ],
+          "syllables": [
+            "ron",
+            "cho",
+            "nner"
+          ]
+        },
+        {
+          "word": "BROUILLE",
+          "theme": "LES ÉMOTIONS",
+          "num": 23,
+          "total": 32,
+          "definition": "C’est ce qui se passe quand deux amis ne s’entendent plus, qu’ils sont fâchés.\nC’est un nom féminin, c’est-à-dire que l’on dit « une » ou « la ».",
+          "gender": "fem",
+          "nature": "nom",
+          "image": "images/05-Émotions/23-brouille.jpg",
+          "phonetics": [
+            {
+              "letters": "b",
+              "sound": "b",
+              "img": "eo/b-bottes.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "ou",
+              "sound": "ou",
+              "img": "eo/ou-loup.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "ill",
+              "sound": "il",
+              "img": "eo/il-oeil.png",
+              "lc": [
+                "#aaaaaa",
+                "#aaaaaa",
+                "#e8002a"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "e",
+              "sound": "e",
+              "img": "eo/e-chèvre.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "brou",
+            "ille"
+          ]
+        },
+        {
+          "word": "CAUCHEMAR",
+          "theme": "LES ÉMOTIONS",
+          "num": 24,
+          "total": 32,
+          "definition": "C’est un mauvais rêve. \nC’est un nom masculin, c’est-à-dire que l’on dit « un » ou « le ».",
+          "gender": "masc",
+          "nature": "nom",
+          "image": "images/05-Émotions/24-cauchemar.jpg",
+          "phonetics": [
+            {
+              "letters": "c",
+              "sound": "k",
+              "img": "eo/c-crocodile.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "au",
+              "sound": "o",
+              "img": "eo/o-otarie.png",
+              "lc": [
+                "#3aaa5a",
+                "#82c4e0"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "ch",
+              "sound": "ch",
+              "img": "eo/ch-chat.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "e",
+              "sound": "e",
+              "img": "eo/e-chèvre.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "m",
+              "sound": "m",
+              "img": "eo/m-moto.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "a",
+              "sound": "a",
+              "img": "eo/a-avion.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "cau",
+            "che",
+            "mar"
+          ]
+        },
+        {
+          "word": "TERRIFIÉ",
+          "theme": "LES ÉMOTIONS",
+          "num": 25,
+          "total": 32,
+          "definition": "Il a très peur des araignées. \nIl vient d’en voir une. Il est ...",
+          "gender": "masc",
+          "nature": "adjectif",
+          "image": "images/05-Émotions/25-terrifié.jpg",
+          "phonetics": [
+            {
+              "letters": "t",
+              "sound": "t",
+              "img": "eo/t-téléphone.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "e",
+              "sound": "è",
+              "img": "eo/è-flèche.png",
+              "lc": [
+                "#e8002a"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "rr",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#e8002a",
+                "#aaaaaa"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "i",
+              "sound": "i",
+              "img": "eo/i-igloo.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "f",
+              "sound": "f",
+              "img": "eo/f-fée.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "i",
+              "sound": "i",
+              "img": "eo/i-igloo.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "é",
+              "sound": "é",
+              "img": "eo/é-étoile.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "te",
+            "rri",
+            "fié"
+          ]
+        },
+        {
+          "word": "HONTE",
+          "theme": "LES ÉMOTIONS",
+          "num": 26,
+          "total": 32,
+          "definition": "C’est ce qu’on ressent quand on sait que l’on vient de faire une bêtise. C’est un nom féminin, c’est-à-dire que l’on dit « une » ou « la ».",
+          "gender": "fem",
+          "nature": "nom",
+          "image": "images/05-Émotions/26-honte.jpg",
+          "phonetics": [
+            {
+              "letters": "h",
+              "sound": "",
+              "img": "eo/Lettre_Muette.png",
+              "lc": [
+                "#aaaaaa"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "on",
+              "sound": "on",
+              "img": "eo/on-bonbon.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "t",
+              "sound": "t",
+              "img": "eo/t-téléphone.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "e",
+              "sound": "e",
+              "img": "eo/e-chèvre.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "hon",
+            "te"
+          ]
+        },
+        {
+          "word": "MENACE",
+          "theme": "LES ÉMOTIONS",
+          "num": 27,
+          "total": 32,
+          "definition": "C’est une parole dite pour faire peur à quelqu’un. \nC’est un nom féminin, c’est-à-dire que l’on dit « une » ou « la ».",
+          "gender": "fem",
+          "nature": "nom",
+          "image": "images/05-Émotions/27-menace.jpg",
+          "phonetics": [
+            {
+              "letters": "m",
+              "sound": "m",
+              "img": "eo/m-moto.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "e",
+              "sound": "e",
+              "img": "eo/e-chèvre.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "n",
+              "sound": "n",
+              "img": "eo/n-neige.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "a",
+              "sound": "a",
+              "img": "eo/a-avion.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "c",
+              "sound": "s",
+              "img": "eo/s-serpent.png",
+              "lc": [
+                "#82c4e0"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "e",
+              "sound": "e",
+              "img": "eo/e-chèvre.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "me",
+            "na",
+            "ce"
+          ]
+        },
+        {
+          "word": "FRISSONNER",
+          "theme": "LES ÉMOTIONS",
+          "num": 28,
+          "total": 32,
+          "definition": "C’est trembler légèrement de froid ou de peur.",
+          "gender": "none",
+          "nature": "verbe",
+          "image": "images/05-Émotions/28-frissonner.jpg",
+          "phonetics": [
+            {
+              "letters": "f",
+              "sound": "f",
+              "img": "eo/f-fée.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "i",
+              "sound": "i",
+              "img": "eo/i-igloo.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "ss",
+              "sound": "s",
+              "img": "eo/s-serpent.png",
+              "lc": [
+                "#e8002a",
+                "#aaaaaa"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "o",
+              "sound": "o",
+              "img": "eo/o-otarie.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "nn",
+              "sound": "n",
+              "img": "eo/n-neige.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "er",
+              "sound": "é",
+              "img": "eo/é-étoile.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "fri",
+            "sso",
+            "nner"
+          ]
+        },
+        {
+          "word": "PANIQUER",
+          "theme": "LES ÉMOTIONS",
+          "num": 29,
+          "total": 32,
+          "definition": "C’est être pris d’une peur violente …",
+          "gender": "none",
+          "nature": "verbe",
+          "image": "images/05-Émotions/29-paniquer.jpg",
+          "phonetics": [
+            {
+              "letters": "p",
+              "sound": "p",
+              "img": "eo/p-pirate.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "a",
+              "sound": "a",
+              "img": "eo/a-avion.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "n",
+              "sound": "n",
+              "img": "eo/n-neige.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "i",
+              "sound": "i",
+              "img": "eo/i-igloo.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "qu",
+              "sound": "k",
+              "img": "eo/c-crocodile.png",
+              "lc": [
+                "#82c4e0",
+                "#82c4e0"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "er",
+              "sound": "é",
+              "img": "eo/é-étoile.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            }
+          ],
+          "syllables": [
+            "pa",
+            "ni",
+            "quer"
+          ]
+        },
+        {
+          "word": "SOMBRE",
+          "theme": "LES ÉMOTIONS",
+          "num": 30,
+          "total": 32,
+          "definition": "Quand quelqu’un a des pensées tristes ou est inquiet, on dit qu’il est …",
+          "gender": "masc",
+          "nature": "adjectif",
+          "image": "images/05-Émotions/30-sombre.jpg",
+          "phonetics": [
+            {
+              "letters": "s",
+              "sound": "s",
+              "img": "eo/s-serpent.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "om",
+              "sound": "on",
+              "img": "eo/on-bonbon.png",
+              "lc": [
+                "#aaaaaa",
+                "#82c4e0"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "b",
+              "sound": "b",
+              "img": "eo/b-bottes.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "e",
+              "sound": "e",
+              "img": "eo/e-chèvre.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "som",
+            "bre"
+          ]
+        },
+        {
+          "word": "PEUREUX",
+          "theme": "LES ÉMOTIONS",
+          "num": 31,
+          "total": 32,
+          "definition": "Quand on a très souvent et très facilement peur, on dit qu’on est …",
+          "gender": "masc",
+          "nature": "adjectif",
+          "image": "images/05-Émotions/31-peureux.jpg",
+          "phonetics": [
+            {
+              "letters": "p",
+              "sound": "p",
+              "img": "eo/p-pirate.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "eu",
+              "sound": "eu",
+              "img": "eo/eu-feu.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "eu",
+              "sound": "eu",
+              "img": "eo/eu-feu.png",
+              "lc": [
+                "#222222",
+                "#222222"
+              ],
+              "silent": false,
+              "linked": true
+            },
+            {
+              "letters": "x",
+              "sound": "ks",
+              "img": "eo/Lettre_Muette.png",
+              "lc": [
+                "#aaaaaa"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "peu",
+            "reux"
+          ]
+        },
+        {
+          "word": "COLÈRE",
+          "theme": "LES ÉMOTIONS",
+          "num": 32,
+          "total": 32,
+          "definition": "Quand quelqu’un n’est pas content et qu’il le montre en étant agressif, on dit qu’il est en …",
+          "gender": "fem",
+          "nature": "nom",
+          "image": "images/05-Émotions/32-colère.jpg",
+          "phonetics": [
+            {
+              "letters": "c",
+              "sound": "k",
+              "img": "eo/c-crocodile.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "o",
+              "sound": "o",
+              "img": "eo/o-otarie.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "l",
+              "sound": "l",
+              "img": "eo/l-lunettes.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "è",
+              "sound": "è",
+              "img": "eo/è-flèche.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "r",
+              "sound": "r",
+              "img": "eo/r-rat.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            },
+            {
+              "letters": "e",
+              "sound": "e",
+              "img": "eo/e-chèvre.png",
+              "lc": [
+                "#222222"
+              ],
+              "silent": false,
+              "linked": false
+            }
+          ],
+          "syllables": [
+            "co",
+            "lè",
+            "re"
+          ]
+        }
+      ]
+    }
+  ]
 }
