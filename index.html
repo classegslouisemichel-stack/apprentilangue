@@ -528,7 +528,7 @@ function isSilentFinal(group,word,isLast){
   return false;
 }
 // Image muette (même chemin EO et BM)
-const IMG_MUETTE='images/eo/Lettre_Muette.png';
+const IMG_MUETTE='eo/Lettre_Muette.png';
 const COL_MUETTE='#aaaaaa';
 
 function markSilentFinal(groups,word){
@@ -1022,7 +1022,7 @@ function buildSlideA(word,wi,seriesName,font,folder,wave,shDecos){
       rowH+=`<div class="ls"><div class="lc" id="lc-${wi}-${gi}-${li}" style="color:${col};font-family:'${font}',MDIEcole,Calibri,sans-serif">${letter}</div><div class="lb" style="background:${col}"></div></div>`;
       if(notLast&&g.linked!==false)rowH+=`<div class="dw" style="margin-bottom:2px"><div class="ld" style="background:#222222"></div></div>`;
     });
-    if(!g.silent)rowH+=`<img class="si" id="si-${wi}-${gi}" src="${folder}${g.img}" alt="${g.sound}" onerror="this.style.visibility='hidden'">`;
+    rowH+=`<img class="si" id="si-${wi}-${gi}" src="${folder}${g.img}" alt="${g.sound}" onerror="this.style.visibility='hidden'">`;
     rowH+=`</div>`;
     wordPos+=g.letters.length;
   });
