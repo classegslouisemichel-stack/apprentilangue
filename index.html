@@ -519,7 +519,7 @@ const PAT_BM=['eau','ain','ein','oin','ill','eil','ail','ch','ph','gn','qu',
 // WORD ANALYSIS
 // ================================================================
 // Lettres muettes en fin de mot (règle contextuelle)
-const SILENT_FINAL=new Set(['x','s','t','d','z','e','p','g','c']);
+const SILENT_FINAL=new Set(['x','s','t','d','z','p','g','c']);
 // Renvoie true si le groupe est muet en position finale dans le mot donné
 function isSilentFinal(group,word,isLast){
   if(!isLast)return false;
@@ -1051,13 +1051,36 @@ function mkEl(tag,cls){const e=document.createElement(tag);e.className=cls;retur
 
 function buildSlideA(word,wi,seriesName,font,folder,wave,shDecos){
   const ph=word.phonetics||[];
-  const sylls=word.syllables||syllabify(word.word);
+  // Déterminer le "dernier mot" : la partie après le dernier espace ou apostrophe
+  const rawWord=word.word||'';
+  const splitIdx=Math.max(rawWord.lastIndexOf(' '),rawWord.lastIndexOf("'"),rawWord.lastIndexOf('’'));
+  const lastWordStart=splitIdx>=0?splitIdx+1:0; // position dans le mot entier
+  // Segmentation appliquée uniquement sur le dernier mot
+  const lastWord=rawWord.slice(lastWordStart);
+  const sylls=word.syllables||syllabify(lastWord);
   const defLines=(word.definition||'').split('\n');
   const syllBounds=new Set();let pos=0;
   sylls.forEach((s,i)=>{if(i>0)syllBounds.add(pos);pos+=s.length;});
   let wordPos=0,rowH='';
+  // Position dans le dernier mot uniquement (pour la segmentation)
+  let lastWordPos=0;
   ph.forEach((g,gi)=>{
-    if(wordPos>0&&syllBounds.has(wordPos))rowH+=`<div class="ssep"></div>`;
+    const isSpace=g.letters===' ';
+    const isApos=g.letters==="'"||g.letters==='’';
+    const isSep=isSpace||isApos;
+    // Séparateur (espace ou apostrophe) : affichage sans trait
+    if(isSep){
+      if(isSpace){
+        rowH+=`<div class="pg-grp"><div class="ls"><div class="lc" id="lc-${wi}-${gi}-0" style="color:transparent;font-family:'${font}',MDIEcole,Calibri,sans-serif">${g.letters}</div></div></div>`;
+      } else {
+        rowH+=`<div class="pg-grp"><div class="ls"><div class="lc" id="lc-${wi}-${gi}-0" style="color:#222222;font-family:'${font}',MDIEcole,Calibri,sans-serif">${g.letters}</div></div></div>`;
+      }
+      wordPos+=g.letters.length;
+      lastWordPos=0; // reset : on repart dans le nouveau mot
+      return;
+    }
+    // Séparateur syllabique uniquement dans le dernier mot
+    if(lastWordPos>0&&syllBounds.has(lastWordPos))rowH+=`<div class="ssep"></div>`;
     rowH+=`<div class="pg-grp">`;
     g.letters.split('').forEach((letter,li)=>{
       const col=(g.lc&&g.lc[li])||'#222222';
@@ -1068,6 +1091,7 @@ function buildSlideA(word,wi,seriesName,font,folder,wave,shDecos){
     rowH+=`<img class="si" id="si-${wi}-${gi}" src="${folder}${g.img}" alt="${g.sound}" onerror="this.style.visibility='hidden'">`;
     rowH+=`</div>`;
     wordPos+=g.letters.length;
+    lastWordPos+=g.letters.length;
   });
   const el=mkEl('div','slide');el.id='sa-'+wi;
   el.innerHTML=`<div class="sh" style="position:relative"><span>${word.theme||seriesName}</span>${shDecos||''}<span>${word.num}/${word.total}</span></div>
