@@ -184,6 +184,35 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:3px;padding:1px 6px;font
 .guide-zoom{background:#e8f4fd;border:1px solid #aed6f1;border-radius:8px;padding:14px 16px;margin:0 0 18px;color:#1a5276;font-size:13px;}
 .guide-zoom ul{margin:4px 0;padding-left:18px;}
 .guide-zoom li{margin-bottom:3px;}
+
+/* ===== QUIZ ===== */
+#qz-wrap{display:none;position:fixed;inset:0;z-index:600;background:#1a1a2e;flex-direction:column;}
+#qz-wrap.on{display:flex;}
+#qz-stage{flex:1;display:flex;align-items:stretch;gap:0;overflow:hidden;}
+#qz-nav{background:#0f0f1a;padding:8px 18px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0;}
+.qn{background:rgba(255,255,255,.12);color:#fff;border:none;padding:5px 14px;border-radius:16px;cursor:pointer;font-size:13px;font-family:var(--fn);}
+.qn:hover{background:rgba(255,255,255,.25);}
+#qz-counter{color:rgba(255,255,255,.6);font-size:13px;}
+/* Quiz image cards */
+.qz-card{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;border-right:2px solid rgba(255,255,255,.05);}
+.qz-card:last-child{border-right:none;}
+.qz-card-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;padding:20px;}
+.qz-img-wrap{position:relative;display:flex;align-items:center;justify-content:center;width:100%;flex:1;min-height:0;}
+.qz-img{max-width:90%;max-height:100%;object-fit:contain;border-radius:16px;border:4px solid rgba(255,255,255,.15);transition:transform .15s;box-shadow:0 8px 32px rgba(0,0,0,.5);}
+.qz-card:hover .qz-img{transform:scale(1.02);}
+.qz-overlay{position:absolute;inset:0;background:rgba(15,15,26,.92);display:flex;align-items:center;justify-content:center;border-radius:16px;transition:opacity .3s;}
+.qz-overlay-icon{font-size:64px;opacity:.5;}
+.qz-overlay.revealed{opacity:0;pointer-events:none;}
+.qz-word{font-size:36px;font-weight:700;color:#fff;text-align:center;margin-top:14px;opacity:0;transition:opacity .3s;text-shadow:0 2px 8px rgba(0,0,0,.5);}
+.qz-word.revealed{opacity:1;}
+.qz-num{position:absolute;top:12px;left:14px;background:rgba(255,255,255,.15);color:#fff;font-size:13px;font-weight:700;border-radius:20px;padding:3px 10px;}
+/* Quiz config modal */
+.qz-series-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;background:#faf8f4;margin-bottom:7px;border:1.5px solid #e8e0d4;}
+.qz-series-row.active{border-color:var(--cp);background:#f0ffe8;}
+.qz-series-row label{flex:1;font-weight:600;font-size:14px;cursor:pointer;}
+.qz-range{display:flex;align-items:center;gap:6px;font-size:13px;}
+.qz-range input[type=number]{width:58px;border:1px solid #ddd;border-radius:5px;padding:3px 6px;font-family:var(--fn);font-size:13px;}
+.qz-mega-sep{font-size:11px;font-weight:700;color:#aaa;letter-spacing:2px;text-transform:uppercase;margin:14px 0 8px;padding-bottom:4px;border-bottom:1px solid #eee;}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
@@ -789,6 +818,12 @@ function makeSeriesCard(s,isShared){
     if(isShared){startSS(s.id,s);}else{startSS(s.id);}
   };
   btns.appendChild(bPlay);
+
+  const bQuiz=document.createElement('button');
+  bQuiz.className='btn bsm';bQuiz.type='button';bQuiz.textContent='🎯 Quiz';
+  bQuiz.style.background='#5a4ab8';
+  bQuiz.onclick=function(){openQuizModal(s.id,isShared?s:null);};
+  btns.appendChild(bQuiz);
 
   const bExp=document.createElement('button');
   bExp.className='bo bsm';bExp.type='button';bExp.textContent='⬇️';
@@ -1719,6 +1754,209 @@ function checkForUpdate(){
 // ================================================================
 loadData();
 restoreAppColors();
+// ================================================================
+// QUIZ
+// ================================================================
+let QZ={words:[],pairs:[],pairIdx:0,revealed:[false,false]};
+let qzCurrentSeriesId=null;
+
+function getAllSeries(){
+  // Merge local + shared
+  const local=appData.series||[];
+  const shared=(typeof sharedSeries!=='undefined'?sharedSeries:[])||[];
+  const map={};
+  local.forEach(s=>{map[s.id]=s;});
+  shared.forEach(s=>{if(!map[s.id])map[s.id]=s;});
+  return Object.values(map);
+}
+
+function openQuizModal(seriesId,seriesObj){
+  qzCurrentSeriesId=seriesId;
+  const all=getAllSeries();
+  const s=seriesObj||all.find(x=>x.id===seriesId);
+  if(!s){toast('Série introuvable');return;}
+
+  // Update single section
+  document.getElementById('qz-series-name').textContent=s.name;
+  const words=s.words||[];
+  const maxN=words.length;
+  const slider=document.getElementById('qz-max-slider');
+  slider.max=maxN;
+  slider.value=Math.min(parseInt(slider.value)||maxN,maxN);
+  qzSliderChange();
+
+  // Build mega list
+  const megaList=document.getElementById('qz-mega-list');
+  megaList.innerHTML='';
+  all.forEach(series=>{
+    if(!series.words||!series.words.length)return;
+    const row=document.createElement('div');
+    row.className='qz-series-row';
+    const chk=document.createElement('input');
+    chk.type='checkbox';chk.id='qzm-'+series.id;chk.value=series.id;
+    const lbl=document.createElement('label');
+    lbl.htmlFor='qzm-'+series.id;
+    lbl.textContent=series.name+' ('+series.words.length+' mots)';
+    const rangeDiv=document.createElement('div');
+    rangeDiv.className='qz-range';
+    rangeDiv.innerHTML='mots 1 à <input type="number" id="qzm-max-'+series.id+'" min="1" max="'+series.words.length+'" value="'+series.words.length+'" style="width:58px">';
+    chk.addEventListener('change',function(){row.classList.toggle('active',chk.checked);});
+    row.appendChild(chk);row.appendChild(lbl);row.appendChild(rangeDiv);
+    megaList.appendChild(row);
+  });
+
+  openModal('m-quiz');
+}
+
+function qzSliderChange(){
+  const v=document.getElementById('qz-max-slider').value;
+  document.getElementById('qz-max-val').textContent=v;
+  document.getElementById('qz-max-hint').textContent=v;
+}
+
+function qzBuildWordList(seriesWords,maxNum){
+  // Filter words by num <= maxNum, collect those with images
+  return seriesWords.filter(w=>w.num<=maxNum&&w.image);
+}
+
+function qzShuffle(arr){
+  const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;
+}
+
+function qzLaunchSingle(){
+  const all=getAllSeries();
+  const s=all.find(x=>x.id===qzCurrentSeriesId);
+  if(!s){toast('Série introuvable');return;}
+  const maxNum=parseInt(document.getElementById('qz-max-slider').value)||s.words.length;
+  const words=qzBuildWordList(s.words,maxNum);
+  if(!words.length){toast('Aucun mot avec image dans cette plage');return;}
+  closeModal('m-quiz');
+  qzStart(words,s.name);
+}
+
+function qzLaunchMega(){
+  const all=getAllSeries();
+  let allWords=[];
+  let labels=[];
+  const megaList=document.getElementById('qz-mega-list');
+  const checkboxes=megaList.querySelectorAll('input[type=checkbox]:checked');
+  if(!checkboxes.length){toast('Sélectionnez au moins une série');return;}
+  checkboxes.forEach(chk=>{
+    const sid=chk.value;
+    const s=all.find(x=>x.id===sid);if(!s)return;
+    const maxInput=document.getElementById('qzm-max-'+sid);
+    const maxNum=maxInput?parseInt(maxInput.value)||s.words.length:s.words.length;
+    const words=qzBuildWordList(s.words,maxNum);
+    words.forEach(w=>allWords.push({...w,_seriesName:s.name}));
+    labels.push(s.name+' (1-'+maxNum+')');
+  });
+  if(!allWords.length){toast('Aucun mot avec image dans la sélection');return;}
+  closeModal('m-quiz');
+  qzStart(allWords,'Méga-quiz: '+labels.join(', '));
+}
+
+function qzStart(words,title){
+  QZ.words=qzShuffle(words);
+  QZ.pairIdx=0;
+  QZ.title=title;
+  buildQzStage();
+  document.getElementById('qz-wrap').classList.add('on');
+  qzShowPair(0);
+}
+
+function buildQzStage(){
+  const stage=document.getElementById('qz-stage');
+  stage.innerHTML='';
+  // Pre-build 2 card slots
+  for(let i=0;i<2;i++){
+    const card=document.createElement('div');
+    card.className='qz-card';
+    card.id='qz-card-'+i;
+    card.onclick=(function(idx){return function(){qzRevealCard(idx);};})(i);
+    card.innerHTML=`<div class="qz-card-inner">
+      <div class="qz-img-wrap">
+        <img class="qz-img" id="qz-img-${i}" src="" alt="" onerror="this.style.opacity='.3'">
+        <div class="qz-overlay" id="qz-ov-${i}"><div class="qz-overlay-icon">👆</div></div>
+      </div>
+      <div class="qz-word" id="qz-word-${i}"></div>
+    </div>`;
+    stage.appendChild(card);
+  }
+}
+
+function qzShowPair(pairIdx){
+  QZ.pairIdx=pairIdx;
+  QZ.revealed=[false,false];
+  const words=QZ.words;
+  const i0=pairIdx*2, i1=pairIdx*2+1;
+  const total=Math.ceil(words.length/2);
+  document.getElementById('qz-counter').textContent=(pairIdx+1)+' / '+total+' — '+QZ.title;
+
+  for(let slot=0;slot<2;slot++){
+    const wi=[i0,i1][slot];
+    const card=document.getElementById('qz-card-'+slot);
+    const img=document.getElementById('qz-img-'+slot);
+    const ov=document.getElementById('qz-ov-'+slot);
+    const wrd=document.getElementById('qz-word-'+slot);
+
+    if(wi<words.length){
+      const w=words[wi];
+      card.style.visibility='visible';
+      img.src=w.image;img.alt=w.word;img.style.opacity='1';
+      wrd.textContent=w.word+(w._seriesName?'\n('+w._seriesName+')':'');
+      wrd.style.whiteSpace='pre';
+      ov.classList.remove('revealed');
+      wrd.classList.remove('revealed');
+    } else {
+      // Only 1 word left: hide second card
+      card.style.visibility='hidden';
+    }
+  }
+}
+
+function qzRevealCard(slot){
+  if(QZ.revealed[slot])return;
+  QZ.revealed[slot]=true;
+  document.getElementById('qz-ov-'+slot).classList.add('revealed');
+  document.getElementById('qz-word-'+slot).classList.add('revealed');
+}
+
+function qzRevealAll(){
+  qzRevealCard(0);qzRevealCard(1);
+}
+
+function qzNext(){
+  const total=Math.ceil(QZ.words.length/2);
+  if(QZ.pairIdx+1>=total){
+    // Restart with new shuffle
+    QZ.words=qzShuffle(QZ.words);
+    qzShowPair(0);
+    toast('Tour terminé ! Nouveau mélange 🔀');
+  }else{
+    qzShowPair(QZ.pairIdx+1);
+  }
+}
+
+function qzClose(){
+  document.getElementById('qz-wrap').classList.remove('on');
+}
+
+// Keyboard support for quiz
+document.addEventListener('keydown',function(e){
+  if(!document.getElementById('qz-wrap').classList.contains('on'))return;
+  if(e.key==='Escape'){qzClose();return;}
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();qzNext();return;}
+  if(e.key==='ArrowLeft'){
+    const prev=QZ.pairIdx-1;
+    if(prev>=0)qzShowPair(prev);
+    return;
+  }
+  if(e.key==='1'||e.key==='ArrowUp')qzRevealCard(0);
+  if(e.key==='2')qzRevealCard(1);
+  if(e.key==='Enter')qzRevealAll();
+});
+
+// ================================================================
 // Vérifier les mises à jour en premier
 checkForUpdate();
 // Charger les séries partagées depuis GitHub, puis afficher
@@ -1832,9 +2070,70 @@ loadSharedSeries(function(){renderHome();});
         <div class="guide-a">Essayez <kbd>F5</kbd> puis <kbd>Ctrl + F5</kbd>. Si le problème persiste, notez le nom du mot et de la série et contactez votre coordinateur.</div>
       </div>
 
+      <h3>9. Utiliser le quiz</h3>
+      <p>Le quiz affiche les <strong>images des mots en très grand format</strong> (2 par page) pour une révision rapide en classe.</p>
+      <ol>
+        <li>Sur la carte d'une série, cliquez sur <strong>🎯 Quiz</strong></li>
+        <li>Choisissez jusqu'à quel numéro de mot inclure (ex : 1 à 12 si les élèves ont appris 12 mots)</li>
+        <li>Cliquez sur <strong>▶ Lancer ce quiz</strong></li>
+      </ol>
+      <p>Dans le quiz : chaque image est masquée, <strong>cliquez dessus pour la révéler</strong> (mot affiché en dessous). Utilisez <kbd>→</kbd> ou le bouton <strong>Suivant</strong> pour passer à la paire suivante.</p>
+      <div class="guide-tip">💡 <strong>Méga-quiz</strong> : cochez plusieurs séries dans la fenêtre de configuration pour mélanger des mots de différentes séries. Idéal pour une révision globale !</div>
+      <table class="guide-table">
+        <tr><th>Touche</th><th>Action</th></tr>
+        <tr><td><kbd>→</kbd> ou <kbd>Espace</kbd></td><td>Paire suivante</td></tr>
+        <tr><td><kbd>←</kbd></td><td>Paire précédente</td></tr>
+        <tr><td><kbd>Entrée</kbd></td><td>Révéler les 2 images</td></tr>
+        <tr><td><kbd>1</kbd></td><td>Révéler l'image gauche</td></tr>
+        <tr><td><kbd>2</kbd></td><td>Révéler l'image droite</td></tr>
+        <tr><td><kbd>Échap</kbd></td><td>Quitter le quiz</td></tr>
+      </table>
+
     </div>
-    <div style="text-align:center;margin-top:24px">
       <button class="btn bor" type="button" onclick="closeModal('m-guide')">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ OVERLAY -->
+<div id="qz-wrap">
+  <div id="qz-stage"></div>
+  <div id="qz-nav">
+    <button class="qn" type="button" onclick="qzClose()">✕ Quitter</button>
+    <span id="qz-counter"></span>
+    <div style="display:flex;gap:7px">
+      <button class="qn" type="button" onclick="qzRevealAll()">👁 Tout révéler</button>
+      <button class="qn" type="button" onclick="qzNext()">Suivant ▶</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: QUIZ CONFIG -->
+<div class="mo" id="m-quiz">
+  <div class="mb" style="max-width:520px">
+    <h3>🎯 Configurer le quiz</h3>
+
+    <!-- Mode simple série -->
+    <div id="qz-single-section">
+      <div style="font-weight:700;font-size:13px;color:#555;margin-bottom:8px">Série sélectionnée : <span id="qz-series-name" style="color:var(--cpd)"></span></div>
+      <div class="fg" style="margin-bottom:14px">
+        <label>Inclure les mots jusqu'au numéro…</label>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:6px">
+          <input type="range" id="qz-max-slider" min="1" max="32" value="12" style="flex:1" oninput="qzSliderChange()">
+          <span style="font-weight:700;font-size:20px;min-width:30px;text-align:right" id="qz-max-val">12</span>
+        </div>
+        <div style="font-size:11px;color:#aaa;margin-top:4px">Les mots de 1 à <span id="qz-max-hint">12</span> seront utilisés.</div>
+      </div>
+    </div>
+
+    <!-- Mode méga-quiz -->
+    <div class="qz-mega-sep">🌟 Méga-quiz — plusieurs séries</div>
+    <div id="qz-mega-list" style="max-height:260px;overflow-y:auto;padding-right:4px"></div>
+
+    <div class="mf">
+      <button class="bo" type="button" onclick="closeModal('m-quiz')">Annuler</button>
+      <button class="btn" type="button" id="qz-single-btn" onclick="qzLaunchSingle()">▶ Lancer ce quiz</button>
+      <button class="btn bor" type="button" onclick="qzLaunchMega()">🌟 Lancer le méga-quiz</button>
     </div>
   </div>
 </div>
