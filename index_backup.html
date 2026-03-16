@@ -8,330 +8,180 @@
 <style>
 @font-face{font-family:'Cursive Dumont maternelle';src:url('cursive.otf') format('opentype');}
 @font-face{font-family:'MDIEcole';src:url('MDIecole-Regular.otf') format('opentype'),url('mdi_ecole.ttf') format('truetype');}
-:root{
-  --cp:#8b7355;--cpd:#5c4a2a;--cpl:#f2ead8;
-  --fn:'MDIEcole','Calibri',Arial,sans-serif;
-  --bg:#f5f3ef;--card:#ffffff;--text:#2d2d2d;--text2:#6b6b6b;
-  --radius:12px;--shadow:0 2px 12px rgba(0,0,0,.06);
-  --shadow-lg:0 8px 32px rgba(0,0,0,.1);
-  --transition:all .2s ease;
-}
+:root{--cp:#8b7355;--cpd:#5c4a2a;--cpl:#f2ead8;--fn:'MDIEcole','Calibri',Arial,sans-serif;}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:var(--fn);background:var(--bg);min-height:100vh;color:var(--text);-webkit-font-smoothing:antialiased;}
-
-/* ===== NAV ===== */
-#nav{
-  background:var(--cpd);color:#fff;display:flex;align-items:center;gap:clamp(8px,1.5vw,16px);
-  padding:0 clamp(16px,2.5vw,32px);position:fixed;top:0;left:0;right:0;z-index:100;
-  height:clamp(50px,7vh,62px);box-shadow:0 2px 16px rgba(0,0,0,.15);
-}
-#nav h1{font-size:clamp(16px,2.2vw,22px);font-weight:800;flex:1;letter-spacing:1px;}
-.nb{
-  background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.12);
-  padding:clamp(5px,.7vh,9px) clamp(12px,1.6vw,20px);border-radius:24px;
-  cursor:pointer;font-size:clamp(11px,1.4vw,14px);font-family:var(--fn);
-  transition:var(--transition);white-space:nowrap;font-weight:500;
-}
-.nb:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.3);}
-.nb.active{background:rgba(255,255,255,.25);border-color:rgba(255,255,255,.35);font-weight:600;}
-#app{margin-top:clamp(50px,7vh,62px);}
-
-/* ===== PAGES ===== */
+body{font-family:var(--fn);background:#e8e4d8;min-height:100vh;}
+/* NAV */
+#nav{background:var(--cpd);color:#fff;display:flex;align-items:center;gap:10px;padding:0 18px;position:fixed;top:0;left:0;right:0;z-index:100;height:50px;}
+#nav h1{font-size:18px;font-weight:700;flex:1;}
+.nb{background:rgba(255,255,255,.15);color:#fff;border:none;padding:5px 14px;border-radius:18px;cursor:pointer;font-size:13px;font-family:var(--fn);}
+.nb:hover,.nb.active{background:rgba(255,255,255,.3);}
+#app{margin-top:50px;}
+/* PAGES */
 .pg{display:none;}.pg.on{display:block;}
-
-/* ===== HOME ===== */
-#pg-home{padding:clamp(24px,4vw,48px) clamp(20px,3vw,40px);max-width:1100px;margin:0 auto;}
-#pg-home h2{
-  font-size:clamp(22px,3vw,30px);margin-bottom:clamp(20px,3vw,32px);color:var(--cpd);font-weight:800;
-  letter-spacing:.3px;position:relative;padding-bottom:12px;
-}
-#pg-home h2::after{content:'';position:absolute;bottom:0;left:0;width:60px;height:3px;background:var(--cp);border-radius:2px;}
-.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:clamp(14px,2vw,20px);margin-bottom:clamp(20px,3vw,32px);}
-.sc{
-  background:var(--card);border-radius:14px;padding:clamp(18px,2.5vw,24px);
-  box-shadow:0 1px 8px rgba(0,0,0,.05);border-left:5px solid var(--cp);
-  transition:var(--transition);position:relative;overflow:hidden;
-}
-.sc::before{content:'';position:absolute;top:0;right:0;width:80px;height:80px;background:var(--cpl);border-radius:0 0 0 80px;opacity:.4;pointer-events:none;}
-.sc:hover{box-shadow:0 6px 24px rgba(0,0,0,.1);transform:translateY(-2px);}
-.sc h3{font-size:clamp(15px,2vw,19px);color:var(--cpd);font-weight:700;letter-spacing:.2px;}
-.sc p{font-size:clamp(12px,1.4vw,14px);color:var(--text2);margin-top:6px;line-height:1.5;}
-.scb{display:flex;gap:clamp(6px,1vw,10px);margin-top:clamp(10px,1.5vw,14px);flex-wrap:wrap;}
-
-/* ===== EDITOR ===== */
-#pg-editor{padding:clamp(20px,3vw,32px);max-width:1100px;margin:0 auto;}
-.eh{display:flex;align-items:center;gap:clamp(10px,1.2vw,14px);margin-bottom:clamp(16px,2.5vw,24px);flex-wrap:wrap;}
-.eh h2{font-size:clamp(18px,2.4vw,22px);color:var(--cpd);flex:1;font-weight:800;}
-.wl{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:clamp(8px,1.2vw,12px);}
-.wc{
-  background:var(--card);border-radius:12px;padding:clamp(10px,1.5vw,16px);
-  box-shadow:0 1px 6px rgba(0,0,0,.04);border-left:4px solid var(--cpl);
-  display:flex;align-items:center;justify-content:space-between;
-  transition:var(--transition);
-}
-.wc:hover{border-left-color:var(--cp);box-shadow:0 4px 16px rgba(0,0,0,.08);transform:translateY(-1px);}
-
-/* ===== SETTINGS ===== */
-#pg-settings{padding:clamp(16px,3vw,28px);max-width:1000px;margin:0 auto;}
-#pg-settings h2{font-size:clamp(18px,2.5vw,22px);color:var(--cpd);margin-bottom:clamp(14px,2vw,20px);}
-.ss{background:var(--card);border-radius:var(--radius);padding:clamp(14px,2vw,20px);margin-bottom:clamp(12px,1.5vw,16px);box-shadow:var(--shadow);}
-.ss h3{font-size:clamp(13px,1.5vw,15px);color:var(--text);margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:8px;}
-
-/* ===== BUTTONS ===== */
-.btn{
-  background:var(--cp);color:#fff;border:none;
-  padding:clamp(7px,1vh,11px) clamp(14px,2vw,22px);border-radius:10px;
-  cursor:pointer;font-size:clamp(12px,1.4vw,14px);font-weight:600;font-family:var(--fn);
-  transition:var(--transition);letter-spacing:.3px;
-  box-shadow:0 2px 6px rgba(0,0,0,.12);
-}
-.btn:hover{filter:brightness(.92);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.18);}
-.bsm{padding:clamp(5px,.7vh,8px) clamp(10px,1.4vw,16px);font-size:clamp(11px,1.2vw,13px);}
-.bo{
-  background:#fff;color:var(--text);border:1.5px solid #ddd;
-  padding:clamp(6px,.7vh,9px) clamp(12px,1.6vw,18px);border-radius:10px;
-  cursor:pointer;font-size:clamp(11px,1.3vw,13px);font-family:var(--fn);
-  transition:var(--transition);font-weight:500;
-}
-.bo:hover{border-color:var(--cp);background:#faf8f5;box-shadow:0 2px 8px rgba(0,0,0,.06);}
-.bd{background:#dc3545;color:#fff;border:none;padding:clamp(5px,.6vh,7px) clamp(10px,1.2vw,14px);border-radius:10px;cursor:pointer;font-size:clamp(11px,1.2vw,13px);font-family:var(--fn);transition:var(--transition);box-shadow:0 2px 6px rgba(220,53,69,.25);}
-.bd:hover{background:#c82333;}
-.bor{background:#e07a30;box-shadow:0 2px 6px rgba(224,122,48,.3);}
-.bor:hover{background:#c96a22;}
-
-/* ===== MODALS ===== */
-.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center;pointer-events:none;}
+/* HOME */
+#pg-home{padding:26px;max-width:920px;margin:0 auto;}
+#pg-home h2{font-size:21px;margin-bottom:16px;color:var(--cpd);}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-bottom:22px;}
+.sc{background:#fff;border-radius:10px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.1);border-left:5px solid var(--cp);}
+.sc h3{font-size:16px;color:var(--cpd);}
+.sc p{font-size:12px;color:#777;margin-top:3px;}
+.scb{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap;}
+/* EDITOR */
+#pg-editor{padding:18px 24px;max-width:1100px;margin:0 auto;}
+.eh{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.eh h2{font-size:18px;color:var(--cpd);flex:1;}
+.wl{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:9px;}
+.wc{background:#fff;border-radius:8px;padding:10px 13px;box-shadow:0 1px 4px rgba(0,0,0,.07);border-left:4px solid var(--cpl);display:flex;align-items:center;justify-content:space-between;}
+.wc:hover{border-left-color:var(--cp);}
+/* SETTINGS */
+#pg-settings{padding:24px;max-width:1000px;margin:0 auto;}
+#pg-settings h2{font-size:20px;color:var(--cpd);margin-bottom:18px;}
+.ss{background:#fff;border-radius:10px;padding:16px;margin-bottom:16px;box-shadow:0 1px 5px rgba(0,0,0,.07);}
+.ss h3{font-size:14px;color:#444;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:6px;}
+/* BUTTONS */
+.btn{background:var(--cp);color:#fff;border:none;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600;font-family:var(--fn);}
+.btn:hover{filter:brightness(.9);}
+.bsm{padding:5px 11px;font-size:12px;}
+.bo{background:#eee;color:#444;border:1px solid #ccc;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-family:var(--fn);}
+.bo:hover{border-color:var(--cp);}
+.bd{background:#e05a5a;color:#fff;border:none;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:12px;font-family:var(--fn);}
+.bor{background:#e07a30;}
+/* MODALS */
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;align-items:center;justify-content:center;pointer-events:none;}
 .mo.on{display:flex;pointer-events:auto;}
-.mb{background:var(--card);border-radius:18px;padding:clamp(20px,3.5vw,32px);width:96%;max-width:880px;max-height:92vh;overflow-y:auto;box-shadow:0 12px 48px rgba(0,0,0,.2);}
-.mb h3{font-size:clamp(16px,2.2vw,20px);margin-bottom:18px;color:var(--cpd);font-weight:700;letter-spacing:.2px;}
+.mb{background:#fff;border-radius:12px;padding:22px;width:96%;max-width:880px;max-height:92vh;overflow-y:auto;box-shadow:0 12px 40px rgba(0,0,0,.25);}
+.mb h3{font-size:17px;margin-bottom:16px;color:var(--cpd);}
 .fr{display:flex;gap:12px;margin-bottom:10px;align-items:flex-start;flex-wrap:wrap;}
-.fg{display:flex;flex-direction:column;gap:4px;flex:1;min-width:100px;}
-.fg label{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;}
-.fg input,.fg textarea,.fg select{border:1.5px solid #e0e0e0;border-radius:8px;padding:8px 12px;font-size:13px;font-family:var(--fn);transition:var(--transition);background:#fafafa;}
-.fg input:focus,.fg textarea:focus,.fg select:focus{outline:none;border-color:var(--cp);background:#fff;box-shadow:0 0 0 3px color-mix(in srgb,var(--cp) 15%,transparent);}
+.fg{display:flex;flex-direction:column;gap:3px;flex:1;min-width:100px;}
+.fg label{font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;}
+.fg input,.fg textarea,.fg select{border:1px solid #ddd;border-radius:6px;padding:6px 9px;font-size:13px;font-family:var(--fn);}
+.fg input:focus,.fg textarea:focus,.fg select:focus{outline:none;border-color:var(--cp);}
 .fg textarea{resize:vertical;min-height:60px;}
-.mf{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;padding-top:14px;border-top:1px solid #eee;}
-
-/* ===== PHONETIC EDITOR ===== */
-.phs{margin-top:12px;border:1.5px solid #eee;border-radius:10px;padding:14px;background:#fafafa;}
-.phs h4{font-size:13px;color:var(--text2);margin-bottom:10px;}
-.phr{display:flex;align-items:center;gap:8px;padding:6px;border-bottom:1px solid #f0f0f0;flex-wrap:wrap;background:#fff;border-radius:6px;margin-bottom:4px;}
+.mf{display:flex;gap:9px;justify-content:flex-end;margin-top:16px;padding-top:12px;border-top:1px solid #eee;}
+/* PHONETIC EDITOR */
+.phs{margin-top:12px;border:1px solid #eee;border-radius:8px;padding:12px;background:#fafafa;}
+.phs h4{font-size:13px;color:#555;margin-bottom:10px;}
+.phr{display:flex;align-items:center;gap:7px;padding:5px 4px;border-bottom:1px solid #f0f0f0;flex-wrap:wrap;background:#fff;border-radius:4px;margin-bottom:3px;}
 .phl{font-size:18px;font-weight:700;min-width:44px;}
-.phs-in{border:1.5px solid #e0e0e0;border-radius:6px;padding:4px 8px;font-size:12px;font-family:var(--fn);}
+.phs-in{border:1px solid #ddd;border-radius:4px;padding:3px 6px;font-size:12px;font-family:var(--fn);}
 .lcs{display:flex;gap:5px;align-items:flex-end;}
 .lcg{display:flex;flex-direction:column;align-items:center;gap:2px;}
 .lcl{font-size:10px;font-weight:700;color:#666;}
 .pds{display:flex;gap:2px;}
-.pd{width:18px;height:18px;border-radius:4px;cursor:pointer;border:2px solid transparent;transition:var(--transition);}
+.pd{width:18px;height:18px;border-radius:4px;cursor:pointer;border:2px solid transparent;}
 .pd:hover{border-color:#555;}
 .pd.sel{border-color:#222;box-shadow:0 0 0 1px #fff inset;}
-.phb{background:#f0f0f0;border:1px solid #ddd;border-radius:6px;padding:3px 10px;cursor:pointer;font-size:11px;transition:var(--transition);}
+.phb{background:#f0f0f0;border:1px solid #ddd;border-radius:4px;padding:2px 8px;cursor:pointer;font-size:11px;}
 .phb:hover{background:#e4e4e4;}
-
-/* ===== DICT TABLE ===== */
+/* DICT TABLE */
 .dt{width:100%;border-collapse:collapse;font-size:12px;}
-.dt th{background:var(--cpl);padding:6px 10px;text-align:left;position:sticky;top:0;z-index:1;font-weight:600;}
-.dt td{padding:5px 8px;border-bottom:1px solid #f0f0f0;vertical-align:middle;}
-.dt input{border:1.5px solid #e0e0e0;border-radius:4px;padding:3px 6px;font-size:11px;font-family:var(--fn);}
-.dt select{border:1.5px solid #e0e0e0;border-radius:4px;padding:3px 5px;font-size:10px;font-family:var(--fn);}
-
-/* ===== METHOD TOGGLE ===== */
-.mt{display:flex;border:2px solid var(--cp);border-radius:10px;overflow:hidden;margin-top:4px;}
-.mtb{flex:1;padding:8px 12px;border:none;cursor:pointer;font-size:12px;font-weight:600;font-family:var(--fn);background:#fff;color:var(--text2);transition:var(--transition);}
+.dt th{background:var(--cpl);padding:5px 8px;text-align:left;position:sticky;top:0;z-index:1;}
+.dt td{padding:4px 7px;border-bottom:1px solid #f0f0f0;vertical-align:middle;}
+.dt input{border:1px solid #ddd;border-radius:3px;padding:2px 5px;font-size:11px;font-family:var(--fn);}
+.dt select{border:1px solid #ddd;border-radius:3px;padding:2px 4px;font-size:10px;font-family:var(--fn);}
+/* METHOD TOGGLE */
+.mt{display:flex;border:2px solid var(--cp);border-radius:8px;overflow:hidden;margin-top:4px;}
+.mtb{flex:1;padding:6px 10px;border:none;cursor:pointer;font-size:12px;font-weight:600;font-family:var(--fn);background:#fff;color:#666;}
 .mtb.on{background:var(--cp);color:#fff;}
-
-/* ===== BADGE ===== */
-.mbg{display:inline-block;padding:3px 10px;border-radius:12px;font-size:10px;font-weight:700;margin-left:8px;vertical-align:middle;letter-spacing:.5px;}
-.beo{background:linear-gradient(135deg,#7ab648,#5a9a30);color:#fff;}
-.bbm{background:linear-gradient(135deg,#4a90d9,#3070b9);color:#fff;}
-
-/* ===== COLOR ROW ===== */
+/* BADGE */
+.mbg{display:inline-block;padding:1px 7px;border-radius:9px;font-size:10px;font-weight:700;margin-left:5px;vertical-align:middle;}
+.beo{background:#7ab648;color:#fff;}
+.bbm{background:#4a90d9;color:#fff;}
+/* COLOR ROW */
 .cr{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
 .cr label{flex:1;font-size:13px;}
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:#333;color:#fff;padding:10px 16px;border-radius:8px;z-index:9999;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;}
+.toast.show{opacity:1;}
 
-/* ===== TOAST ===== */
-.toast{position:fixed;bottom:24px;right:24px;background:var(--cpd);color:#fff;padding:12px 20px;border-radius:10px;z-index:9999;font-size:13px;font-weight:500;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;transform:translateY(8px);box-shadow:var(--shadow-lg);}
-.toast.show{opacity:1;transform:translateY(0);}
-
-/* ============================================= */
-/* ===== SLIDESHOW — RESPONSIVE FULLSCREEN ===== */
-/* ============================================= */
-#ss-wrap{display:none;position:fixed;inset:0;z-index:500;background:#1a1a1a;flex-direction:column;}
+/* ===== SLIDESHOW ===== */
+#ss-wrap{display:none;position:fixed;inset:0;z-index:500;background:#222;flex-direction:column;}
 #ss-wrap.on{display:flex;}
 #ss-stage{position:relative;flex:1;overflow:hidden;}
-#ss-nav{
-  background:var(--cpd);padding:clamp(8px,1.2vh,14px) clamp(14px,2.5vw,28px);
-  display:flex;align-items:center;justify-content:space-between;gap:clamp(8px,1.5vw,16px);flex-shrink:0;
-}
-.sn{
-  background:rgba(255,255,255,.15);color:#fff;border:none;
-  padding:clamp(6px,1vh,12px) clamp(14px,2vw,24px);border-radius:22px;
-  cursor:pointer;font-size:clamp(13px,1.6vw,18px);font-family:var(--fn);
-  transition:var(--transition);font-weight:600;letter-spacing:.3px;
-}
-.sn:hover{background:rgba(255,255,255,.3);}
-.ci{color:rgba(255,255,255,.65);font-size:clamp(12px,1.5vw,16px);text-align:center;flex:1;font-weight:500;}
-
-/* --- Slides base --- */
-.slide{display:none;position:absolute;inset:0;flex-direction:column;background:#fafaf6;}
+#ss-nav{background:var(--cpd);padding:6px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0;}
+.sn{background:rgba(255,255,255,.15);color:#fff;border:none;padding:4px 12px;border-radius:16px;cursor:pointer;font-size:12px;font-family:var(--fn);}
+.sn:hover{background:rgba(255,255,255,.28);}
+.ci{color:rgba(255,255,255,.6);font-size:11px;text-align:center;flex:1;}
+/* SLIDES */
+.slide{display:none;position:absolute;inset:0;flex-direction:column;background:#f9f7ee;}
 .slide.on{display:flex;}
-.sh{
-  background:var(--cp);color:#fff;display:flex;align-items:center;justify-content:space-between;
-  padding:0 clamp(14px,3vw,30px);font-weight:700;
-  font-size:clamp(20px,3.2vw,36px);height:clamp(48px,8vh,76px);flex-shrink:0;position:relative;
-}
-.grass{height:clamp(14px,2.5vh,28px);flex-shrink:0;overflow:hidden;}
-.grass svg{width:100%;height:100%;display:block;}
-
-/* --- Title slide --- */
+.sh{background:var(--cp);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-weight:700;font-size:20px;height:58px;flex-shrink:0;}
+.grass{height:20px;flex-shrink:0;overflow:hidden;}
+.grass svg{width:100%;height:20px;display:block;}
+/* TITLE SLIDE */
 .sl-title{background:#fff;align-items:center;justify-content:center;flex-direction:column;}
-.sl-title h1{font-size:clamp(36px,7vw,80px);font-weight:900;color:var(--cpd);letter-spacing:3px;}
-.sl-title h2{font-size:clamp(22px,4.5vw,50px);color:var(--cp);margin-top:clamp(8px,1.5vh,16px);font-weight:400;}
-
-/* --- Sommaire --- */
-.sl-som{background:#fafaf6;}
-.som-grid{flex:1;padding:clamp(8px,1.5vh,16px) clamp(12px,2.5vw,24px);display:grid;grid-template-columns:repeat(auto-fill,minmax(min(220px,45%),1fr));gap:clamp(4px,.8vh,8px);overflow-y:auto;align-content:start;}
-.som-item{
-  background:#fff;border:1.5px solid var(--cpl);border-radius:10px;
-  padding:clamp(8px,1.2vh,14px) clamp(10px,2vw,18px);cursor:pointer;
-  display:flex;gap:clamp(6px,1vw,12px);align-items:center;
-  font-size:clamp(14px,2vw,22px);transition:var(--transition);
-}
-.som-item:hover{background:var(--cpl);transform:translateX(4px);}
-.som-num{font-weight:700;color:var(--cpd);min-width:clamp(16px,2.5vw,28px);}
-
-/* --- Slide A (phonétique) --- */
-.sab{flex:1;display:flex;flex-direction:column;padding:.8vh 1.5vw .4vh;overflow:hidden;position:relative;}
-.def-box{
-  background:#fff;border:2px solid var(--cpl);border-radius:8px;
-  padding:1vh 1.8vw;font-size:clamp(16px,2.5vw,32px);color:var(--text);line-height:1.4;
-  margin-bottom:.5vh;box-shadow:none;flex-shrink:0;position:relative;
-  padding-right:clamp(150px,20vw,280px);
-}
+.sl-title h1{font-size:60px;font-weight:900;color:var(--cpd);letter-spacing:3px;}
+.sl-title h2{font-size:38px;color:var(--cp);margin-top:12px;font-weight:400;}
+/* SOMMAIRE */
+.sl-som{background:#f9f7ee;}
+.som-grid{flex:1;padding:12px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;overflow-y:auto;}
+.som-item{background:#fff;border:1.5px solid var(--cpl);border-radius:8px;padding:10px 14px;cursor:pointer;display:flex;gap:8px;align-items:center;font-size:17px;}
+.som-item:hover{background:var(--cpl);}
+.som-num{font-weight:700;color:var(--cpd);width:20px;}
+/* SLIDE A */
+.sab{flex:1;display:flex;flex-direction:column;padding:10px 18px 6px;overflow:hidden;position:relative;}
+.def-box{background:#fff;border:2px solid var(--cpl);border-radius:7px;padding:12px 16px;font-size:18px;color:#333;line-height:1.6;margin-bottom:10px;min-height:56px;}
 .def-line{display:none;}.def-line.on{display:block;}
-.wi{
-  position:absolute;top:.5vh;right:1.5vw;
-  width:clamp(120px,16vw,250px);height:clamp(100px,18vh,240px);
-  object-fit:contain;display:none;border-radius:8px;
-  border:2px solid var(--cpl);background:#fff;padding:4px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);z-index:3;
-}
+.wi{position:absolute;top:4px;right:10px;width:160px;height:140px;object-fit:contain;display:none;border-radius:10px;border:3px solid var(--cpl);background:#fff;padding:3px;box-shadow:0 2px 8px rgba(0,0,0,.12);}
 .wi.on{display:block;}
-.wz{
-  flex:1;display:flex;align-items:center;justify-content:center;min-height:0;
-  border:2.5px solid var(--cp);border-radius:10px;background:#fff;
-  margin:0;padding:.5vh .5vw;
-}
-.wz-padded{padding-right:0;}
-
-/* --- Décor thème --- */
-.sh-decos{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;gap:clamp(4px,.8vw,10px);align-items:center;pointer-events:none;}
-.sh-decos img{height:clamp(28px,5vh,50px);width:auto;opacity:.85;filter:drop-shadow(0 1px 3px rgba(0,0,0,.2));}
-
-/* --- Letters row — taille de base TRÈS grande, le JS auto-scale --- */
-.lr{display:flex;align-items:flex-start;gap:0;transform-origin:center center;}
-.ssep{width:4px;border-right:4px dashed #82c4e0;height:32vh;margin:0 .8vw;align-self:center;}
-.pg-grp{display:inline-flex;flex-direction:column;align-items:center;position:relative;}
-.pg-grp-letters{display:flex;align-items:flex-end;}
-.ls{display:flex;flex-direction:column;align-items:center;width:11vw;}
-.lc{
-  font-size:13vw;font-weight:700;
-  height:14vw;display:flex;align-items:flex-end;justify-content:center;
-  opacity:0;transition:opacity .25s ease;line-height:1;
-}
+.wz{flex:1;display:flex;align-items:center;justify-content:center;padding-right:180px;}
+/* Décor thème : images centrées dans le bandeau uniquement */
+.sh-decos{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;gap:8px;align-items:center;pointer-events:none;}
+.sh-decos img{height:42px;width:auto;opacity:.9;filter:drop-shadow(0 1px 2px rgba(0,0,0,.2));}
+.sh{position:relative;}
+/* LETTERS ROW */
+.lr{display:flex;align-items:flex-end;gap:0;}
+.ssep{width:3px;border-right:3px dashed #82c4e0;height:190px;margin:0 6px;align-self:flex-end;margin-bottom:-70px;}
+.pg-grp{display:inline-flex;align-items:flex-end;position:relative;}
+.ls{display:flex;flex-direction:column;align-items:center;width:72px;}
+.lc{font-size:70px;font-weight:700;height:82px;display:flex;align-items:flex-end;justify-content:center;opacity:0;transition:opacity .22s;line-height:1;}
 .lc.on{opacity:1;}
-.lb{width:9.5vw;height:.7vh;border-radius:2px;margin:.4vh auto 0;}
-
-/* --- Point de liaison --- */
-.dw{position:relative;width:0;height:0;align-self:flex-end;margin-bottom:.6vh;}
-.ld{
-  position:absolute;width:3vw;height:3vw;border-radius:50%;
-  left:50%;top:50%;transform:translate(-50%,-50%);margin-top:-2px;z-index:2;
-}
-
-/* --- Sound image (below each group, in flow) --- */
-.si{
-  width:10vw;height:10vw;
-  object-fit:contain;opacity:0;transition:opacity .25s ease;
-  margin-top:.4vh;pointer-events:none;
-}
+.lb{width:56px;height:5px;border-radius:2px;margin:4px auto 0;}
+/* Point de liaison : centré sur le trait, déborde dessus et dessous */
+.dw{position:relative;width:0;height:0;align-self:flex-end;margin-bottom:4px;}
+.ld{position:absolute;width:20px;height:20px;border-radius:50%;
+    left:50%;top:50%;transform:translate(-50%,-50%);
+    margin-top:-2px; /* centré sur le trait de 5px */
+    z-index:2;}
+/* Sound image — one per group, centered */
+.si{width:68px;height:68px;object-fit:contain;opacity:0;transition:opacity .22s;position:absolute;left:50%;transform:translateX(-50%);bottom:-74px;pointer-events:none;}
 .si.on{opacity:1;}
-
-/* --- Slide B (mot complet) --- */
-.sbb{flex:1;display:flex;flex-direction:column;padding:1vh 2vw .5vh;gap:1vh;overflow:hidden;}
-.wa{display:flex;flex:1;gap:1.5vw;align-items:stretch;min-height:0;}
-.wcv{
-  flex:1.2;display:flex;align-items:center;justify-content:center;
-  background:#fff;border:none;border-radius:0;
-  font-family:'Cursive Dumont maternelle',serif;
-  font-size:clamp(72px,16vw,240px);color:#222;padding:1vh;
-  text-align:center;min-width:0;overflow:hidden;
-}
-.wr{flex:.9;display:flex;flex-direction:column;gap:1vh;justify-content:center;}
-.wca{
-  flex:unset;display:flex;align-items:center;justify-content:center;
-  background:#fff;border:none;border-radius:0;
-  font-size:clamp(40px,8vw,120px);font-weight:700;color:#222;letter-spacing:3px;
-  padding:1vh 0;
-}
-.wsc{
-  flex:unset;display:flex;align-items:center;justify-content:center;
-  background:#fff;border:none;border-radius:0;
-  font-size:clamp(32px,7vw,100px);color:#222;padding:1vh 0;
-}
-.wib{
-  flex-shrink:0;width:clamp(120px,18vw,260px);
-  object-fit:contain;border:2px solid var(--cpl);border-radius:8px;
-  background:#fff;padding:4px;box-shadow:0 2px 8px rgba(0,0,0,.06);
-  align-self:center;
-}
-.sb-cat-label{
-  font-size:clamp(10px,1.3vw,15px);font-weight:700;color:var(--text2);
-  letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;
-  width:100%;text-align:left;padding-left:4px;
-}
-.gb{
-  background:var(--cpl);border-radius:8px;
-  padding:1.5vh 3vw;
-  display:flex;gap:clamp(24px,5vw,60px);align-items:center;
-  flex-shrink:0;
-}
-.nb2{
-  background:#f4f4f4;border-radius:8px;
-  padding:1.5vh 3vw;
-  display:flex;gap:clamp(16px,4vw,44px);align-items:center;flex-wrap:wrap;
-  flex-shrink:0;
-}
-.ci2{display:flex;align-items:center;gap:clamp(10px,1.5vw,20px);font-size:clamp(22px,3.2vw,40px);font-weight:700;}
-.cb{
-  width:clamp(32px,4.5vw,56px);height:clamp(32px,4.5vw,56px);
-  border:2.5px solid var(--cp);border-radius:6px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:clamp(20px,3vw,34px);flex-shrink:0;transition:var(--transition);
-  background:#fff;
-}
+/* SLIDE B */
+.sbb{flex:1;display:flex;flex-direction:column;padding:10px 18px 6px;gap:10px;}
+.wa{display:flex;flex:1;gap:12px;align-items:stretch;min-height:0;}
+.wcv{flex:1.4;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid var(--cpl);border-radius:7px;font-family:'Cursive Dumont maternelle',serif;font-size:100px;color:#222;padding:10px;text-align:center;min-width:0;overflow:hidden;}
+.wr{flex:.85;display:flex;flex-direction:column;gap:8px;}
+.wca{flex:1;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid var(--cpl);border-radius:7px;font-size:42px;font-weight:700;color:#222;letter-spacing:2px;}
+.wsc{flex:1;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid var(--cpl);border-radius:7px;font-size:32px;color:#222;}
+.wib{flex-shrink:0;width:140px;object-fit:contain;border:2px solid var(--cpl);border-radius:7px;background:#fff;padding:3px;}
+.sb-cat-label{font-size:11px;font-weight:700;color:#aaa;letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;width:100%;text-align:left;padding-left:4px;}
+.gb{background:var(--cpl);border-radius:7px;padding:12px 20px;display:flex;gap:40px;align-items:center;}
+.nb2{background:#f0f0f0;border-radius:7px;padding:12px 20px;display:flex;gap:30px;align-items:center;flex-wrap:wrap;}
+.ci2{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;}
+.cb{width:30px;height:30px;border:2px solid #aaa;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
 .cb.ok{background:#4CAF50;border-color:#4CAF50;color:#fff;}
-.cb.nope{border-color:#e8002a;color:#e8002a;background:#fff0f0;}
-.cb.ko{background:#e8002a;color:#fff;font-size:clamp(14px,2vw,22px);display:flex;align-items:center;justify-content:center;}
+.cb.nope{border-color:#e8002a;color:#e8002a;background:#fff0f0;font-size:20px;}
+.cb.ko{background:#e8002a;color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;}
 
-/* ===== GUIDE UTILISATEUR ===== */
-.guide-content{font-size:14px;line-height:1.7;color:var(--text);}
+/* ── GUIDE UTILISATEUR ── */
+.guide-content{font-size:14px;line-height:1.7;color:#333;}
 .guide-content h3{font-size:15px;font-weight:700;color:var(--cpd);margin:22px 0 8px;padding-bottom:4px;border-bottom:2px solid var(--cpl);}
 .guide-content p{margin:6px 0 10px;}
 .guide-content ol,.guide-content ul{margin:6px 0 10px;padding-left:20px;}
 .guide-content li{margin-bottom:4px;}
-.guide-content strong{color:var(--text);}
-.guide-content code{background:#f0ede8;padding:1px 5px;border-radius:4px;font-size:12px;font-family:monospace;}
-.guide-tip{background:#fef9e7;border-left:3px solid #f0c040;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:13px;color:#555;}
+.guide-content strong{color:#333;}
+.guide-content code{background:#f0ede8;padding:1px 5px;border-radius:3px;font-size:12px;font-family:monospace;}
+.guide-tip{background:#fef9e7;border-left:3px solid #f0c040;padding:10px 14px;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#555;}
 .guide-table{width:100%;border-collapse:collapse;margin:10px 0 14px;font-size:13px;}
-.guide-table th{background:var(--cpl);color:var(--cpd);padding:8px 12px;text-align:left;font-weight:600;border-radius:0;}
-.guide-table td{padding:7px 12px;border-bottom:1px solid #eee;}
+.guide-table th{background:var(--cpl);color:var(--cpd);padding:7px 10px;text-align:left;font-weight:600;}
+.guide-table td{padding:6px 10px;border-bottom:1px solid #eee;}
 .guide-table tr:last-child td{border-bottom:none;}
 .guide-faq{display:flex;flex-direction:column;gap:0;}
-.guide-q{background:var(--cpl);color:var(--cpd);padding:8px 12px;font-weight:600;font-size:13px;margin-top:8px;border-radius:8px 8px 0 0;}
-.guide-a{background:#faf8f4;padding:8px 12px;font-size:13px;color:#555;border-radius:0 0 8px 8px;border:1px solid var(--cpl);border-top:none;}
-kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font-size:12px;font-family:monospace;}
-.guide-zoom{background:#e8f4fd;border:1px solid #aed6f1;border-radius:10px;padding:14px 16px;margin:0 0 18px;color:#1a5276;font-size:13px;}
+.guide-q{background:var(--cpl);color:var(--cpd);padding:8px 12px;font-weight:600;font-size:13px;margin-top:8px;border-radius:6px 6px 0 0;}
+.guide-a{background:#faf8f4;padding:8px 12px;font-size:13px;color:#555;border-radius:0 0 6px 6px;border:1px solid var(--cpl);border-top:none;}
+kbd{background:#eee;border:1px solid #ccc;border-radius:3px;padding:1px 6px;font-size:12px;font-family:monospace;}
+.guide-zoom{background:#e8f4fd;border:1px solid #aed6f1;border-radius:8px;padding:14px 16px;margin:0 0 18px;color:#1a5276;font-size:13px;}
 .guide-zoom ul{margin:4px 0;padding-left:18px;}
 .guide-zoom li{margin-bottom:3px;}
 
@@ -339,55 +189,30 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
 #qz-wrap{display:none;position:fixed;inset:0;z-index:600;background:#1a1a2e;flex-direction:column;}
 #qz-wrap.on{display:flex;}
 #qz-stage{flex:1;display:flex;align-items:stretch;gap:0;overflow:hidden;}
-#qz-nav{
-  background:#0f0f1a;padding:clamp(6px,1vh,10px) clamp(12px,2vw,22px);
-  display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0;
-}
-.qn{
-  background:rgba(255,255,255,.1);color:#fff;border:none;
-  padding:clamp(4px,.7vh,8px) clamp(10px,1.8vw,18px);border-radius:18px;
-  cursor:pointer;font-size:clamp(12px,1.4vw,14px);font-family:var(--fn);
-  transition:var(--transition);
-}
-.qn:hover{background:rgba(255,255,255,.22);}
-#qz-counter{color:rgba(255,255,255,.5);font-size:clamp(11px,1.3vw,14px);}
-
+#qz-nav{background:#0f0f1a;padding:8px 18px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0;}
+.qn{background:rgba(255,255,255,.12);color:#fff;border:none;padding:5px 14px;border-radius:16px;cursor:pointer;font-size:13px;font-family:var(--fn);}
+.qn:hover{background:rgba(255,255,255,.25);}
+#qz-counter{color:rgba(255,255,255,.6);font-size:13px;}
 /* Quiz image cards */
 .qz-card{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;border-right:2px solid rgba(255,255,255,.05);}
 .qz-card:last-child{border-right:none;}
-.qz-card-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;padding:clamp(12px,2vw,24px);}
+.qz-card-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;padding:20px;}
 .qz-img-wrap{position:relative;display:flex;align-items:center;justify-content:center;width:100%;flex:1;min-height:0;}
-.qz-img{max-width:92%;max-height:100%;object-fit:contain;border-radius:16px;border:4px solid rgba(255,255,255,.12);transition:transform .2s;box-shadow:0 8px 32px rgba(0,0,0,.5);}
+.qz-img{max-width:90%;max-height:100%;object-fit:contain;border-radius:16px;border:4px solid rgba(255,255,255,.15);transition:transform .15s;box-shadow:0 8px 32px rgba(0,0,0,.5);}
 .qz-card:hover .qz-img{transform:scale(1.02);}
 .qz-overlay{position:absolute;inset:0;background:#1a1a2e;display:flex;align-items:center;justify-content:center;border-radius:16px;transition:opacity .35s;}
-.qz-overlay-icon{font-size:clamp(48px,8vw,80px);opacity:.7;}
+.qz-overlay-icon{font-size:72px;opacity:.7;}
 .qz-overlay.revealed{opacity:0;pointer-events:none;}
-.qz-word{font-size:clamp(24px,4vw,42px);font-weight:700;color:#fff;text-align:center;margin-top:clamp(8px,1.5vh,16px);opacity:0;transition:opacity .35s;text-shadow:0 2px 8px rgba(0,0,0,.5);pointer-events:none;}
+.qz-word{font-size:36px;font-weight:700;color:#fff;text-align:center;margin-top:14px;opacity:0;transition:opacity .35s;text-shadow:0 2px 8px rgba(0,0,0,.5);pointer-events:none;}
 .qz-word.revealed{opacity:1;pointer-events:auto;}
 .qz-num{position:absolute;top:12px;left:14px;background:rgba(255,255,255,.15);color:#fff;font-size:13px;font-weight:700;border-radius:20px;padding:3px 10px;}
-
 /* Quiz config modal */
-.qz-series-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:#faf8f4;margin-bottom:8px;border:1.5px solid #e8e0d4;transition:var(--transition);}
+.qz-series-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;background:#faf8f4;margin-bottom:7px;border:1.5px solid #e8e0d4;}
 .qz-series-row.active{border-color:var(--cp);background:#f0ffe8;}
 .qz-series-row label{flex:1;font-weight:600;font-size:14px;cursor:pointer;}
 .qz-range{display:flex;align-items:center;gap:6px;font-size:13px;}
-.qz-range input[type=number]{width:58px;border:1.5px solid #e0e0e0;border-radius:6px;padding:4px 8px;font-family:var(--fn);font-size:13px;}
-.qz-mega-sep{font-size:11px;font-weight:700;color:var(--text2);letter-spacing:2px;text-transform:uppercase;margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid #eee;}
-
-/* ===== AUTO-SCALE lettres pour vidéoprojecteur ===== */
-@media (min-width:1024px){
-  .lr{transform:scale(1);}
-}
-@media (max-width:1023px) and (min-width:768px){
-  .lr{transform:scale(.78);}
-}
-@media (max-width:767px){
-  .lr{transform:scale(.55);}
-  .wi{position:relative;top:auto;right:auto;width:100%;height:auto;max-height:20vh;margin-bottom:8px;}
-  .def-box{padding-right:1.8vw;}
-  .wa{flex-direction:column;}
-  .wib{width:100%;max-height:30vh;}
-}
+.qz-range input[type=number]{width:58px;border:1px solid #ddd;border-radius:5px;padding:3px 6px;font-family:var(--fn);font-size:13px;}
+.qz-mega-sep{font-size:11px;font-weight:700;color:#aaa;letter-spacing:2px;text-transform:uppercase;margin:14px 0 8px;padding-bottom:4px;border-bottom:1px solid #eee;}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
@@ -405,9 +230,9 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
 <div id="pg-home" class="pg on">
   <h2>Mes séries de vocabulaire</h2>
   <div class="sg" id="series-grid"></div>
-  <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding-top:12px;border-top:1px solid #e8e4de;">
-    <button class="btn" type="button" onclick="openNewSeriesModal()" style="font-size:14px;padding:10px 22px;">+ Nouvelle série</button>
-    <a class="btn bo" style="text-decoration:none;padding:9px 18px;font-size:13px" href="modele_import.xlsx" download>📥 Modèle Excel</a>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+    <button class="btn" type="button" onclick="openNewSeriesModal()">+ Nouvelle série</button>
+    <a class="btn" style="text-decoration:none;padding:8px 16px" href="modele_import.xlsx" download>📥 Modèle Excel</a>
   </div>
 </div>
 
@@ -457,578 +282,16 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
 <div id="ss-wrap">
   <div id="ss-stage"></div>
   <div id="ss-nav">
-    <div style="display:flex;gap:clamp(4px,.8vw,8px)">
+    <div style="display:flex;gap:6px">
       <button class="sn" type="button" onclick="ssMenu()">🏠 Menu</button>
-      <button class="sn" type="button" onclick="ssBack2()">⏮ −2</button>
-      <button class="sn" type="button" onclick="ssBack()">◀ Précédent</button>
+      <button class="sn" type="button" onclick="ssBack2()">⏮−2</button>
+      <button class="sn" type="button" onclick="ssBack()">◀</button>
     </div>
     <span class="ci" id="ss-hint">Cliquez pour révéler</span>
-    <div style="display:flex;gap:clamp(4px,.8vw,8px)">
-      <button class="sn" type="button" onclick="ssGoto(1)">📋 Sommaire</button>
-      <button class="sn" type="button" onclick="ssNextWord()">Mot suivant ⏭</button>
-      <button class="sn" type="button" onclick="ssNext()">Suivant ▶</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: NEW SERIES -->
-
-<!-- MODAL: LANCEMENT DIAPORAMA -->
-<div class="mo" id="m-launch">
-  <div class="mb" style="max-width:360px">
-    <h3>Lancer le diaporama</h3>
-    <div class="fg" style="margin-bottom:16px">
-      <label style="margin-bottom:8px;display:block">Affichage des lettres</label>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
-          <input type="radio" name="ss-casse" value="script" checked> <span style="font-size:22px;font-family:'MDIEcole',sans-serif">abc</span> Scriptes (MDI École)
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
-          <input type="radio" name="ss-casse" value="upper"> <span style="font-size:22px;font-weight:700;letter-spacing:1px">ABC</span> Capitales
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
-          <input type="radio" name="ss-casse" value="cursive"> <span style="font-size:22px;font-family:'Cursive Dumont maternelle',cursive">abc</span> Cursive
-        </label>
-      </div>
-    </div>
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-launch')">Annuler</button>
-      <button class="btn bor" type="button" onclick="confirmLaunchSS()">▶ Lancer</button>
-    </div>
-  </div>
-</div>
-
-<div class="mo" id="m-newseries">
-  <div class="mb" style="max-width:420px">
-    <h3>Nouvelle série</h3>
-    <div class="fg" style="margin-bottom:12px"><label>Nom</label><input type="text" id="ns-name" placeholder="ex: Le Jardin"></div>
-    <div class="fg" style="margin-bottom:12px"><label>Couleur</label><input type="color" id="ns-color" value="#8b7355"></div>
-    <div class="fg" style="margin-bottom:12px"><label>Police</label>
-      <select id="ns-font"><option value="MDIEcole">MDI École</option><option value="Calibri">Calibri</option><option value="Arial">Arial</option><option value="Times New Roman">Times New Roman</option></select></div>
-    <div class="fg" style="margin-bottom:4px"><label>Méthode</label>
-      <div class="mt"><button class="mtb on" type="button" id="ns-eo" onclick="setNsM('eo')">📗 Enthousiasme</button><button class="mtb" type="button" id="ns-bm" onclick="setNsM('bm')">📘 Borel-Maisonny</button></div>
-    </div>
-    <div class="fg" style="margin-bottom:4px"><label>🎨 Images décoratives (chemins séparés par ;)</label>
-      <input type="text" id="ns-decos" placeholder="images/deco/fleur.png;images/deco/feuille.png">
-      <span style="font-size:10px;color:#888">Seront affichées dans le bandeau et en fond d'écran (semi-transparent)</span>
-    </div>
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-newseries')">Annuler</button>
-      <button class="btn" type="button" onclick="createSeries()">Créer</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: SERIES SETTINGS -->
-<div class="mo" id="m-series-settings">
-  <div class="mb" style="max-width:420px">
-    <h3>⚙️ Paramètres de la série</h3>
-    <div class="fg" style="margin-bottom:12px"><label>Nom</label><input type="text" id="es-name"></div>
-    <div class="fg" style="margin-bottom:12px"><label>Couleur</label><input type="color" id="es-color"></div>
-    <div class="fg" style="margin-bottom:12px"><label>Police</label>
-      <select id="es-font"><option value="MDIEcole">MDI École</option><option value="Calibri">Calibri</option><option value="Arial">Arial</option><option value="Times New Roman">Times New Roman</option></select></div>
-    <div class="fg" style="margin-bottom:4px"><label>Méthode</label>
-      <div class="mt"><button class="mtb on" type="button" id="es-eo" onclick="setEsM('eo')">📗 Enthousiasme</button><button class="mtb" type="button" id="es-bm" onclick="setEsM('bm')">📘 Borel-Maisonny</button></div>
-    </div>
-    <div class="fg" style="margin-bottom:4px"><label>🎨 Images décoratives (chemins séparés par ;)</label>
-      <input type="text" id="es-decos" placeholder="images/deco/fleur.png;images/deco/feuille.png">
-      <span style="font-size:10px;color:#888">Seront affichées dans le bandeau et en fond d'écran</span>
-    </div>
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-series-settings')">Annuler</button>
-      <button class="btn" type="button" onclick="saveSeriesSettings()">💾 Enregistrer</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: WORD -->
-<div class="mo" id="m-word">
-  <div class="mb">
-    <h3 id="m-word-title">Mot</h3>
-    <div class="fr">
-      <div class="fg"><label>Mot</label><input type="text" id="f-word" oninput="onWordInput()" style="font-size:19px;font-weight:700;text-transform:uppercase"></div>
-      <div class="fg"><label>Thème</label><input type="text" id="f-theme"></div>
-      <div class="fg" style="flex:.35"><label>N°</label><input type="number" id="f-num" min="1"></div>
-      <div class="fg" style="flex:.35"><label>Total</label><input type="number" id="f-total" value="32"></div>
-    </div>
-    <div class="fr"><div class="fg"><label>Définition</label><textarea id="f-def"></textarea></div></div>
-    <div class="fr">
-      <div class="fg" style="flex:.45"><label>Genre</label><select id="f-gender"><option value="masc">Masculin</option><option value="fem">Féminin</option><option value="both">Les deux</option><option value="none">Aucun</option></select></div>
-      <div class="fg" style="flex:.45"><label>Nature</label><select id="f-nature"><option value="nom">NOM</option><option value="verbe">VERBE</option><option value="adjectif">ADJECTIF</option><option value="autre">AUTRE</option></select></div>
-      <div class="fg"><label>Image</label><input type="text" id="f-img" placeholder="images/mot.png"></div>
-    </div>
-    <div style="display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap">
-      <span style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase">Syllabes :</span>
-      <span id="syll-disp" style="font-size:13px;background:#f0f0f0;padding:2px 10px;border-radius:10px"></span>
-      <button type="button" class="bo bsm" onclick="editSylls()">✏️ Modifier</button>
-    </div>
-    <div class="phs">
-      <h4>🔤 Phonétique — modifier groupes, couleurs et liaisons</h4>
-      <div id="ph-ed"><p style="font-size:12px;color:#aaa">Entrez un mot ci-dessus.</p></div>
-    </div>
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-word')">Annuler</button>
-      <button class="btn" type="button" onclick="saveWord()">💾 Enregistrer</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<!-- MODAL: EXPORT -->
-<div class="mo" id="m-export">
-  <div class="mb" style="max-width:500px">
-    <h3>⬇️ Exporter</h3>
-
-    <div style="background:#f8f5f0;border-radius:8px;padding:14px;margin-bottom:14px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:6px">💾 Sauvegarde locale</div>
-      <p style="font-size:12px;color:#888;margin-bottom:10px">Toutes mes séries dans un fichier .json — pour sauvegarder ou transférer sur un autre ordinateur.</p>
-      <button class="btn" type="button" onclick="exportAllSeries()">⬇️ Télécharger la sauvegarde complète</button>
-    </div>
-
-    <div style="background:#f0f5ff;border-radius:8px;padding:14px;border:1px solid #c5d5e8">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:6px">📤 Partager sur GitHub</div>
-      <p style="font-size:12px;color:#555;margin-bottom:4px">Génère le fichier <code style="background:#e8e0d4;padding:1px 5px;border-radius:3px">series_partagees.json</code> à déposer dans votre dépôt GitHub.</p>
-      <p style="font-size:12px;color:#555;margin-bottom:10px">Toutes vos collègues verront vos séries automatiquement à l'ouverture du site.</p>
-      <div style="background:#fff8e8;border-radius:6px;padding:8px 10px;font-size:11px;color:#8b7355;margin-bottom:10px;border:1px solid #e8d8a0">
-        <strong>Étapes :</strong><br>
-        1. Cliquez sur le bouton ci-dessous<br>
-        2. Le fichier <code>series_partagees.json</code> se télécharge<br>
-        3. Dans GitHub, faites glisser ce fichier dans votre dépôt<br>
-        4. Vos collègues verront vos séries dès le rechargement du site
-      </div>
-      <button class="btn" type="button" onclick="exportForGitHub()">📤 Générer series_partagees.json</button>
-    </div>
-
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-export')">Fermer</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: IMPORT -->
-<div class="mo" id="m-import">
-  <div class="mb" style="max-width:560px">
-    <h3>⬆️ Importer</h3>
-
-    <!-- Section 1 : Import séries JSON -->
-    <div style="background:#f8f5f0;border-radius:8px;padding:14px;margin-bottom:16px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:8px">📦 Importer des séries sauvegardées (.json)</div>
-      <p style="font-size:12px;color:#888;margin-bottom:10px">Fichier exporté depuis Apprentilangue (format .json)</p>
-      <label style="display:inline-block;background:#8b7355;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
-        Choisir un fichier JSON
-        <input type="file" id="imp-json" accept=".json" style="display:none" onchange="importJSON(this)">
-      </label>
-      <span id="imp-json-status" style="font-size:12px;color:#888;margin-left:10px"></span>
-    </div>
-
-    <!-- Section 2 : Import Excel -->
-    <div style="background:#f8f5f0;border-radius:8px;padding:14px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:8px">📊 Importer une liste de mots (.xlsx)</div>
-      <p style="font-size:12px;color:#888;margin-bottom:10px">Utilisez le modèle Excel disponible sur la page d'accueil.</p>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Nom de la nouvelle série</label>
-        <input type="text" id="imp-xl-name" placeholder="ex: LES ÉMOTIONS" oninput="updatePathPreview()" style="font-weight:700;text-transform:uppercase">
-      </div>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Numéro du dossier images <span style="font-weight:400;color:#aaa">(ex: 05 pour images/05-Émotions/)</span></label>
-        <input type="text" id="imp-xl-dossier" placeholder="ex: 05" oninput="updatePathPreview()" style="width:80px">
-        <div style="font-size:11px;color:#aaa;margin-top:3px">
-          Génère automatiquement : <code id="imp-xl-path-preview" style="background:#f0ece5;padding:1px 5px;border-radius:3px">images/05-NomSérie/1-mot.jpg</code>
-        </div>
-      </div>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Couleur de la série</label>
-        <input type="color" id="imp-xl-color" value="#8b7355">
-      </div>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Police</label>
-        <select id="imp-xl-font">
-          <option value="MDIEcole">MDI École</option>
-          <option value="Calibri">Calibri</option>
-          <option value="Arial">Arial</option>
-          <option value="Times New Roman">Times New Roman</option>
-        </select>
-      </div>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Méthode</label>
-        <div class="mt">
-          <button class="mtb on" type="button" id="imp-xl-eo" onclick="setImpM('eo')">📗 Enthousiasme</button>
-          <button class="mtb" type="button" id="imp-xl-bm" onclick="setImpM('bm')">📘 Borel-Maisonny</button>
-        </div>
-      </div>
-      <label style="display:inline-block;background:#8b7355;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
-        Choisir un fichier Excel
-        <input type="file" id="imp-xl" accept=".xlsx,.xls" style="display:none" onchange="importExcel(this)">
-      </label>
-      <span id="imp-xl-status" style="font-size:12px;color:#888;margin-left:10px"></span>
-    </div>
-
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-import')">Fermer</button>
-    </div>
-  </div>
-</div>
-
-<script></script>
-</head>
-<body>
-<nav id="nav">
-  <h1>📖 Apprentilangue</h1>
-  <button class="nb active" onclick="goPage('home')">📚 Séries</button>
-  <button class="nb" onclick="goPage('settings')">⚙️ Paramètres</button>
-  <button class="nb" onclick="openExportModal()" title="Exporter / Partager">⬇️ Export</button>
-  <button class="nb" onclick="openImportModal()" title="Importer séries ou mots">⬆️ Import</button>
-  <button class="nb" onclick="openGuide()" title="Guide utilisateur">❓ Aide</button>
-</nav>
-<div id="app">
-
-<div id="pg-home" class="pg on">
-  <h2>Mes séries de vocabulaire</h2>
-  <div class="sg" id="series-grid"></div>
-  <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding-top:12px;border-top:1px solid #e8e4de;">
-    <button class="btn" type="button" onclick="openNewSeriesModal()" style="font-size:14px;padding:10px 22px;">+ Nouvelle série</button>
-    <a class="btn bo" style="text-decoration:none;padding:9px 18px;font-size:13px" href="modele_import.xlsx" download>📥 Modèle Excel</a>
-  </div>
-</div>
-
-<div id="pg-editor" class="pg">
-  <div class="eh">
-    <button class="bo" type="button" onclick="goPage('home')">← Retour</button>
-    <h2 id="editor-title">Éditer</h2>
-    <button class="bo bsm" type="button" onclick="openSeriesSettingsModal()">⚙️ Série</button>
-    <button class="btn bsm" type="button" onclick="openAddWordModal()">+ Mot</button>
-    <button class="btn bsm bor" type="button" onclick="launchSS()">▶ Diaporama</button>
-  </div>
-  <div class="wl" id="words-list"></div>
-</div>
-
-<div id="pg-settings" class="pg">
-  <h2>⚙️ Paramètres globaux</h2>
-  <div class="ss">
-    <h3>🎨 Couleurs</h3>
-    <div class="cr"><label>Principale</label><input type="color" id="col-p" value="#7ab648" oninput="liveCol()"></div>
-    <div class="cr"><label>Secondaire</label><input type="color" id="col-pl" value="#d4edaa" oninput="liveCol()"></div>
-    <div class="cr"><label>Sombre</label><input type="color" id="col-pd" value="#5a8a30" oninput="liveCol()"></div>
-  </div>
-  <div class="ss">
-    <h3>📂 Dossier images</h3>
-    <div class="fg" style="max-width:320px"><label>Chemin</label><input type="text" id="img-folder" value="images/"></div>
-    <p style="font-size:11px;color:#888;margin-top:6px">• Sons EO : <code>images/eo/a-avion.png</code> etc.<br>• Gestes BM : <code>images/borel/a.png</code> etc.</p>
-  </div>
-  <div class="ss">
-    <h3>📖 Dictionnaire — <span style="color:#5a8a30">📗 Enthousiasme Orthographique</span></h3>
-    <div style="max-height:380px;overflow-y:auto;border:1px solid #eee;border-radius:6px;"><table class="dt" id="tbl-eo"></table></div>
-    <div style="margin-top:8px"><button class="bo bsm" type="button" onclick="addEntry('eo')">+ Ajouter un graphème</button></div>
-  </div>
-  <div class="ss">
-    <h3>📖 Dictionnaire — <span style="color:#4a90d9">📘 Borel-Maisonny</span></h3>
-    <div style="max-height:380px;overflow-y:auto;border:1px solid #eee;border-radius:6px;"><table class="dt" id="tbl-bm"></table></div>
-    <div style="margin-top:8px"><button class="bo bsm" type="button" onclick="addEntry('bm')">+ Ajouter un graphème</button></div>
-  </div>
-  <div style="display:flex;gap:10px;margin-top:4px">
-    <button class="btn" type="button" onclick="saveSettings()">💾 Enregistrer</button>
-    <button class="bo" type="button" onclick="resetDicts()">↺ Réinitialiser dicts</button>
-  </div>
-</div>
-
-</div><!-- #app -->
-
-<!-- SLIDESHOW -->
-<div id="ss-wrap">
-  <div id="ss-stage"></div>
-  <div id="ss-nav">
-    <div style="display:flex;gap:clamp(4px,.8vw,8px)">
-      <button class="sn" type="button" onclick="ssMenu()">🏠 Menu</button>
-      <button class="sn" type="button" onclick="ssBack2()">⏮ −2</button>
-      <button class="sn" type="button" onclick="ssBack()">◀ Précédent</button>
-    </div>
-    <span class="ci" id="ss-hint">Cliquez pour révéler</span>
-    <div style="display:flex;gap:clamp(4px,.8vw,8px)">
-      <button class="sn" type="button" onclick="ssGoto(1)">📋 Sommaire</button>
-      <button class="sn" type="button" onclick="ssNextWord()">Mot suivant ⏭</button>
-      <button class="sn" type="button" onclick="ssNext()">Suivant ▶</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: NEW SERIES -->
-
-<!-- MODAL: LANCEMENT DIAPORAMA -->
-<div class="mo" id="m-launch">
-  <div class="mb" style="max-width:360px">
-    <h3>Lancer le diaporama</h3>
-    <div class="fg" style="margin-bottom:16px">
-      <label style="margin-bottom:8px;display:block">Affichage des lettres</label>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
-          <input type="radio" name="ss-casse" value="script" checked> <span style="font-size:22px;font-family:'MDIEcole',sans-serif">abc</span> Scriptes (MDI École)
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
-          <input type="radio" name="ss-casse" value="upper"> <span style="font-size:22px;font-weight:700;letter-spacing:1px">ABC</span> Capitales
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
-          <input type="radio" name="ss-casse" value="cursive"> <span style="font-size:22px;font-family:'Cursive Dumont maternelle',cursive">abc</span> Cursive
-        </label>
-      </div>
-    </div>
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-launch')">Annuler</button>
-      <button class="btn bor" type="button" onclick="confirmLaunchSS()">▶ Lancer</button>
-    </div>
-  </div>
-</div>
-
-<div class="mo" id="m-newseries">
-  <div class="mb" style="max-width:420px">
-    <h3>Nouvelle série</h3>
-    <div class="fg" style="margin-bottom:12px"><label>Nom</label><input type="text" id="ns-name" placeholder="ex: Le Jardin"></div>
-    <div class="fg" style="margin-bottom:12px"><label>Couleur</label><input type="color" id="ns-color" value="#8b7355"></div>
-    <div class="fg" style="margin-bottom:12px"><label>Police</label>
-      <select id="ns-font"><option value="MDIEcole">MDI École</option><option value="Calibri">Calibri</option><option value="Arial">Arial</option><option value="Times New Roman">Times New Roman</option></select></div>
-    <div class="fg" style="margin-bottom:4px"><label>Méthode</label>
-      <div class="mt"><button class="mtb on" type="button" id="ns-eo" onclick="setNsM('eo')">📗 Enthousiasme</button><button class="mtb" type="button" id="ns-bm" onclick="setNsM('bm')">📘 Borel-Maisonny</button></div>
-    </div>
-    <div class="fg" style="margin-bottom:4px"><label>🎨 Images décoratives (chemins séparés par ;)</label>
-      <input type="text" id="ns-decos" placeholder="images/deco/fleur.png;images/deco/feuille.png">
-      <span style="font-size:10px;color:#888">Seront affichées dans le bandeau et en fond d'écran (semi-transparent)</span>
-    </div>
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-newseries')">Annuler</button>
-      <button class="btn" type="button" onclick="createSeries()">Créer</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: SERIES SETTINGS -->
-<div class="mo" id="m-series-settings">
-  <div class="mb" style="max-width:420px">
-    <h3>⚙️ Paramètres de la série</h3>
-    <div class="fg" style="margin-bottom:12px"><label>Nom</label><input type="text" id="es-name"></div>
-    <div class="fg" style="margin-bottom:12px"><label>Couleur</label><input type="color" id="es-color"></div>
-    <div class="fg" style="margin-bottom:12px"><label>Police</label>
-      <select id="es-font"><option value="MDIEcole">MDI École</option><option value="Calibri">Calibri</option><option value="Arial">Arial</option><option value="Times New Roman">Times New Roman</option></select></div>
-    <div class="fg" style="margin-bottom:4px"><label>Méthode</label>
-      <div class="mt"><button class="mtb on" type="button" id="es-eo" onclick="setEsM('eo')">📗 Enthousiasme</button><button class="mtb" type="button" id="es-bm" onclick="setEsM('bm')">📘 Borel-Maisonny</button></div>
-    </div>
-    <div class="fg" style="margin-bottom:4px"><label>🎨 Images décoratives (chemins séparés par ;)</label>
-      <input type="text" id="es-decos" placeholder="images/deco/fleur.png;images/deco/feuille.png">
-      <span style="font-size:10px;color:#888">Seront affichées dans le bandeau et en fond d'écran</span>
-    </div>
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-series-settings')">Annuler</button>
-      <button class="btn" type="button" onclick="saveSeriesSettings()">💾 Enregistrer</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: WORD -->
-<div class="mo" id="m-word">
-  <div class="mb">
-    <h3 id="m-word-title">Mot</h3>
-    <div class="fr">
-      <div class="fg"><label>Mot</label><input type="text" id="f-word" oninput="onWordInput()" style="font-size:19px;font-weight:700;text-transform:uppercase"></div>
-      <div class="fg"><label>Thème</label><input type="text" id="f-theme"></div>
-      <div class="fg" style="flex:.35"><label>N°</label><input type="number" id="f-num" min="1"></div>
-      <div class="fg" style="flex:.35"><label>Total</label><input type="number" id="f-total" value="32"></div>
-    </div>
-    <div class="fr"><div class="fg"><label>Définition</label><textarea id="f-def"></textarea></div></div>
-    <div class="fr">
-      <div class="fg" style="flex:.45"><label>Genre</label><select id="f-gender"><option value="masc">Masculin</option><option value="fem">Féminin</option><option value="both">Les deux</option><option value="none">Aucun</option></select></div>
-      <div class="fg" style="flex:.45"><label>Nature</label><select id="f-nature"><option value="nom">NOM</option><option value="verbe">VERBE</option><option value="adjectif">ADJECTIF</option><option value="autre">AUTRE</option></select></div>
-      <div class="fg"><label>Image</label><input type="text" id="f-img" placeholder="images/mot.png"></div>
-    </div>
-    <div style="display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap">
-      <span style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase">Syllabes :</span>
-      <span id="syll-disp" style="font-size:13px;background:#f0f0f0;padding:2px 10px;border-radius:10px"></span>
-      <button type="button" class="bo bsm" onclick="editSylls()">✏️ Modifier</button>
-    </div>
-    <div class="phs">
-      <h4>🔤 Phonétique — modifier groupes, couleurs et liaisons</h4>
-      <div id="ph-ed"><p style="font-size:12px;color:#aaa">Entrez un mot ci-dessus.</p></div>
-    </div>
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-word')">Annuler</button>
-      <button class="btn" type="button" onclick="saveWord()">💾 Enregistrer</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<!-- MODAL: EXPORT -->
-<div class="mo" id="m-export">
-  <div class="mb" style="max-width:500px">
-    <h3>⬇️ Exporter</h3>
-
-    <div style="background:#f8f5f0;border-radius:8px;padding:14px;margin-bottom:14px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:6px">💾 Sauvegarde locale</div>
-      <p style="font-size:12px;color:#888;margin-bottom:10px">Toutes mes séries dans un fichier .json — pour sauvegarder ou transférer sur un autre ordinateur.</p>
-      <button class="btn" type="button" onclick="exportAllSeries()">⬇️ Télécharger la sauvegarde complète</button>
-    </div>
-
-    <div style="background:#f0f5ff;border-radius:8px;padding:14px;border:1px solid #c5d5e8">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:6px">📤 Partager sur GitHub</div>
-      <p style="font-size:12px;color:#555;margin-bottom:4px">Génère le fichier <code style="background:#e8e0d4;padding:1px 5px;border-radius:3px">series_partagees.json</code> à déposer dans votre dépôt GitHub.</p>
-      <p style="font-size:12px;color:#555;margin-bottom:10px">Toutes vos collègues verront vos séries automatiquement à l'ouverture du site.</p>
-      <div style="background:#fff8e8;border-radius:6px;padding:8px 10px;font-size:11px;color:#8b7355;margin-bottom:10px;border:1px solid #e8d8a0">
-        <strong>Étapes :</strong><br>
-        1. Cliquez sur le bouton ci-dessous<br>
-        2. Le fichier <code>series_partagees.json</code> se télécharge<br>
-        3. Dans GitHub, faites glisser ce fichier dans votre dépôt<br>
-        4. Vos collègues verront vos séries dès le rechargement du site
-      </div>
-      <button class="btn" type="button" onclick="exportForGitHub()">📤 Générer series_partagees.json</button>
-    </div>
-
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-export')">Fermer</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: IMPORT -->
-<div class="mo" id="m-import">
-  <div class="mb" style="max-width:560px">
-    <h3>⬆️ Importer</h3>
-
-    <!-- Section 1 : Import séries JSON -->
-    <div style="background:#f8f5f0;border-radius:8px;padding:14px;margin-bottom:16px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:8px">📦 Importer des séries sauvegardées (.json)</div>
-      <p style="font-size:12px;color:#888;margin-bottom:10px">Fichier exporté depuis Apprentilangue (format .json)</p>
-      <label style="display:inline-block;background:#8b7355;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
-        Choisir un fichier JSON
-        <input type="file" id="imp-json" accept=".json" style="display:none" onchange="importJSON(this)">
-      </label>
-      <span id="imp-json-status" style="font-size:12px;color:#888;margin-left:10px"></span>
-    </div>
-
-    <!-- Section 2 : Import Excel -->
-    <div style="background:#f8f5f0;border-radius:8px;padding:14px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:8px">📊 Importer une liste de mots (.xlsx)</div>
-      <p style="font-size:12px;color:#888;margin-bottom:10px">Utilisez le modèle Excel disponible sur la page d'accueil.</p>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Nom de la nouvelle série</label>
-        <input type="text" id="imp-xl-name" placeholder="ex: LES ÉMOTIONS" oninput="updatePathPreview()" style="font-weight:700;text-transform:uppercase">
-      </div>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Numéro du dossier images <span style="font-weight:400;color:#aaa">(ex: 05 pour images/05-Émotions/)</span></label>
-        <input type="text" id="imp-xl-dossier" placeholder="ex: 05" oninput="updatePathPreview()" style="width:80px">
-        <div style="font-size:11px;color:#aaa;margin-top:3px">
-          Génère automatiquement : <code id="imp-xl-path-preview" style="background:#f0ece5;padding:1px 5px;border-radius:3px">images/05-NomSérie/1-mot.jpg</code>
-        </div>
-      </div>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Couleur de la série</label>
-        <input type="color" id="imp-xl-color" value="#8b7355">
-      </div>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Police</label>
-        <select id="imp-xl-font">
-          <option value="MDIEcole">MDI École</option>
-          <option value="Calibri">Calibri</option>
-          <option value="Arial">Arial</option>
-          <option value="Times New Roman">Times New Roman</option>
-        </select>
-      </div>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Méthode</label>
-        <div class="mt">
-          <button class="mtb on" type="button" id="imp-xl-eo" onclick="setImpM('eo')">📗 Enthousiasme</button>
-          <button class="mtb" type="button" id="imp-xl-bm" onclick="setImpM('bm')">📘 Borel-Maisonny</button>
-        </div>
-      </div>
-      <label style="display:inline-block;background:#8b7355;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
-        Choisir un fichier Excel
-        <input type="file" id="imp-xl" accept=".xlsx,.xls" style="display:none" onchange="importExcel(this)">
-      </label>
-      <span id="imp-xl-status" style="font-size:12px;color:#888;margin-left:10px"></span>
-    </div>
-
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-import')">Fermer</button>
-    </div>
-  </div>
-</div>
-
-<script></script>
-</head>
-<body>
-<nav id="nav">
-  <h1>📖 Apprentilangue</h1>
-  <button class="nb active" onclick="goPage('home')">📚 Séries</button>
-  <button class="nb" onclick="goPage('settings')">⚙️ Paramètres</button>
-  <button class="nb" onclick="openExportModal()" title="Exporter / Partager">⬇️ Export</button>
-  <button class="nb" onclick="openImportModal()" title="Importer séries ou mots">⬆️ Import</button>
-  <button class="nb" onclick="openGuide()" title="Guide utilisateur">❓ Aide</button>
-</nav>
-<div id="app">
-
-<div id="pg-home" class="pg on">
-  <h2>Mes séries de vocabulaire</h2>
-  <div class="sg" id="series-grid"></div>
-  <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding-top:12px;border-top:1px solid #e8e4de;">
-    <button class="btn" type="button" onclick="openNewSeriesModal()" style="font-size:14px;padding:10px 22px;">+ Nouvelle série</button>
-    <a class="btn bo" style="text-decoration:none;padding:9px 18px;font-size:13px" href="modele_import.xlsx" download>📥 Modèle Excel</a>
-  </div>
-</div>
-
-<div id="pg-editor" class="pg">
-  <div class="eh">
-    <button class="bo" type="button" onclick="goPage('home')">← Retour</button>
-    <h2 id="editor-title">Éditer</h2>
-    <button class="bo bsm" type="button" onclick="openSeriesSettingsModal()">⚙️ Série</button>
-    <button class="btn bsm" type="button" onclick="openAddWordModal()">+ Mot</button>
-    <button class="btn bsm bor" type="button" onclick="launchSS()">▶ Diaporama</button>
-  </div>
-  <div class="wl" id="words-list"></div>
-</div>
-
-<div id="pg-settings" class="pg">
-  <h2>⚙️ Paramètres globaux</h2>
-  <div class="ss">
-    <h3>🎨 Couleurs</h3>
-    <div class="cr"><label>Principale</label><input type="color" id="col-p" value="#7ab648" oninput="liveCol()"></div>
-    <div class="cr"><label>Secondaire</label><input type="color" id="col-pl" value="#d4edaa" oninput="liveCol()"></div>
-    <div class="cr"><label>Sombre</label><input type="color" id="col-pd" value="#5a8a30" oninput="liveCol()"></div>
-  </div>
-  <div class="ss">
-    <h3>📂 Dossier images</h3>
-    <div class="fg" style="max-width:320px"><label>Chemin</label><input type="text" id="img-folder" value="images/"></div>
-    <p style="font-size:11px;color:#888;margin-top:6px">• Sons EO : <code>images/eo/a-avion.png</code> etc.<br>• Gestes BM : <code>images/borel/a.png</code> etc.</p>
-  </div>
-  <div class="ss">
-    <h3>📖 Dictionnaire — <span style="color:#5a8a30">📗 Enthousiasme Orthographique</span></h3>
-    <div style="max-height:380px;overflow-y:auto;border:1px solid #eee;border-radius:6px;"><table class="dt" id="tbl-eo"></table></div>
-    <div style="margin-top:8px"><button class="bo bsm" type="button" onclick="addEntry('eo')">+ Ajouter un graphème</button></div>
-  </div>
-  <div class="ss">
-    <h3>📖 Dictionnaire — <span style="color:#4a90d9">📘 Borel-Maisonny</span></h3>
-    <div style="max-height:380px;overflow-y:auto;border:1px solid #eee;border-radius:6px;"><table class="dt" id="tbl-bm"></table></div>
-    <div style="margin-top:8px"><button class="bo bsm" type="button" onclick="addEntry('bm')">+ Ajouter un graphème</button></div>
-  </div>
-  <div style="display:flex;gap:10px;margin-top:4px">
-    <button class="btn" type="button" onclick="saveSettings()">💾 Enregistrer</button>
-    <button class="bo" type="button" onclick="resetDicts()">↺ Réinitialiser dicts</button>
-  </div>
-</div>
-
-</div><!-- #app -->
-
-<!-- SLIDESHOW -->
-<div id="ss-wrap">
-  <div id="ss-stage"></div>
-  <div id="ss-nav">
-    <div style="display:flex;gap:clamp(4px,.8vw,8px)">
-      <button class="sn" type="button" onclick="ssMenu()">🏠 Menu</button>
-      <button class="sn" type="button" onclick="ssBack2()">⏮ −2</button>
-      <button class="sn" type="button" onclick="ssBack()">◀ Précédent</button>
-    </div>
-    <span class="ci" id="ss-hint">Cliquez pour révéler</span>
-    <div style="display:flex;gap:clamp(4px,.8vw,8px)">
-      <button class="sn" type="button" onclick="ssGoto(1)">📋 Sommaire</button>
-      <button class="sn" type="button" onclick="ssNextWord()">Mot suivant ⏭</button>
-      <button class="sn" type="button" onclick="ssNext()">Suivant ▶</button>
+    <div style="display:flex;gap:6px">
+      <button class="sn" type="button" onclick="ssGoto(1)">📋</button>
+      <button class="sn" type="button" onclick="ssNextWord()">Mot⏭</button>
+      <button class="sn" type="button" onclick="ssNext()">▶</button>
     </div>
   </div>
 </div>
@@ -1843,25 +1106,6 @@ function launchSS(){
   document.getElementById('ss-wrap').classList.add('on');
   ssGoto(0);
 }
-function autoScaleLetters(){
-  // Auto-scale .lr to fill its parent .wz both horizontally and vertically
-  document.querySelectorAll('.wz').forEach(function(wz){
-    var lr=wz.querySelector('.lr');
-    if(!lr)return;
-    // Reset to measure natural size
-    lr.style.transform='scale(1)';
-    var wzW=wz.clientWidth, wzH=wz.clientHeight;
-    var lrW=lr.scrollWidth, lrH=lr.scrollHeight;
-    if(!lrW||!lrH||!wzW||!wzH)return;
-    // Compute scale to fit in both axes — fill 96% of the box
-    var scaleX=(wzW*0.96)/lrW;
-    var scaleY=(wzH*0.96)/lrH;
-    var scale=Math.min(scaleX,scaleY);
-    // Cap between 0.3 and 3
-    scale=Math.max(0.3,Math.min(3,scale));
-    lr.style.transform='scale('+scale+')';
-  });
-}
 function buildSS(series){
   const stage=document.getElementById('ss-stage');stage.innerHTML='';
   const casse=SS.casse||'script';
@@ -1898,32 +1142,37 @@ function mkEl(tag,cls){const e=document.createElement(tag);e.className=cls;retur
 
 function buildSlideA(word,wi,seriesName,font,folder,wave,shDecos,casse){
   const ph=word.phonetics||[];
+  // Déterminer le "dernier mot" : la partie après le dernier espace ou apostrophe
   const rawWord=word.word||'';
-  const splitIdx=Math.max(rawWord.lastIndexOf(' '),rawWord.lastIndexOf("'"),rawWord.lastIndexOf("\u2019"));
-  const lastWordStart=splitIdx>=0?splitIdx+1:0;
+  const splitIdx=Math.max(rawWord.lastIndexOf(' '),rawWord.lastIndexOf("'"),rawWord.lastIndexOf('’'));
+  const lastWordStart=splitIdx>=0?splitIdx+1:0; // position dans le mot entier
+  // Segmentation appliquée uniquement sur le dernier mot
   const lastWord=rawWord.slice(lastWordStart);
   const sylls=word.syllables||syllabify(lastWord);
   const defLines=(word.definition||'').split('\n');
   const syllBounds=new Set();let pos=0;
   sylls.forEach((s,i)=>{if(i>0)syllBounds.add(pos);pos+=s.length;});
   let wordPos=0,rowH='';
+  // Position dans le dernier mot uniquement (pour la segmentation)
   let lastWordPos=0;
   ph.forEach((g,gi)=>{
     const isSpace=g.letters===' ';
-    const isApos=g.letters==="'"||g.letters==="\u2019";
+    const isApos=g.letters==="'"||g.letters==='’';
     const isSep=isSpace||isApos;
+    // Séparateur (espace ou apostrophe) : affichage sans trait
     if(isSep){
       if(isSpace){
-        rowH+=`<div class="pg-grp"><div class="pg-grp-letters"><div class="ls"><div class="lc" id="lc-${wi}-${gi}-0" style="color:transparent;font-family:'${font}',MDIEcole,Calibri,sans-serif">${g.letters}</div></div></div></div>`;
+        rowH+=`<div class="pg-grp"><div class="ls"><div class="lc" id="lc-${wi}-${gi}-0" style="color:transparent;font-family:'${font}',MDIEcole,Calibri,sans-serif">${g.letters}</div></div></div>`;
       } else {
-        rowH+=`<div class="pg-grp"><div class="pg-grp-letters"><div class="ls"><div class="lc" id="lc-${wi}-${gi}-0" style="color:#222222;font-family:'${font}',MDIEcole,Calibri,sans-serif">${g.letters}</div></div></div></div>`;
+        rowH+=`<div class="pg-grp"><div class="ls"><div class="lc" id="lc-${wi}-${gi}-0" style="color:#222222;font-family:'${font}',MDIEcole,Calibri,sans-serif">${g.letters}</div></div></div>`;
       }
       wordPos+=g.letters.length;
-      lastWordPos=0;
+      lastWordPos=0; // reset : on repart dans le nouveau mot
       return;
     }
+    // Séparateur syllabique uniquement dans le dernier mot
     if(lastWordPos>0&&syllBounds.has(lastWordPos))rowH+=`<div class="ssep"></div>`;
-    rowH+=`<div class="pg-grp"><div class="pg-grp-letters">`;
+    rowH+=`<div class="pg-grp">`;
     g.letters.split('').forEach((letter,li)=>{
       const col=(g.lc&&g.lc[li])||'#222222';
       const notLast=li<g.letters.length-1;
@@ -1931,24 +1180,23 @@ function buildSlideA(word,wi,seriesName,font,folder,wave,shDecos,casse){
       rowH+=`<div class="ls"><div class="lc" id="lc-${wi}-${gi}-${li}" style="color:${col};font-family:'${font}',MDIEcole,Calibri,sans-serif">${dispLetter}</div><div class="lb" style="background:${col}"></div></div>`;
       if(notLast&&g.linked!==false)rowH+=`<div class="dw" style="margin-bottom:2px"><div class="ld" style="background:#222222"></div></div>`;
     });
-    rowH+=`</div>`;
     rowH+=`<img class="si" id="si-${wi}-${gi}" src="${folder}${g.img}" alt="${g.sound}" onerror="this.style.visibility='hidden'">`;
     rowH+=`</div>`;
     wordPos+=g.letters.length;
     lastWordPos+=g.letters.length;
   });
   const el=mkEl('div','slide');el.id='sa-'+wi;
-  el.innerHTML=`<div class="sh" style="position:relative"><span>${word.theme||seriesName}</span>${shDecos||''}<span style="font-size:1.3em">${word.num}A</span></div>
+  el.innerHTML=`<div class="sh" style="position:relative"><span>${word.theme||seriesName}</span>${shDecos||''}<span>${word.num}/${word.total}</span></div>
     <div class="sab">
       <div class="def-box">${defLines.map((l,i)=>`<div class="def-line" id="dl-${wi}-${i}">${l||'&nbsp;'}</div>`).join('')}</div>
-      ${word.image?`<img class="wi" id="wi-${wi}" src="${word.image}" alt="${word.word}" onerror="this.style.display='none'">`:''}
-      <div class="wz"><div class="lr">${rowH}</div></div>
+      ${word.image?`<img class="wi" id="wi-${wi}" src="${word.image}" alt="${word.word}" onerror="this.style.display='none'">`:`<div style="position:absolute;top:4px;right:10px;width:160px;height:140px;border:2px dashed #ccc;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#bbb;z-index:2">image</div>`}
+      <div class="wz"><div class="lr" style="margin-bottom:80px">${rowH}</div></div>
     </div>${wave||''}`;
   return el;
 }
 function buildSlideB(word,wi,seriesName,font,wave,shDecos,casse){
   const el=mkEl('div','slide');el.id='sb-'+wi;
-  el.innerHTML=`<div class="sh" style="position:relative"><span>${word.theme||seriesName}</span>${shDecos||''}<span style="font-size:1.3em">${word.num}B</span></div>
+  el.innerHTML=`<div class="sh" style="position:relative"><span>${word.theme||seriesName}</span>${shDecos||''}<span>${word.num}/${word.total}</span></div>
     <div class="sbb">
       <div class="wa">
         <div class="wcv">${word.word.toLowerCase()}</div>
@@ -1986,7 +1234,6 @@ function ssGoto(idx){
     s.el.querySelectorAll('.def-line').forEach(e=>e.classList.remove('on'));
     const img=document.getElementById('wi-'+s.wi);if(img)img.classList.remove('on');
     document.getElementById('ss-hint').textContent='→ def → image → 🔊son → lettre';
-    requestAnimationFrame(autoScaleLetters);
   }else if(s.type==='b'){
     const wi=s.wi;
     ['cbm','cbf','cbn','cbv','cba','cbo'].forEach(id=>{const el=document.getElementById(id+'-'+wi);if(el){el.classList.remove('ok','ko');el.innerHTML=''}});
@@ -2067,8 +1314,6 @@ document.addEventListener('keydown',function(e){
 });
 // SS click on stage
 document.getElementById('ss-stage').addEventListener('click',ssClick);
-// Auto-scale letters on window resize
-window.addEventListener('resize',function(){if(document.getElementById('ss-wrap').classList.contains('on'))requestAnimationFrame(autoScaleLetters);});
 
 // TOAST
 function openGuide(){openModal('m-guide');}
