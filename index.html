@@ -9,11 +9,12 @@
 @font-face{font-family:'Cursive Dumont maternelle';src:url('cursive.otf') format('opentype');}
 @font-face{font-family:'MDIEcole';src:url('MDIecole-Regular.otf') format('opentype'),url('mdi_ecole.ttf') format('truetype');}
 :root{
-  --cp:#8b7355;--cpd:#5c4a2a;--cpl:#f2ead8;
+  --cp:#36B5A0;--cpd:#2A8F7E;--cpl:#E0F7F3;
+  --accent:#F97316;--success:#22C55E;
   --fn:'MDIEcole','Calibri',Arial,sans-serif;
-  --bg:#f5f3ef;--card:#ffffff;--text:#2d2d2d;--text2:#6b6b6b;
-  --radius:12px;--shadow:0 2px 12px rgba(0,0,0,.06);
-  --shadow-lg:0 8px 32px rgba(0,0,0,.1);
+  --bg:#F7FAFA;--card:#ffffff;--text:#2D3B45;--text2:#6B7B85;
+  --radius:12px;--shadow:0 2px 12px rgba(0,0,0,.05);
+  --shadow-lg:0 8px 32px rgba(0,0,0,.08);
   --transition:all .2s ease;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -21,19 +22,19 @@ body{font-family:var(--fn);background:var(--bg);min-height:100vh;color:var(--tex
 
 /* ===== NAV ===== */
 #nav{
-  background:var(--cpd);color:#fff;display:flex;align-items:center;gap:clamp(8px,1.5vw,16px);
+  background:linear-gradient(135deg,var(--cp),var(--cpd));color:#fff;display:flex;align-items:center;gap:clamp(8px,1.5vw,16px);
   padding:0 clamp(16px,2.5vw,32px);position:fixed;top:0;left:0;right:0;z-index:100;
-  height:clamp(50px,7vh,62px);box-shadow:0 2px 16px rgba(0,0,0,.15);
+  height:clamp(50px,7vh,62px);box-shadow:0 2px 12px rgba(0,0,0,.1);
 }
 #nav h1{font-size:clamp(16px,2.2vw,22px);font-weight:800;flex:1;letter-spacing:1px;}
 .nb{
-  background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.12);
-  padding:clamp(5px,.7vh,9px) clamp(12px,1.6vw,20px);border-radius:24px;
+  background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.15);
+  padding:clamp(5px,.7vh,9px) clamp(12px,1.6vw,20px);border-radius:8px;
   cursor:pointer;font-size:clamp(11px,1.4vw,14px);font-family:var(--fn);
   transition:var(--transition);white-space:nowrap;font-weight:500;
 }
-.nb:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.3);}
-.nb.active{background:rgba(255,255,255,.25);border-color:rgba(255,255,255,.35);font-weight:600;}
+.nb:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.3);}
+.nb.active{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.4);font-weight:600;}
 #app{margin-top:clamp(50px,7vh,62px);}
 
 /* ===== PAGES ===== */
@@ -80,21 +81,37 @@ body{font-family:var(--fn);background:var(--bg);min-height:100vh;color:var(--tex
 /* ===== BUTTONS ===== */
 .btn{
   background:var(--cp);color:#fff;border:none;
-  padding:clamp(7px,1vh,11px) clamp(14px,2vw,22px);border-radius:10px;
+  padding:clamp(7px,1vh,11px) clamp(14px,2vw,22px);border-radius:8px;
   cursor:pointer;font-size:clamp(12px,1.4vw,14px);font-weight:600;font-family:var(--fn);
   transition:var(--transition);letter-spacing:.3px;
-  box-shadow:0 2px 6px rgba(0,0,0,.12);
+  box-shadow:0 2px 6px rgba(0,0,0,.1);
 }
 .btn:hover{filter:brightness(.92);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.18);}
+/* --- Color palette picker --- */
+.color-palette{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.color-dot{
+  width:36px;height:36px;border-radius:50%;border:3px solid transparent;cursor:pointer;
+  transition:all .15s ease;box-shadow:0 1px 4px rgba(0,0,0,.12);
+}
+.color-dot:hover{transform:scale(1.15);box-shadow:0 2px 8px rgba(0,0,0,.2);}
+.color-dot.sel{border-color:#222;transform:scale(1.18);box-shadow:0 0 0 2px #fff,0 0 0 4px #222;}
+.color-custom-wrap{position:relative;width:36px;height:36px;}
+.color-custom-wrap input[type=color]{
+  width:36px;height:36px;border:none;padding:0;cursor:pointer;border-radius:50%;
+  background:conic-gradient(red,yellow,lime,aqua,blue,magenta,red);
+  -webkit-appearance:none;appearance:none;
+}
+.color-custom-wrap input[type=color]::-webkit-color-swatch-wrapper{padding:0;border-radius:50%;}
+.color-custom-wrap input[type=color]::-webkit-color-swatch{border:2px solid #ddd;border-radius:50%;}
 .bsm{padding:clamp(5px,.7vh,8px) clamp(10px,1.4vw,16px);font-size:clamp(11px,1.2vw,13px);}
 .bo{
   background:#fff;color:var(--text);border:1.5px solid #ddd;
-  padding:clamp(6px,.7vh,9px) clamp(12px,1.6vw,18px);border-radius:10px;
+  padding:clamp(6px,.7vh,9px) clamp(12px,1.6vw,18px);border-radius:8px;
   cursor:pointer;font-size:clamp(11px,1.3vw,13px);font-family:var(--fn);
   transition:var(--transition);font-weight:500;
 }
 .bo:hover{border-color:var(--cp);background:#faf8f5;box-shadow:0 2px 8px rgba(0,0,0,.06);}
-.bd{background:#dc3545;color:#fff;border:none;padding:clamp(5px,.6vh,7px) clamp(10px,1.2vw,14px);border-radius:10px;cursor:pointer;font-size:clamp(11px,1.2vw,13px);font-family:var(--fn);transition:var(--transition);box-shadow:0 2px 6px rgba(220,53,69,.25);}
+.bd{background:#dc3545;color:#fff;border:none;padding:clamp(5px,.6vh,7px) clamp(10px,1.2vw,14px);border-radius:8px;cursor:pointer;font-size:clamp(11px,1.2vw,13px);font-family:var(--fn);transition:var(--transition);box-shadow:0 2px 6px rgba(220,53,69,.25);}
 .bd:hover{background:#c82333;}
 .bor{background:#e07a30;box-shadow:0 2px 6px rgba(224,122,48,.3);}
 .bor:hover{background:#c96a22;}
@@ -156,40 +173,44 @@ body{font-family:var(--fn);background:var(--bg);min-height:100vh;color:var(--tex
 /* ============================================= */
 /* ===== SLIDESHOW — RESPONSIVE FULLSCREEN ===== */
 /* ============================================= */
-#ss-wrap{display:none;position:fixed;inset:0;z-index:500;background:#1a1a1a;flex-direction:column;}
+#ss-wrap{display:none;position:fixed;inset:0;z-index:500;background:var(--bg);flex-direction:column;}
 #ss-wrap.on{display:flex;}
 #ss-stage{position:relative;flex:1;overflow:hidden;}
 #ss-nav{
-  background:var(--cpd);padding:clamp(8px,1.2vh,14px) clamp(14px,2.5vw,28px);
+  background:var(--cpd);
+  padding:clamp(10px,1.4vh,16px) clamp(16px,2.5vw,28px);
   display:flex;align-items:center;justify-content:space-between;gap:clamp(8px,1.5vw,16px);flex-shrink:0;
 }
 .sn{
-  background:rgba(255,255,255,.15);color:#fff;border:none;
-  padding:clamp(6px,1vh,12px) clamp(14px,2vw,24px);border-radius:22px;
+  background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.15);
+  padding:clamp(6px,1vh,12px) clamp(14px,2vw,24px);border-radius:8px;
   cursor:pointer;font-size:clamp(13px,1.6vw,18px);font-family:var(--fn);
   transition:var(--transition);font-weight:600;letter-spacing:.3px;
 }
-.sn:hover{background:rgba(255,255,255,.3);}
-.ci{color:rgba(255,255,255,.65);font-size:clamp(12px,1.5vw,16px);text-align:center;flex:1;font-weight:500;}
+.sn:hover{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.3);}
+.ci{color:rgba(255,255,255,.75);font-size:clamp(12px,1.5vw,16px);text-align:center;flex:1;font-weight:500;}
 
 /* --- Slides base --- */
-.slide{display:none;position:absolute;inset:0;flex-direction:column;background:#fafaf6;}
+.slide{display:none;position:absolute;inset:0;flex-direction:column;background:var(--bg);}
 .slide.on{display:flex;}
 .sh{
-  background:var(--cp);color:#fff;display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(135deg,var(--cp),var(--cpd));color:#fff;display:flex;align-items:center;justify-content:space-between;
   padding:0 clamp(14px,3vw,30px);font-weight:700;
   font-size:clamp(20px,3.2vw,36px);height:clamp(48px,8vh,76px);flex-shrink:0;position:relative;
+  border-radius:0 0 var(--radius) var(--radius);
 }
-.grass{height:clamp(14px,2.5vh,28px);flex-shrink:0;overflow:hidden;}
-.grass svg{width:100%;height:100%;display:block;}
+.slide-footer{
+  height:4px;flex-shrink:0;
+  background:linear-gradient(90deg,var(--cp),var(--accent));
+}
 
 /* --- Title slide --- */
-.sl-title{background:#fff;align-items:center;justify-content:center;flex-direction:column;}
+.sl-title{background:linear-gradient(160deg,#fff 60%,var(--cpl));align-items:center;justify-content:center;flex-direction:column;gap:clamp(8px,2vh,20px);}
 .sl-title h1{font-size:clamp(36px,7vw,80px);font-weight:900;color:var(--cpd);letter-spacing:3px;}
-.sl-title h2{font-size:clamp(22px,4.5vw,50px);color:var(--cp);margin-top:clamp(8px,1.5vh,16px);font-weight:400;}
+.sl-title h2{font-size:clamp(22px,4.5vw,50px);color:var(--accent);font-weight:600;}
 
 /* --- Sommaire --- */
-.sl-som{background:#fafaf6;}
+.sl-som{background:var(--bg);}
 .som-grid{flex:1;padding:clamp(8px,1.5vh,16px) clamp(12px,2.5vw,24px);display:grid;grid-template-columns:repeat(auto-fill,minmax(min(220px,45%),1fr));gap:clamp(4px,.8vh,8px);overflow-y:auto;align-content:start;}
 .som-item{
   background:#fff;border:1.5px solid var(--cpl);border-radius:10px;
@@ -256,6 +277,155 @@ body{font-family:var(--fn);background:var(--bg);min-height:100vh;color:var(--tex
   margin-top:.4vh;pointer-events:none;
 }
 .si.on{opacity:1;}
+
+/* --- Slide Def (Définition + Image) --- */
+.sdef{flex:1;display:flex;flex-direction:column;padding:2vh 2.5vw 1vh;overflow:hidden;position:relative;align-items:center;justify-content:center;}
+.sdef .def-box-r{
+  background:#fff;border:2px solid var(--cpl);border-radius:12px;
+  padding:2vh 3vw;font-size:clamp(22px,3.5vw,42px);color:var(--text);line-height:1.5;
+  box-shadow:0 2px 12px rgba(0,0,0,.05);max-width:80%;text-align:center;
+}
+.sdef .def-line-r{display:none;}.sdef .def-line-r.on{display:block;}
+.sdef .wi-r{
+  max-width:clamp(200px,30vw,400px);max-height:clamp(150px,30vh,350px);
+  object-fit:contain;border-radius:12px;margin-top:2vh;
+  border:2px solid var(--cpl);background:#fff;padding:8px;
+  box-shadow:0 4px 16px rgba(0,0,0,.1);display:none;
+}
+.sdef .wi-r.on{display:block;}
+
+/* --- Slide R (Recherche) --- */
+.sr-wrap{
+  flex:1;display:flex;flex-direction:column;padding:1vh 1.5vw .4vh;
+  gap:1.5vh;overflow:hidden;position:relative;
+}
+.sr-top-row{
+  display:flex;flex-direction:row;flex:1;gap:1.5vw;min-height:0;
+}
+.sr-photo-area{
+  flex:0 0 clamp(140px,22vw,320px);display:flex;align-items:center;justify-content:center;
+}
+.sr-photo{
+  width:100%;max-height:100%;object-fit:contain;border-radius:8px;
+  border:2px solid var(--cpl);background:#fff;padding:4px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);cursor:pointer;
+  opacity:0;transition:opacity .4s ease;
+}
+.sr-word-area{
+  flex:1;display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:flex-start;
+  padding:1vh 1.5vw;min-height:0;border:2.5px solid var(--cp);border-radius:10px;
+  background:#fff;position:relative;gap:0;
+}
+.sr-group{
+  display:flex;flex-direction:column;align-items:center;position:relative;margin:0 .6vw;
+}
+.sr-letters{
+  display:flex;align-items:flex-start;gap:0;
+}
+.sr-letter-slot{
+  display:flex;flex-direction:column;align-items:center;position:relative;
+}
+.sr-grapheme-char{
+  font-weight:700;display:flex;align-items:flex-end;
+  justify-content:center;color:#222;line-height:1;
+  opacity:0;transition:opacity .3s ease;width:100%;text-align:center;
+}
+.sr-grapheme-char.on{opacity:1;}
+.sr-trait{
+  height:1vh;background:transparent;border-bottom:4px solid #222;
+  border-radius:2px;margin-top:.2vh;transition:border-color .3s ease;
+}
+.sr-liaison{
+  position:relative;height:0;align-self:flex-end;margin-bottom:0.5vh;
+}
+.sr-syllable{
+  display:flex;flex-direction:row;align-items:center;position:relative;
+  margin:0 .2vw;
+}
+.sr-syllsep{
+  width:0;border-left:4px dashed #82c4e0;height:28vh;margin:0 .8vw;align-self:center;flex-shrink:0;
+}
+.sr-sound-box{
+  border:3px solid #ddd;border-radius:8px;
+  background:#fff;cursor:pointer;margin-top:.6vh;transition:all .2s ease;
+  display:flex;align-items:center;justify-content:center;
+  color:#999;
+}
+.sr-sound-box:hover{border-color:#999;}
+.sr-sound-box.selected{
+  border-color:var(--cp);background:color-mix(in srgb,var(--cp) 10%,#fff);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--cp) 15%,transparent);
+}
+.sr-sound-box.filled{
+  border-color:#666;background:#fff;color:#222;
+}
+.sr-silent-box{
+  border-color:#ccc!important;background:#f9f9f9!important;cursor:default!important;
+  opacity:.75;
+}
+.sr-sound-box.correct{
+  border-color:#4CAF50;background:#e8f5e9;color:#4CAF50;
+}
+.sr-sound-box.wrong{
+  border-color:#e8002a;background:#ffebee;color:#e8002a;
+}
+.sr-soundbar{
+  flex-shrink:0;display:flex;gap:1.5vw;padding:1vh 1.5vw;
+  background:#f5f3ef;border-top:1.5px solid #ddd;
+  overflow-x:auto;align-items:center;justify-content:center;flex-wrap:wrap;
+}
+.sr-soundbar-img{
+  width:clamp(60px,7vw,90px);height:clamp(60px,7vw,90px);
+  object-fit:contain;cursor:pointer;border-radius:8px;border:2px solid transparent;
+  transition:all .2s ease;padding:4px;background:#fff;
+}
+.sr-soundbar-img:hover{
+  transform:scale(1.08);border-color:var(--cp);box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+.sr-grapheme-popup{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1000;
+  background:#fff;border-radius:16px;box-shadow:0 12px 48px rgba(0,0,0,.25);
+  padding:clamp(20px,3vw,32px);max-height:80vh;overflow-y:auto;
+  max-width:600px;width:96%;
+}
+.sr-popup-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:999;
+}
+.sr-popup-title{
+  font-size:clamp(16px,2vw,20px);font-weight:700;color:var(--cpd);
+  margin-bottom:clamp(14px,2vw,20px);text-align:center;
+}
+.sr-grapheme-grid{
+  display:flex;flex-direction:column;gap:clamp(8px,1.2vw,14px);
+}
+.sr-grapheme-choice{
+  border:2px solid #eee;border-radius:12px;padding:clamp(10px,1.5vw,16px);
+  background:#fff;cursor:pointer;transition:all .2s ease;
+  text-align:center;font-family:var(--fn);
+  font-size:clamp(12px,1.5vw,24px);font-weight:600;
+  box-shadow:0 1px 4px rgba(0,0,0,.04);
+}
+.sr-grapheme-choice:hover{
+  border-color:var(--cp);background:var(--cpl);transform:scale(1.02);
+  box-shadow:0 2px 8px rgba(14,165,233,.15);
+}
+.sr-grapheme-choice-letter{
+  display:inline-block;margin:0 2px;
+}
+.sr-congrats{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  z-index:999;font-size:clamp(48px,8vw,120px);font-weight:900;
+  color:#fff;text-align:center;text-shadow:0 4px 16px rgba(0,0,0,.3);
+  animation:congratsAnim 2s ease-out forwards;pointer-events:none;
+  background:linear-gradient(135deg,#4CAF50,#7DB728);border-radius:20px;
+  padding:clamp(20px,3vw,40px) clamp(40px,6vw,80px);
+  box-shadow:0 12px 48px rgba(0,0,0,.3);
+}
+@keyframes congratsAnim{
+  0%{transform:translate(-50%,-50%) scale(0.5);opacity:0;}
+  50%{transform:translate(-50%,-50%) scale(1.1);opacity:1;}
+  100%{transform:translate(-50%,-50%) scale(1);opacity:0;}
+}
 
 /* --- Slide B (mot complet) --- */
 .sbb{flex:1;display:flex;flex-direction:column;padding:1vh 2vw .5vh;gap:1vh;overflow:hidden;}
@@ -329,7 +499,7 @@ body{font-family:var(--fn);background:var(--bg);min-height:100vh;color:var(--tex
 .guide-table tr:last-child td{border-bottom:none;}
 .guide-faq{display:flex;flex-direction:column;gap:0;}
 .guide-q{background:var(--cpl);color:var(--cpd);padding:8px 12px;font-weight:600;font-size:13px;margin-top:8px;border-radius:8px 8px 0 0;}
-.guide-a{background:#faf8f4;padding:8px 12px;font-size:13px;color:#555;border-radius:0 0 8px 8px;border:1px solid var(--cpl);border-top:none;}
+.guide-a{background:#F5FAFA;padding:8px 12px;font-size:13px;color:#555;border-radius:0 0 8px 8px;border:1px solid var(--cpl);border-top:none;}
 kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font-size:12px;font-family:monospace;}
 .guide-zoom{background:#e8f4fd;border:1px solid #aed6f1;border-radius:10px;padding:14px 16px;margin:0 0 18px;color:#1a5276;font-size:13px;}
 .guide-zoom ul{margin:4px 0;padding-left:18px;}
@@ -367,7 +537,7 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
 .qz-num{position:absolute;top:12px;left:14px;background:rgba(255,255,255,.15);color:#fff;font-size:13px;font-weight:700;border-radius:20px;padding:3px 10px;}
 
 /* Quiz config modal */
-.qz-series-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:#faf8f4;margin-bottom:8px;border:1.5px solid #e8e0d4;transition:var(--transition);}
+.qz-series-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:#F5FAFA;margin-bottom:8px;border:1.5px solid #E0F7F3;transition:var(--transition);}
 .qz-series-row.active{border-color:var(--cp);background:#f0ffe8;}
 .qz-series-row label{flex:1;font-weight:600;font-size:14px;cursor:pointer;}
 .qz-range{display:flex;align-items:center;gap:6px;font-size:13px;}
@@ -502,7 +672,10 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
   <div class="mb" style="max-width:420px">
     <h3>Nouvelle série</h3>
     <div class="fg" style="margin-bottom:12px"><label>Nom</label><input type="text" id="ns-name" placeholder="ex: Le Jardin"></div>
-    <div class="fg" style="margin-bottom:12px"><label>Couleur</label><input type="color" id="ns-color" value="#8b7355"></div>
+    <div class="fg" style="margin-bottom:12px"><label>Couleur</label>
+  <div class="color-palette" id="ns-palette"></div>
+  <input type="hidden" id="ns-color" value="#36B5A0">
+</div>
     <div class="fg" style="margin-bottom:12px"><label>Police</label>
       <select id="ns-font"><option value="MDIEcole">MDI École</option><option value="Calibri">Calibri</option><option value="Arial">Arial</option><option value="Times New Roman">Times New Roman</option></select></div>
     <div class="fg" style="margin-bottom:4px"><label>Méthode</label>
@@ -581,16 +754,16 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
     <h3>⬇️ Exporter</h3>
 
     <div style="background:#f8f5f0;border-radius:8px;padding:14px;margin-bottom:14px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:6px">💾 Sauvegarde locale</div>
+      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:6px">💾 Sauvegarde locale</div>
       <p style="font-size:12px;color:#888;margin-bottom:10px">Toutes mes séries dans un fichier .json — pour sauvegarder ou transférer sur un autre ordinateur.</p>
       <button class="btn" type="button" onclick="exportAllSeries()">⬇️ Télécharger la sauvegarde complète</button>
     </div>
 
     <div style="background:#f0f5ff;border-radius:8px;padding:14px;border:1px solid #c5d5e8">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:6px">📤 Partager sur GitHub</div>
-      <p style="font-size:12px;color:#555;margin-bottom:4px">Génère le fichier <code style="background:#e8e0d4;padding:1px 5px;border-radius:3px">series_partagees.json</code> à déposer dans votre dépôt GitHub.</p>
+      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:6px">📤 Partager sur GitHub</div>
+      <p style="font-size:12px;color:#555;margin-bottom:4px">Génère le fichier <code style="background:#E0F7F3;padding:1px 5px;border-radius:3px">series_partagees.json</code> à déposer dans votre dépôt GitHub.</p>
       <p style="font-size:12px;color:#555;margin-bottom:10px">Toutes vos collègues verront vos séries automatiquement à l'ouverture du site.</p>
-      <div style="background:#fff8e8;border-radius:6px;padding:8px 10px;font-size:11px;color:#8b7355;margin-bottom:10px;border:1px solid #e8d8a0">
+      <div style="background:#FEF3C7;border-radius:8px;padding:8px 10px;font-size:11px;color:#92400E;margin-bottom:10px;border:1px solid #FCD34D">
         <strong>Étapes :</strong><br>
         1. Cliquez sur le bouton ci-dessous<br>
         2. Le fichier <code>series_partagees.json</code> se télécharge<br>
@@ -613,9 +786,9 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
 
     <!-- Section 1 : Import séries JSON -->
     <div style="background:#f8f5f0;border-radius:8px;padding:14px;margin-bottom:16px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:8px">📦 Importer des séries sauvegardées (.json)</div>
+      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:8px">📦 Importer des séries sauvegardées (.json)</div>
       <p style="font-size:12px;color:#888;margin-bottom:10px">Fichier exporté depuis Apprentilangue (format .json)</p>
-      <label style="display:inline-block;background:#8b7355;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
+      <label style="display:inline-block;background:#36B5A0;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
         Choisir un fichier JSON
         <input type="file" id="imp-json" accept=".json" style="display:none" onchange="importJSON(this)">
       </label>
@@ -624,7 +797,7 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
 
     <!-- Section 2 : Import Excel -->
     <div style="background:#f8f5f0;border-radius:8px;padding:14px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:8px">📊 Importer une liste de mots (.xlsx)</div>
+      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:8px">📊 Importer une liste de mots (.xlsx)</div>
       <p style="font-size:12px;color:#888;margin-bottom:10px">Utilisez le modèle Excel disponible sur la page d'accueil.</p>
       <div class="fg" style="margin-bottom:10px">
         <label>Nom de la nouvelle série</label>
@@ -639,7 +812,7 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
       </div>
       <div class="fg" style="margin-bottom:10px">
         <label>Couleur de la série</label>
-        <input type="color" id="imp-xl-color" value="#8b7355">
+        <div class="color-palette" id="imp-xl-palette"></div><input type="hidden" id="imp-xl-color" value="#36B5A0">
       </div>
       <div class="fg" style="margin-bottom:10px">
         <label>Police</label>
@@ -657,7 +830,7 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
           <button class="mtb" type="button" id="imp-xl-bm" onclick="setImpM('bm')">📘 Borel-Maisonny</button>
         </div>
       </div>
-      <label style="display:inline-block;background:#8b7355;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
+      <label style="display:inline-block;background:#36B5A0;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
         Choisir un fichier Excel
         <input type="file" id="imp-xl" accept=".xlsx,.xls" style="display:none" onchange="importExcel(this)">
       </label>
@@ -783,7 +956,10 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
   <div class="mb" style="max-width:420px">
     <h3>Nouvelle série</h3>
     <div class="fg" style="margin-bottom:12px"><label>Nom</label><input type="text" id="ns-name" placeholder="ex: Le Jardin"></div>
-    <div class="fg" style="margin-bottom:12px"><label>Couleur</label><input type="color" id="ns-color" value="#8b7355"></div>
+    <div class="fg" style="margin-bottom:12px"><label>Couleur</label>
+  <div class="color-palette" id="ns-palette"></div>
+  <input type="hidden" id="ns-color" value="#36B5A0">
+</div>
     <div class="fg" style="margin-bottom:12px"><label>Police</label>
       <select id="ns-font"><option value="MDIEcole">MDI École</option><option value="Calibri">Calibri</option><option value="Arial">Arial</option><option value="Times New Roman">Times New Roman</option></select></div>
     <div class="fg" style="margin-bottom:4px"><label>Méthode</label>
@@ -862,16 +1038,16 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
     <h3>⬇️ Exporter</h3>
 
     <div style="background:#f8f5f0;border-radius:8px;padding:14px;margin-bottom:14px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:6px">💾 Sauvegarde locale</div>
+      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:6px">💾 Sauvegarde locale</div>
       <p style="font-size:12px;color:#888;margin-bottom:10px">Toutes mes séries dans un fichier .json — pour sauvegarder ou transférer sur un autre ordinateur.</p>
       <button class="btn" type="button" onclick="exportAllSeries()">⬇️ Télécharger la sauvegarde complète</button>
     </div>
 
     <div style="background:#f0f5ff;border-radius:8px;padding:14px;border:1px solid #c5d5e8">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:6px">📤 Partager sur GitHub</div>
-      <p style="font-size:12px;color:#555;margin-bottom:4px">Génère le fichier <code style="background:#e8e0d4;padding:1px 5px;border-radius:3px">series_partagees.json</code> à déposer dans votre dépôt GitHub.</p>
+      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:6px">📤 Partager sur GitHub</div>
+      <p style="font-size:12px;color:#555;margin-bottom:4px">Génère le fichier <code style="background:#E0F7F3;padding:1px 5px;border-radius:3px">series_partagees.json</code> à déposer dans votre dépôt GitHub.</p>
       <p style="font-size:12px;color:#555;margin-bottom:10px">Toutes vos collègues verront vos séries automatiquement à l'ouverture du site.</p>
-      <div style="background:#fff8e8;border-radius:6px;padding:8px 10px;font-size:11px;color:#8b7355;margin-bottom:10px;border:1px solid #e8d8a0">
+      <div style="background:#FEF3C7;border-radius:8px;padding:8px 10px;font-size:11px;color:#92400E;margin-bottom:10px;border:1px solid #FCD34D">
         <strong>Étapes :</strong><br>
         1. Cliquez sur le bouton ci-dessous<br>
         2. Le fichier <code>series_partagees.json</code> se télécharge<br>
@@ -894,9 +1070,9 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
 
     <!-- Section 1 : Import séries JSON -->
     <div style="background:#f8f5f0;border-radius:8px;padding:14px;margin-bottom:16px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:8px">📦 Importer des séries sauvegardées (.json)</div>
+      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:8px">📦 Importer des séries sauvegardées (.json)</div>
       <p style="font-size:12px;color:#888;margin-bottom:10px">Fichier exporté depuis Apprentilangue (format .json)</p>
-      <label style="display:inline-block;background:#8b7355;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
+      <label style="display:inline-block;background:#36B5A0;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
         Choisir un fichier JSON
         <input type="file" id="imp-json" accept=".json" style="display:none" onchange="importJSON(this)">
       </label>
@@ -905,7 +1081,7 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
 
     <!-- Section 2 : Import Excel -->
     <div style="background:#f8f5f0;border-radius:8px;padding:14px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:8px">📊 Importer une liste de mots (.xlsx)</div>
+      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:8px">📊 Importer une liste de mots (.xlsx)</div>
       <p style="font-size:12px;color:#888;margin-bottom:10px">Utilisez le modèle Excel disponible sur la page d'accueil.</p>
       <div class="fg" style="margin-bottom:10px">
         <label>Nom de la nouvelle série</label>
@@ -920,7 +1096,7 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
       </div>
       <div class="fg" style="margin-bottom:10px">
         <label>Couleur de la série</label>
-        <input type="color" id="imp-xl-color" value="#8b7355">
+        <div class="color-palette" id="imp-xl-palette"></div><input type="hidden" id="imp-xl-color" value="#36B5A0">
       </div>
       <div class="fg" style="margin-bottom:10px">
         <label>Police</label>
@@ -938,7 +1114,7 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
           <button class="mtb" type="button" id="imp-xl-bm" onclick="setImpM('bm')">📘 Borel-Maisonny</button>
         </div>
       </div>
-      <label style="display:inline-block;background:#8b7355;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
+      <label style="display:inline-block;background:#36B5A0;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
         Choisir un fichier Excel
         <input type="file" id="imp-xl" accept=".xlsx,.xls" style="display:none" onchange="importExcel(this)">
       </label>
@@ -1064,7 +1240,10 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
   <div class="mb" style="max-width:420px">
     <h3>Nouvelle série</h3>
     <div class="fg" style="margin-bottom:12px"><label>Nom</label><input type="text" id="ns-name" placeholder="ex: Le Jardin"></div>
-    <div class="fg" style="margin-bottom:12px"><label>Couleur</label><input type="color" id="ns-color" value="#8b7355"></div>
+    <div class="fg" style="margin-bottom:12px"><label>Couleur</label>
+  <div class="color-palette" id="ns-palette"></div>
+  <input type="hidden" id="ns-color" value="#36B5A0">
+</div>
     <div class="fg" style="margin-bottom:12px"><label>Police</label>
       <select id="ns-font"><option value="MDIEcole">MDI École</option><option value="Calibri">Calibri</option><option value="Arial">Arial</option><option value="Times New Roman">Times New Roman</option></select></div>
     <div class="fg" style="margin-bottom:4px"><label>Méthode</label>
@@ -1143,16 +1322,16 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
     <h3>⬇️ Exporter</h3>
 
     <div style="background:#f8f5f0;border-radius:8px;padding:14px;margin-bottom:14px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:6px">💾 Sauvegarde locale</div>
+      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:6px">💾 Sauvegarde locale</div>
       <p style="font-size:12px;color:#888;margin-bottom:10px">Toutes mes séries dans un fichier .json — pour sauvegarder ou transférer sur un autre ordinateur.</p>
       <button class="btn" type="button" onclick="exportAllSeries()">⬇️ Télécharger la sauvegarde complète</button>
     </div>
 
     <div style="background:#f0f5ff;border-radius:8px;padding:14px;border:1px solid #c5d5e8">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:6px">📤 Partager sur GitHub</div>
-      <p style="font-size:12px;color:#555;margin-bottom:4px">Génère le fichier <code style="background:#e8e0d4;padding:1px 5px;border-radius:3px">series_partagees.json</code> à déposer dans votre dépôt GitHub.</p>
+      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:6px">📤 Partager sur GitHub</div>
+      <p style="font-size:12px;color:#555;margin-bottom:4px">Génère le fichier <code style="background:#E0F7F3;padding:1px 5px;border-radius:3px">series_partagees.json</code> à déposer dans votre dépôt GitHub.</p>
       <p style="font-size:12px;color:#555;margin-bottom:10px">Toutes vos collègues verront vos séries automatiquement à l'ouverture du site.</p>
-      <div style="background:#fff8e8;border-radius:6px;padding:8px 10px;font-size:11px;color:#8b7355;margin-bottom:10px;border:1px solid #e8d8a0">
+      <div style="background:#FEF3C7;border-radius:8px;padding:8px 10px;font-size:11px;color:#92400E;margin-bottom:10px;border:1px solid #FCD34D">
         <strong>Étapes :</strong><br>
         1. Cliquez sur le bouton ci-dessous<br>
         2. Le fichier <code>series_partagees.json</code> se télécharge<br>
@@ -1175,9 +1354,9 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
 
     <!-- Section 1 : Import séries JSON -->
     <div style="background:#f8f5f0;border-radius:8px;padding:14px;margin-bottom:16px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:8px">📦 Importer des séries sauvegardées (.json)</div>
+      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:8px">📦 Importer des séries sauvegardées (.json)</div>
       <p style="font-size:12px;color:#888;margin-bottom:10px">Fichier exporté depuis Apprentilangue (format .json)</p>
-      <label style="display:inline-block;background:#8b7355;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
+      <label style="display:inline-block;background:#36B5A0;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
         Choisir un fichier JSON
         <input type="file" id="imp-json" accept=".json" style="display:none" onchange="importJSON(this)">
       </label>
@@ -1186,7 +1365,7 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
 
     <!-- Section 2 : Import Excel -->
     <div style="background:#f8f5f0;border-radius:8px;padding:14px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#5c4a2a;margin-bottom:8px">📊 Importer une liste de mots (.xlsx)</div>
+      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:8px">📊 Importer une liste de mots (.xlsx)</div>
       <p style="font-size:12px;color:#888;margin-bottom:10px">Utilisez le modèle Excel disponible sur la page d'accueil.</p>
       <div class="fg" style="margin-bottom:10px">
         <label>Nom de la nouvelle série</label>
@@ -1201,7 +1380,7 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
       </div>
       <div class="fg" style="margin-bottom:10px">
         <label>Couleur de la série</label>
-        <input type="color" id="imp-xl-color" value="#8b7355">
+        <div class="color-palette" id="imp-xl-palette"></div><input type="hidden" id="imp-xl-color" value="#36B5A0">
       </div>
       <div class="fg" style="margin-bottom:10px">
         <label>Police</label>
@@ -1219,7 +1398,7 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
           <button class="mtb" type="button" id="imp-xl-bm" onclick="setImpM('bm')">📘 Borel-Maisonny</button>
         </div>
       </div>
-      <label style="display:inline-block;background:#8b7355;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
+      <label style="display:inline-block;background:#36B5A0;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
         Choisir un fichier Excel
         <input type="file" id="imp-xl" accept=".xlsx,.xls" style="display:none" onchange="importExcel(this)">
       </label>
@@ -1242,42 +1421,42 @@ const PAL=[{n:'Noir',h:'#222222'},{n:'Rouge',h:'#e8002a'},{n:'Bleu clair',h:'#82
 // DICTIONNAIRE EO
 // ================================================================
 const EO0={
-  'a':{s:'a',i:'eo/a-avion.png',c:['#222222']},'â':{s:'a',i:'eo/a-avion.png',c:['#222222']},
+  'a':{s:'a',i:'eo/a-avion.png',c:['#222222']},'â':{s:'a',i:'eo/a-avion.png',c:['#7DB728']},
   'b':{s:'b',i:'eo/b-bottes.png',c:['#222222']},'c':{s:'k',i:'eo/c-crocodile.png',c:['#222222']},
-  'ç':{s:'s',i:'eo/s-serpent.png',c:['#222222']},'ch':{s:'ch',i:'eo/ch-chat.png',c:['#222222','#222222']},
+  'ç':{s:'s',i:'eo/s-serpent.png',c:['#7DB728']},'ch':{s:'ch',i:'eo/ch-chat.png',c:['#222222','#222222']},
   'd':{s:'d',i:'eo/d-danseuse.png',c:['#222222']},'e':{s:'e',i:'eo/e-chèvre.png',c:['#222222']},
   'é':{s:'é',i:'eo/é-étoile.png',c:['#222222']},'è':{s:'è',i:'eo/è-flèche.png',c:['#222222']},
-  'ê':{s:'è',i:'eo/è-flèche.png',c:['#222222']},'eu':{s:'eu',i:'eo/eu-feu.png',c:['#222222','#222222']},
-  'f':{s:'f',i:'eo/f-fée.png',c:['#222222']},'ff':{s:'f',i:'eo/f-fée.png',c:['#222222','#222222']},
+  'ê':{s:'è',i:'eo/è-flèche.png',c:['#7DB728']},'eu':{s:'eu',i:'eo/eu-feu.png',c:['#E11683','#222222']},
+  'f':{s:'f',i:'eo/f-fée.png',c:['#222222']},'ff':{s:'f',i:'eo/f-fée.png',c:['#7DB728','#222222']},
   'g':{s:'g',i:'eo/g-gorille.png',c:['#222222']},'gn':{s:'gn',i:'eo/gn-montagne.png',c:['#222222','#222222']},
   'h':{s:'',i:'eo/Lettre_Muette.png',c:['#aaaaaa'],silent:true},'i':{s:'i',i:'eo/i-igloo.png',c:['#222222']},
   'î':{s:'i',i:'eo/i-igloo.png',c:['#222222']},'j':{s:'j',i:'eo/j-jumelles.png',c:['#222222']},
-  'k':{s:'k',i:'eo/c-crocodile.png',c:['#222222']},'l':{s:'l',i:'eo/l-lunettes.png',c:['#222222']},
-  'll':{s:'l',i:'eo/l-lunettes.png',c:['#222222','#222222']},'m':{s:'m',i:'eo/m-moto.png',c:['#222222']},
-  'mm':{s:'m',i:'eo/m-moto.png',c:['#222222','#222222']},'n':{s:'n',i:'eo/n-neige.png',c:['#222222']},
-  'nn':{s:'n',i:'eo/n-neige.png',c:['#222222','#222222']},'o':{s:'o',i:'eo/o-otarie.png',c:['#222222']},
-  'ô':{s:'o',i:'eo/o-ogre.png',c:['#222222']},'p':{s:'p',i:'eo/p-pirate.png',c:['#222222']},
-  'ph':{s:'f',i:'eo/f-fée.png',c:['#222222','#222222']},'pp':{s:'p',i:'eo/p-pirate.png',c:['#222222','#222222']},
-  'qu':{s:'k',i:'eo/c-crocodile.png',c:['#222222','#aaaaaa']},'r':{s:'r',i:'eo/r-rat.png',c:['#222222']},
-  'rr':{s:'r',i:'eo/r-rat.png',c:['#222222','#222222']},'s':{s:'s',i:'eo/s-serpent.png',c:['#222222']},
+  'k':{s:'k',i:'eo/c-crocodile.png',c:['#7DB728']},'l':{s:'l',i:'eo/l-lunettes.png',c:['#222222']},
+  'll':{s:'l',i:'eo/l-lunettes.png',c:['#7DB728','#222222']},'m':{s:'m',i:'eo/m-moto.png',c:['#222222']},
+  'mm':{s:'m',i:'eo/m-moto.png',c:['#7DB728','#222222']},'n':{s:'n',i:'eo/n-neige.png',c:['#222222']},
+  'nn':{s:'n',i:'eo/n-neige.png',c:['#7DB728','#222222']},'o':{s:'o',i:'eo/o-otarie.png',c:['#222222']},
+  'ô':{s:'o',i:'eo/o-ogre.png',c:['#7DB728']},'p':{s:'p',i:'eo/p-pirate.png',c:['#222222']},
+  'ph':{s:'f',i:'eo/f-fée.png',c:['#7DB728','#222222']},'pp':{s:'p',i:'eo/p-pirate.png',c:['#7DB728','#222222']},
+  'qu':{s:'k',i:'eo/c-crocodile.png',c:['#E11683','#aaaaaa']},'r':{s:'r',i:'eo/r-rat.png',c:['#222222']},
+  'rr':{s:'r',i:'eo/r-rat.png',c:['#7DB728','#222222']},'s':{s:'s',i:'eo/s-serpent.png',c:['#222222']},
   'ss':{s:'s',i:'eo/s-serpent.png',c:['#222222','#222222']},'sc':{s:'s',i:'eo/s-serpent.png',c:['#222222','#222222']},
-  't':{s:'t',i:'eo/t-téléphone.png',c:['#222222']},'tt':{s:'t',i:'eo/t-téléphone.png',c:['#222222','#222222']},
-  'u':{s:'u',i:'eo/u-usine.png',c:['#222222']},'û':{s:'u',i:'eo/u-usine.png',c:['#222222']},
-  'v':{s:'v',i:'eo/v-vache.png',c:['#222222']},'w':{s:'v',i:'eo/v-vache.png',c:['#222222']},
-  'x':{s:'ks',i:'eo/x-taxi.png',c:['#222222']},'y':{s:'i',i:'eo/i-igloo.png',c:['#222222']},
+  't':{s:'t',i:'eo/t-téléphone.png',c:['#222222']},'tt':{s:'t',i:'eo/t-téléphone.png',c:['#7DB728','#222222']},
+  'u':{s:'u',i:'eo/u-usine.png',c:['#222222']},'û':{s:'u',i:'eo/u-usine.png',c:['#82c4e0']},
+  'v':{s:'v',i:'eo/v-vache.png',c:['#222222']},'w':{s:'v',i:'eo/v-vache.png',c:['#82c4e0']},
+  'x':{s:'ks',i:'eo/x-taxi.png',c:['#222222']},'y':{s:'i',i:'eo/i-igloo.png',c:['#7DB728']},
   'z':{s:'z',i:'eo/z-zèbre.png',c:['#222222']},
-  'an':{s:'an',i:'eo/an-ange.png',c:['#222222','#222222']},'en':{s:'an',i:'eo/an-ange.png',c:['#e8002a','#222222']},
-  'em':{s:'an',i:'eo/an-ange.png',c:['#e8002a','#82c4e0']},'am':{s:'an',i:'eo/an-ange.png',c:['#aaaaaa','#82c4e0']},
-  'on':{s:'on',i:'eo/on-bonbon.png',c:['#222222','#222222']},'om':{s:'on',i:'eo/on-bonbon.png',c:['#222222','#222222']},
+  'an':{s:'an',i:'eo/an-ange.png',c:['#222222','#222222']},'en':{s:'an',i:'eo/an-ange.png',c:['#E11683','#222222']},
+  'em':{s:'an',i:'eo/an-ange.png',c:['#E11683','#82c4e0']},'am':{s:'an',i:'eo/an-ange.png',c:['#222222','#82c4e0']},
+  'on':{s:'on',i:'eo/on-bonbon.png',c:['#222222','#222222']},'om':{s:'on',i:'eo/on-bonbon.png',c:['#222222','#82c4e0']},
   'in':{s:'in',i:'eo/in-idien.png',c:['#222222','#222222']},
-  'ain':{s:'in',i:'eo/in-idien.png',c:['#222222','#aaaaaa','#222222']},'ein':{s:'in',i:'eo/in-idien.png',c:['#222222','#aaaaaa','#222222']},
-  'un':{s:'in',i:'eo/in-idien.png',c:['#222222','#222222']},
+  'ain':{s:'in',i:'eo/in-idien.png',c:['#222222','#aaaaaa','#222222']},'ein':{s:'in',i:'eo/in-idien.png',c:['#E11683','#aaaaaa','#222222']},
+  'un':{s:'in',i:'eo/in-idien.png',c:['#82c4e0','#222222']},
   'ou':{s:'ou',i:'eo/ou-loup.png',c:['#222222','#222222']},'oi':{s:'oi',i:'eo/oi-oie.png',c:['#222222','#222222']},
   'oin':{s:'oin',i:'eo/oin-pointe.png',c:['#222222','#222222','#222222']},
   'au':{s:'o',i:'eo/o-ogre.png',c:['#222222','#222222']},'eau':{s:'o',i:'eo/o-ogre.png',c:['#222222','#222222','#222222']},
   'ai':{s:'è',i:'eo/è-flèche.png',c:['#222222','#222222']},'ei':{s:'è',i:'eo/è-flèche.png',c:['#222222','#222222']},
-  'er':{s:'é',i:'eo/é-étoile.png',c:['#222222','#222222']},'ez':{s:'é',i:'eo/é-étoile.png',c:['#222222','#222222']},
-  'ill':{s:'il',i:'eo/il-oeil.png',c:['#222222','#222222','#222222']},'il':{s:'il',i:'eo/il-oeil.png',c:['#222222','#222222']},
+  'er':{s:'é',i:'eo/é-étoile.png',c:['#222222','#222222']},'ez':{s:'é',i:'eo/é-étoile.png',c:['#222222','#aaaaaa']},
+  'ill':{s:'il',i:'eo/il-oeil.png',c:['#222222','#E11683','#E11683']},'il':{s:'il',i:'eo/il-oeil.png',c:['#222222','#222222']},
   'ail':{s:'il',i:'eo/il-oeil.png',c:['#222222','#222222','#222222']},
 };
 // DICT BM
@@ -1329,6 +1508,163 @@ const PAT_BM=['eau','ain','ein','oin','ill','eil','ail','ch','ph','gn','qu',
   'll','ss','ff','rr','mm','nn','tt','pp','â','ê','î','û','ô','é','è','ç',
   'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','r','s','t','u','v','w','x','y','z'];
 
+// GRAPHEME DATABASE FOR RECHERCHE SLIDE
+const GRAPHEME_DB={
+  'a':{name:'Avion',img:'eo/a-avion.png',graphemes:[
+    {g:'a',force:96,colors:['#222222']},{g:'â',force:3,colors:['#7DB728']},
+    {g:'à',force:0,colors:['#7DB728']},{g:'em',force:0,colors:['#E11683','#82c4e0']}
+  ]},
+  'an':{name:'Ange',img:'eo/an-ange.png',graphemes:[
+    {g:'an',force:42,colors:['#222222','#222222']},{g:'en',force:36,colors:['#E11683','#222222']},
+    {g:'ent',force:12,colors:['#E11683','#222222','#aaaaaa']},{g:'em',force:6,colors:['#E11683','#82c4e0']},
+    {g:'am',force:3,colors:['#222222','#82c4e0']},{g:'aon',force:0,colors:['#222222','#aaaaaa','#222222']}
+  ]},
+  'b':{name:'Botte',img:'eo/b-bottes.png',graphemes:[
+    {g:'b',force:99,colors:['#222222']},{g:'bb',force:1,colors:['#7DB728','#222222']}
+  ]},
+  'k':{name:'Crocodile',img:'eo/c-crocodile.png',graphemes:[
+    {g:'c',force:74,colors:['#222222']},{g:'qu',force:20,colors:['#E11683','#aaaaaa']},
+    {g:'cc',force:3,colors:['#222222','#222222']},{g:'k',force:1,colors:['#7DB728']},
+    {g:'ck',force:0,colors:['#222222','#222222']},{g:'ch',force:1,colors:['#7DB728','#aaaaaa']}
+  ]},
+  'ch':{name:'Chat',img:'eo/ch-chat.png',graphemes:[
+    {g:'ch',force:98,colors:['#222222','#222222']},{g:'sh',force:1,colors:['#E11683','#222222']},
+    {g:'sc',force:0,colors:['#E11683','#222222']}
+  ]},
+  'd':{name:'Danseuse',img:'eo/d-danseuse.png',graphemes:[
+    {g:'d',force:99,colors:['#222222']},{g:'dd',force:1,colors:['#7DB728','#222222']}
+  ]},
+  'e':{name:'Chèvre',img:'eo/e-chèvre.png',graphemes:[
+    {g:'e',force:92,colors:['#222222']},{g:'eu',force:7,colors:['#E11683','#222222']},
+    {g:'oeu',force:0,colors:['#E11683','#E11683','#222222']},{g:'u',force:0,colors:['#82c4e0']},
+    {g:'i',force:0,colors:['#E11683']},{g:'ai',force:0,colors:['#222222','#222222']},
+    {g:'o',force:0,colors:['#7DB728']}
+  ]},
+  'é':{name:'Étoile',img:'eo/é-étoile.png',graphemes:[
+    {g:'é',force:51,colors:['#222222']},{g:'er',force:47,colors:['#222222','#222222']},
+    {g:'e',force:1,colors:['#7DB728']},{g:'ez',force:0,colors:['#222222','#aaaaaa']},
+    {g:'et',force:0,colors:['#222222','#aaaaaa']},{g:'ae',force:0,colors:['#222222','#7DB728']}
+  ]},
+  'è':{name:'Flèche',img:'eo/è-flèche.png',graphemes:[
+    {g:'e',force:51,colors:['#E11683']},{g:'ai',force:18,colors:['#222222','#222222']},
+    {g:'è',force:15,colors:['#222222']},{g:'ay',force:10,colors:['#222222','#7DB728']},
+    {g:'et',force:9,colors:['#222222','#aaaaaa']},{g:'ê',force:4,colors:['#7DB728']},
+    {g:'ei',force:2,colors:['#222222','#222222']},{g:'ey',force:0,colors:['#222222','#7DB728']}
+  ]},
+  'eu':{name:'Feu',img:'eo/eu-feu.png',graphemes:[
+    {g:'eu',force:96,colors:['#E11683','#222222']},{g:'oeu',force:3,colors:['#E11683','#222222','#222222']},
+    {g:'û',force:0,colors:['#82c4e0']}
+  ]},
+  'f':{name:'Fée',img:'eo/f-fée.png',graphemes:[
+    {g:'f',force:80,colors:['#222222']},{g:'ff',force:15,colors:['#7DB728','#222222']},
+    {g:'ph',force:5,colors:['#7DB728','#222222']}
+  ]},
+  'g':{name:'Gorille',img:'eo/g-gorille.png',graphemes:[
+    {g:'g',force:82,colors:['#222222']},{g:'gu',force:17,colors:['#222222','#aaaaaa']},
+    {g:'gg',force:0,colors:['#E11683','#222222']},{g:'c',force:0,colors:['#E11683']}
+  ]},
+  'gn':{name:'Montagne',img:'eo/gn-montagne.png',graphemes:[
+    {g:'gn',force:100,colors:['#222222','#222222']}
+  ]},
+  'i':{name:'Igloo',img:'eo/i-igloo.png',graphemes:[
+    {g:'i',force:97,colors:['#222222']},{g:'y',force:2,colors:['#7DB728']},
+    {g:'ï',force:0,colors:['#222222']},{g:'ee',force:0,colors:['#E11683','#E11683']},
+    {g:'e',force:0,colors:['#7DB728']}
+  ]},
+  'il':{name:'Oeil',img:'eo/il-oeil.png',graphemes:[
+    {g:'ill',force:83,colors:['#222222','#E11683','#E11683']},{g:'il',force:2,colors:['#222222','#222222']},
+    {g:'i',force:79,colors:['#E11683']},{g:'y',force:5,colors:['#7DB728']},
+    {g:'ï',force:0,colors:['#222222']}
+  ]},
+  'in':{name:'Indien',img:'eo/in-idien.png',graphemes:[
+    {g:'in',force:62,colors:['#222222','#222222']},{g:'en',force:11,colors:['#E11683','#222222']},
+    {g:'ain',force:10,colors:['#222222','#aaaaaa','#222222']},{g:'im',force:9,colors:['#222222','#82c4e0']},
+    {g:'ein',force:4,colors:['#222222','#aaaaaa','#222222']},{g:'un',force:2,colors:['#222222','#222222']},
+    {g:'ym',force:1,colors:['#7DB728','#82c4e0']}
+  ]},
+  'j':{name:'Jumelle',img:'eo/j-jumelles.png',graphemes:[
+    {g:'j',force:20,colors:['#222222']},{g:'g',force:74,colors:['#E11683']},
+    {g:'ge',force:6,colors:['#E11683','#aaaaaa']}
+  ]},
+  'l':{name:'Lunettes',img:'eo/l-lunettes.png',graphemes:[
+    {g:'l',force:90,colors:['#222222']},{g:'ll',force:10,colors:['#7DB728','#222222']}
+  ]},
+  'm':{name:'Moto',img:'eo/m-moto.png',graphemes:[
+    {g:'m',force:93,colors:['#222222']},{g:'mm',force:7,colors:['#7DB728','#222222']}
+  ]},
+  'n':{name:'Neige',img:'eo/n-neige.png',graphemes:[
+    {g:'n',force:85,colors:['#222222']},{g:'nn',force:15,colors:['#7DB728','#222222']}
+  ]},
+  'ng':{name:'Viking',img:'eo/ng-viking.png',graphemes:[
+    {g:'ng',force:100,colors:['#222222','#222222']}
+  ]},
+  'o':{name:'Otarie',img:'eo/o-otarie.png',graphemes:[
+    {g:'o',force:81,colors:['#222222']},{g:'au',force:10,colors:['#222222','#222222']},
+    {g:'eau',force:5,colors:['#222222','#222222','#222222']},{g:'ô',force:2,colors:['#7DB728']},
+    {g:'u',force:1,colors:['#82c4e0']},{g:'oo',force:0,colors:['#222222','#82c4e0']}
+  ]},
+  'oi':{name:'Oie',img:'eo/oi-oie.png',graphemes:[
+    {g:'oi',force:95,colors:['#222222','#222222']},{g:'oy',force:31,colors:['#222222','#7DB728']},
+    {g:'oua',force:3,colors:['#222222','#222222','#222222']},{g:'a',force:1,colors:['#222222']}
+  ]},
+  'oin':{name:'Pointe',img:'eo/oin-pointe.png',graphemes:[
+    {g:'oin',force:85,colors:['#222222','#222222','#222222']},
+    {g:'ouin',force:15,colors:['#222222','#82c4e0','#222222','#222222']}
+  ]},
+  'on':{name:'Bonbon',img:'eo/on-bonbon.png',graphemes:[
+    {g:'on',force:86,colors:['#222222','#222222']},{g:'om',force:13,colors:['#222222','#82c4e0']},
+    {g:'un',force:0,colors:['#222222','#222222']}
+  ]},
+  'ou':{name:'Loup',img:'eo/ou-loup.png',graphemes:[
+    {g:'ou',force:98,colors:['#222222','#222222']},{g:'oo',force:1,colors:['#222222','#222222']},
+    {g:'ow',force:0,colors:['#222222','#222222']},{g:'où',force:0,colors:['#222222','#7DB728']},
+    {g:'oû',force:0,colors:['#222222','#82c4e0']}
+  ]},
+  'p':{name:'Pirate',img:'eo/p-pirate.png',graphemes:[
+    {g:'p',force:95,colors:['#222222']},{g:'pp',force:5,colors:['#7DB728','#222222']}
+  ]},
+  'r':{name:'Rat',img:'eo/r-rat.png',graphemes:[
+    {g:'r',force:97,colors:['#222222']},{g:'rr',force:3,colors:['#7DB728','#222222']}
+  ]},
+  's':{name:'Serpent',img:'eo/s-serpent.png',graphemes:[
+    {g:'s',force:46,colors:['#222222']},{g:'c',force:23,colors:['#E11683']},
+    {g:'ss',force:20,colors:['#222222','#222222']},{g:'t',force:8,colors:['#7DB728']},
+    {g:'sc',force:1,colors:['#222222','#222222']},{g:'ç',force:1,colors:['#7DB728']}
+  ]},
+  't':{name:'Téléphone',img:'eo/t-téléphone.png',graphemes:[
+    {g:'t',force:92,colors:['#222222']},{g:'tt',force:8,colors:['#7DB728','#222222']}
+  ]},
+  'u':{name:'Usine',img:'eo/u-usine.png',graphemes:[
+    {g:'u',force:99,colors:['#222222']},{g:'û',force:0,colors:['#82c4e0']},
+    {g:'ü',force:0,colors:['#82c4e0']}
+  ]},
+  'v':{name:'Vache',img:'eo/v-vache.png',graphemes:[
+    {g:'v',force:99,colors:['#222222']},{g:'w',force:1,colors:['#82c4e0']}
+  ]},
+  'ks':{name:'Taxi',img:'eo/x-taxi.png',graphemes:[
+    {g:'x',force:44,colors:['#222222']},{g:'ct',force:25,colors:['#7DB728','#222222']},
+    {g:'cc',force:11,colors:['#82c4e0','#82c4e0']},{g:'cs',force:0,colors:['#222222','#222222']}
+  ]},
+  'gz':{name:'Xylophone',img:'eo/x-xylophone.png',graphemes:[
+    {g:'x',force:19,colors:['#222222']},{g:'gz',force:0,colors:['#7DB728','#222222']}
+  ]},
+  'y':{name:'Tuyau',img:'eo/y-tuyau-off.svg',graphemes:[
+    {g:'y',force:6,colors:['#222222']},{g:'ill',force:53,colors:['#222222','#E11683','#E11683']}
+  ]},
+  'z':{name:'Zèbre',img:'eo/z-zèbre.png',graphemes:[
+    {g:'z',force:8,colors:['#222222']},{g:'s',force:91,colors:['#E11683']},
+    {g:'zz',force:0,colors:['#7DB728','#222222']},{g:'x',force:0,colors:['#82c4e0']}
+  ]},
+  'muette':{name:'Muette',img:'eo/Lettre_Muette.png',graphemes:[
+    {g:'h',force:60,colors:['#aaaaaa']},{g:'x',force:10,colors:['#aaaaaa']},
+    {g:'s',force:10,colors:['#aaaaaa']},{g:'t',force:8,colors:['#aaaaaa']},
+    {g:'d',force:4,colors:['#aaaaaa']},{g:'p',force:3,colors:['#aaaaaa']},
+    {g:'g',force:2,colors:['#aaaaaa']},{g:'c',force:1,colors:['#aaaaaa']},
+    {g:'z',force:1,colors:['#aaaaaa']},{g:'e',force:1,colors:['#aaaaaa']}
+  ]}
+};
+const GRAPHEME_ORDER=['a','an','b','k','ch','d','e','é','è','eu','f','g','gn','i','il','in','j','l','m','n','ng','o','oi','oin','on','ou','p','r','s','t','u','v','ks','gz','y','z','muette'];
+
 // ================================================================
 // WORD ANALYSIS
 // ================================================================
@@ -1354,7 +1690,7 @@ function markSilentFinal(groups,word){
   if(isSilentFinal(groups[last],word,true)){
     var g=groups[last];
     groups[last]=Object.assign({},g,{
-      silent:false,
+      silent:true,
       img:IMG_MUETTE,
       lc:g.letters.split('').map(function(){return COL_MUETTE;})
     });
@@ -1407,7 +1743,7 @@ function syllabify(word){
 // APP STATE
 // ================================================================
 let AD={eo:JSON.parse(JSON.stringify(EO0)),bm:JSON.parse(JSON.stringify(BM0))};
-let appData={series:[],settings:{colorPrimary:'#8b7355',colorPrimaryLight:'#f2ead8',colorPrimaryDark:'#5c4a2a',imagesFolder:'images/'}};
+let appData={series:[],settings:{colorPrimary:'#36B5A0',colorPrimaryLight:'#E0F7F3',colorPrimaryDark:'#2A8F7E',imagesFolder:'images/'}};
 let curSeries=null,editIdx=null,curPh=[],curSylls=null,nsMethod='eo',esMethod='eo';
 // Séries partagées chargées depuis GitHub (lecture seule)
 let sharedSeries=[];
@@ -1421,19 +1757,24 @@ function loadData(){
       appData={...appData,...p};
       AD.eo={...JSON.parse(JSON.stringify(EO0)),...(p.dictEO||{})};
       AD.bm={...JSON.parse(JSON.stringify(BM0)),...(p.dictBM||{})};
-      // Corriger les groupes sauvegardés avec silent:true sur Lettre_Muette
-      // (ancienne version marquait les finales muettes avec silent:true)
+      // S'assurer que les lettres muettes ont bien silent:true
       (appData.series||[]).forEach(function(s){
         (s.words||[]).forEach(function(w){
           (w.phonetics||[]).forEach(function(g){
-            if(g.silent && g.img && g.img.indexOf('Lettre_Muette')>-1){
-              g.silent=false;
+            if(g.img && g.img.indexOf('Lettre_Muette')>-1 && !g.silent){
+              g.silent=true;
             }
           });
         });
       });
     }
   }catch(e){}
+  // Migration : remplacer les anciennes couleurs marron/bleu par le nouveau turquoise
+  const st=appData.settings||{};
+  const oldColors=['#8b7355','#5c4a2a','#f2ead8','#0ea5e9','#0284c7','#e0f2fe'];
+  if(st.colorPrimary&&oldColors.includes(st.colorPrimary.toLowerCase())){
+    st.colorPrimary='#36B5A0';st.colorPrimaryDark='#2A8F7E';st.colorPrimaryLight='#E0F7F3';
+  }
   if(!appData.series||!appData.series.length) appData.series=[makeDemo()];
   if(!appData.series.find(s=>s.id==='demo')) appData.series.unshift(makeDemo());
 }
@@ -1449,6 +1790,16 @@ function loadSharedSeries(callback){
     .then(function(data){
       sharedSeries=(data.series||[]).map(function(s){
         return Object.assign({},s,{_shared:true});
+      });
+      // Corriger silent:false sur les lettres muettes des séries partagées
+      sharedSeries.forEach(function(s){
+        (s.words||[]).forEach(function(w){
+          (w.phonetics||[]).forEach(function(g){
+            if(g.img && g.img.indexOf('Lettre_Muette')>-1 && !g.silent){
+              g.silent=true;
+            }
+          });
+        });
       });
       sharedLoaded=true;
       if(callback)callback();
@@ -1466,14 +1817,14 @@ function saveData(){
 function makeDemo(){
   const mk=(w,n,def,g,nat,img)=>({word:w,theme:'LE JARDIN',num:n,total:8,definition:def,gender:g,nature:nat,image:img||'',phonetics:analyzeWord(w,'eo'),syllables:syllabify(w)});
   return{id:'demo',name:'LE JARDIN',color:'#7ab648',font:'MDIEcole',method:'eo',words:[
-    mk('JARDIN',1,"C'est un terrain où l'on cultive des végétaux.\nC'est un nom masculin.",'masc','nom','images/jardin.png'),
-    mk('BROUETTE',2,"C'est un petit véhicule avec une roue.\nOn s'en sert pour transporter des choses.\nC'est un nom féminin.",'fem','nom','images/brouette.png'),
-    mk('SÉCATEUR',3,"C'est un outil pour couper des branches.\nC'est un nom masculin.",'masc','nom','images/secateur.png'),
-    mk('RÂTEAU',4,"Outil de jardinage avec des dents.\nC'est un nom masculin.",'masc','nom','images/rateau.png'),
-    mk('ARROSOIR',5,"Il sert à arroser les plantes.\nC'est un nom masculin.",'masc','nom','images/arrosoir.png'),
-    mk('GRAINE',6,"On la sème pour obtenir une plante.\nC'est un nom féminin.",'fem','nom','images/graine.png'),
-    mk('SEMER',7,"C'est jeter des graines sur la terre.\nC'est un verbe.",'none','verbe','images/semer.png'),
-    mk('LÉGER',8,"C'est facile à porter.\nC'est un adjectif.",'masc','adjectif','images/leger.png'),
+    mk('JARDIN',1,"C'est un terrain où l'on cultive des végétaux.\nC'est un nom masculin.",'masc','nom','images/04-Jardin/01-Jardin.jpg'),
+    mk('BROUETTE',2,"C'est un petit véhicule avec une roue.\nOn s'en sert pour transporter des choses.\nC'est un nom féminin.",'fem','nom','images/04-Jardin/02-Brouette.jpg'),
+    mk('SÉCATEUR',3,"C'est un outil pour couper des branches.\nC'est un nom masculin.",'masc','nom','images/04-Jardin/03-Sécateur.jpg'),
+    mk('RÂTEAU',4,"Outil de jardinage avec des dents.\nC'est un nom masculin.",'masc','nom','images/04-Jardin/04-Râteau.jpg'),
+    mk('ARROSOIR',5,"Il sert à arroser les plantes.\nC'est un nom masculin.",'masc','nom','images/04-Jardin/05-Arrosoir.jpg'),
+    mk('GRAINE',6,"On la sème pour obtenir une plante.\nC'est un nom féminin.",'fem','nom','images/04-Jardin/08-Graine.jpg'),
+    mk('SEMER',7,"C'est jeter des graines sur la terre.\nC'est un verbe.",'none','verbe','images/04-Jardin/07-Semer.jpg'),
+    mk('LÉGER',8,"C'est facile à porter.\nC'est un adjectif.",'masc','adjectif','images/04-Jardin/09-Léger.jpg'),
   ]};
 }
 
@@ -1522,8 +1873,8 @@ function renderHome(){
 function makeSeriesCard(s,isShared){
   const d=document.createElement('div');
   d.className='sc';
-  d.style.borderLeftColor=s.color||'#8b7355';
-  if(isShared)d.style.background='#faf8f4';
+  d.style.borderLeftColor=s.color||'#36B5A0';
+  if(isShared)d.style.background='#F5FAFA';
 
   const h3=document.createElement('h3');
   h3.textContent=s.name;
@@ -1533,7 +1884,7 @@ function makeSeriesCard(s,isShared){
   h3.appendChild(badge);
   if(isShared){
     const sb=document.createElement('span');
-    sb.style.cssText='font-size:9px;background:#e8e0d4;color:#8b7355;border-radius:4px;padding:2px 5px;margin-left:5px;font-weight:600;';
+    sb.style.cssText='font-size:9px;background:#E0F7F3;color:#36B5A0;border-radius:4px;padding:2px 5px;margin-left:5px;font-weight:600;';
     sb.textContent='PARTAGÉE';h3.appendChild(sb);
   }
 
@@ -1590,7 +1941,7 @@ function makeSeriesCard(s,isShared){
   d.appendChild(h3);d.appendChild(p);d.appendChild(btns);
   return d;
 }
-function openNewSeriesModal(){nsMethod='eo';setNsM('eo');document.getElementById('ns-name').value='';openModal('m-newseries');}
+function openNewSeriesModal(){nsMethod='eo';setNsM('eo');document.getElementById('ns-name').value='';document.getElementById('ns-color').value='#36B5A0';openModal('m-newseries');initColorPalette('ns-palette','ns-color');}
 function setNsM(m){nsMethod=m;document.getElementById('ns-eo').classList.toggle('on',m==='eo');document.getElementById('ns-bm').classList.toggle('on',m==='bm');}
 function createSeries(){
   const name=document.getElementById('ns-name').value.trim();if(!name){toast('Nom requis');return;}
@@ -1872,29 +2223,136 @@ function buildSS(series){
   const shDecos=decos.length
     ?('<div class="sh-decos">'+decos.map(function(d){return '<img src="'+d+'" onerror="this.style.display=\'none\'">';}).join('')+'</div>')
     :'';
-  const waveColor=series.color||'#7ab648';
-  const wave=`<div class="grass"><svg viewBox="0 0 1200 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 20 Q50 4 100 20 Q150 4 200 20 Q250 4 300 20 Q350 4 400 20 Q450 4 500 20 Q550 4 600 20 Q650 4 700 20 Q750 4 800 20 Q850 4 900 20 Q950 4 1000 20 Q1050 4 1100 20 Q1150 4 1200 20 Z" fill="${waveColor}"/></svg></div>`;
+  const footer=`<div class="slide-footer"></div>`;
 
   const tEl=mkEl('div','slide sl-title');tEl.id='ss-title';
-  tEl.innerHTML=`<h1>APPRENTILANGUE</h1><h2>${series.name}</h2><div style="margin-top:auto;width:100%">${wave}</div>`;stage.appendChild(tEl);
+  tEl.innerHTML=`<h1>APPRENTILANGUE</h1><h2>${series.name}</h2><div style="margin-top:auto;width:100%">${footer}</div>`;stage.appendChild(tEl);
   // Sommaire
   const sEl=mkEl('div','slide sl-som');sEl.id='ss-som';
   sEl.innerHTML=`<div class="sh" style="position:relative"><span>${series.name}</span>${shDecos}<span>SOMMAIRE</span></div>
     <div class="som-grid">${series.words.map((w,i)=>`<div class="som-item" onclick="ssGotoWord(${i})"><span class="som-num">${String(w.num).padStart(2,'0')}</span><span>${w.word}</span></div>`).join('')}</div>
-    ${wave}`;
+    ${footer}`;
   stage.appendChild(sEl);
+  // Compute max letter count across series for R-slide scaling
+  let maxLetterCount=0;
+  series.words.forEach(w=>{
+    const ph=w.phonetics||[];
+    let count=0;
+    ph.forEach(g=>{if(g.letters!==' '&&g.letters!=="'"&&g.letters!=="\u2019"){count+=g.letters.length;if(g.letters.length>1&&g.linked!==false)count+=g.letters.length-1;}});// letters + liaison dots
+    if(count>maxLetterCount)maxLetterCount=count;
+  });
   // Words
   series.words.forEach((w,wi)=>{
-    stage.appendChild(buildSlideA(w,wi,series.name,font,folder,wave,shDecos,casse));
-    stage.appendChild(buildSlideB(w,wi,series.name,font,wave,shDecos,casse));
+    stage.appendChild(buildSlideDef(w,wi,series.name,footer,shDecos));
+    stage.appendChild(buildSlideR(w,wi,series.name,font,folder,footer,shDecos,casse,maxLetterCount));
+    stage.appendChild(buildSlideA(w,wi,series.name,font,folder,footer,shDecos,casse));
+    stage.appendChild(buildSlideB(w,wi,series.name,font,footer,shDecos,casse));
   });
   SS.slides=[{el:tEl,type:'title'},{el:sEl,type:'som'}];
   series.words.forEach((w,wi)=>{
+    SS.slides.push({el:document.getElementById('sd-'+wi),type:'def',word:w,wi});
+    SS.slides.push({el:document.getElementById('sr-'+wi),type:'r',word:w,wi});
     SS.slides.push({el:document.getElementById('sa-'+wi),type:'a',word:w,wi});
     SS.slides.push({el:document.getElementById('sb-'+wi),type:'b',word:w,wi});
   });
 }
 function mkEl(tag,cls){const e=document.createElement(tag);e.className=cls;return e;}
+
+function buildSlideDef(word,wi,seriesName,wave,shDecos){
+  const defLines=(word.definition||'').split('\n');
+  const el=mkEl('div','slide');el.id='sd-'+wi;
+  el.innerHTML=`<div class="sh" style="position:relative"><span>${word.theme||seriesName}</span>${shDecos||''}<span style="font-size:1.3em">${word.num}D</span></div>
+    <div class="sdef">
+      <div class="def-box-r">${defLines.map((l,i)=>`<div class="def-line-r" id="dlr-${wi}-${i}">${l||'&nbsp;'}</div>`).join('')}</div>
+      ${word.image?`<img class="wi-r" id="wir-${wi}" src="${word.image}" alt="${word.word}" onerror="this.style.display='none'">`:''}
+    </div>${wave||''}`;
+  return el;
+}
+
+function buildSlideR(word,wi,seriesName,font,folder,wave,shDecos,casse,maxLetterCount){
+  const ph=word.phonetics||[];const rawWord=word.word||'';
+  const splitIdx=Math.max(rawWord.lastIndexOf(' '),rawWord.lastIndexOf("'"),rawWord.lastIndexOf("\u2019"));
+  const lastWordStart=splitIdx>=0?splitIdx+1:0;const lastWord=rawWord.slice(lastWordStart);
+  const sylls=word.syllables||syllabify(lastWord);
+  const syllBounds=new Set();let pos=0;
+  sylls.forEach((s,i)=>{if(i>0)syllBounds.add(pos);pos+=s.length;});
+  // Dynamic sizing based on longest word in series
+  const maxSlots=Math.max(maxLetterCount||6,4);
+  const availVw=65;// 65vw available (word area shares row with photo)
+  const slotVw=Math.min(9,Math.max(3.5,availVw/maxSlots));
+  const fontSize=slotVw*0.9;
+  const charH=slotVw*1.05;
+  const liaisonW=Math.max(0.6,slotVw*0.13);
+  const liaisonDot=Math.max(0.5,slotVw*0.11);
+  const boxVw=Math.min(10,slotVw*1.1);
+  const boxFont=boxVw*0.5;
+
+  // Build groups HTML with syllable wrappers and vertical separators
+  let groupsHTML='';let lastWordPos=0;let currentSyllHTML='';let syllCount=0;
+
+  function closeSyll(){
+    if(currentSyllHTML){
+      if(syllCount>0)groupsHTML+=`<div class="sr-syllsep"></div>`;
+      groupsHTML+=`<div class="sr-syllable">${currentSyllHTML}</div>`;
+      currentSyllHTML='';syllCount++;
+    }
+  }
+
+  ph.forEach((g,gi)=>{
+    const isSpace=g.letters===' ',isApos=g.letters==="'"||g.letters==="\u2019",isSep=isSpace||isApos;
+    if(isSep){closeSyll();syllCount=0;lastWordPos=0;return;}
+    if(lastWordPos>0&&syllBounds.has(lastWordPos)){closeSyll();}
+    const numLetters=g.letters.length;
+    let groupHTML=`<div class="sr-group" data-gi="${gi}" data-wi="${wi}">
+      <div class="sr-letters">`;
+    g.letters.split('').forEach((letter,li)=>{
+      const col=(g.lc&&g.lc[li])||'#222222';
+      const notLast=li<numLetters-1;
+      const silentPrefill=g.silent?`<span style="color:#aaaaaa">${letter.toUpperCase()}</span>`:'';
+      const silentOn=g.silent?' on':'';
+      groupHTML+=`<div class="sr-letter-slot" style="width:${slotVw}vw;margin:0 ${slotVw*0.03}vw">
+        <div class="sr-grapheme-char${silentOn}" id="sr-gc-${wi}-${gi}-${li}" style="font-size:${fontSize}vw;min-height:${charH}vw"${g.silent?' data-silent="1"':''}>${silentPrefill}</div>
+        <div class="sr-trait" style="border-bottom-color:${col};width:${slotVw}vw"></div>
+      </div>`;
+      if(notLast&&g.linked!==false)groupHTML+=`<div class="sr-liaison" style="background:transparent;width:${liaisonW}vw"><div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:${liaisonDot}vw;height:${liaisonDot}vw;border-radius:50%;background:${col}"></div></div>`;
+    });
+    groupHTML+=`</div>`;
+    if(g.silent){
+      // Silent letter: show Lettre_Muette image instead of interactive sound box
+      groupHTML+=`<div class="sr-sound-box sr-silent-box" style="width:${boxVw}vw;height:${boxVw}vw;border-color:#aaaaaa;cursor:default;font-size:${boxFont}vw"><img src="${folder}eo/Lettre_Muette.png" style="width:80%;height:80%;object-fit:contain;opacity:.7" onerror="this.parentNode.innerHTML='🔇'"></div>`;
+    }else{
+      groupHTML+=`<div class="sr-sound-box" id="sr-sb-${wi}-${gi}" data-wi="${wi}" data-gi="${gi}" onclick="srSelectSoundBox(${wi},${gi},event)" style="width:${boxVw}vw;height:${boxVw}vw;font-size:${boxFont}vw">?</div>`;
+    }
+    groupHTML+=`</div>`;
+    currentSyllHTML+=groupHTML;
+    lastWordPos+=numLetters;
+  });
+  closeSyll(); // close last syllable
+
+  // Build sound bar
+  let soundbarHTML='';
+  GRAPHEME_ORDER.forEach(key=>{
+    const sound=GRAPHEME_DB[key];
+    if(sound){soundbarHTML+=`<img class="sr-soundbar-img" data-sound="${key}" src="${folder}${sound.img}" alt="${sound.name}" title="${sound.name}" onclick="event.stopPropagation();srSelectSound(${wi},'${key}')" onerror="this.style.visibility='hidden'">`;}
+  });
+
+  const el=mkEl('div','slide');el.id='sr-'+wi;
+  el.innerHTML=`<div class="sh" style="position:relative"><span>${word.theme||seriesName}</span>${shDecos||''}<span style="font-size:1.3em">${word.num}R</span></div>
+    <div class="sr-wrap">
+      <div class="sr-top-row">
+        <div class="sr-word-area">${groupsHTML}</div>
+        <div class="sr-photo-area">
+          ${word.image?`<img class="sr-photo" id="sr-photo-${wi}" src="${word.image}" alt="${word.word}" onclick="srRevealPhoto(${wi})" onerror="this.style.display='none'">`:''}
+        </div>
+      </div>
+      <div class="sr-soundbar" id="sr-bar-${wi}" onclick="event.stopPropagation()">${soundbarHTML}</div>
+    </div>
+    <div class="sr-popup-overlay" id="sr-overlay-${wi}" style="display:none" onclick="event.stopPropagation();document.getElementById('sr-popup-${wi}').style.display='none';this.style.display='none'"></div>
+    <div class="sr-grapheme-popup" id="sr-popup-${wi}" style="display:none" onclick="event.stopPropagation()"></div>
+    <div class="sr-congrats" id="sr-congrats-${wi}" style="display:none">🎉 BRAVO ! 🎉</div>
+    ${wave||''}`;
+  return el;
+}
 
 function buildSlideA(word,wi,seriesName,font,folder,wave,shDecos,casse){
   const ph=word.phonetics||[];
@@ -1980,7 +2438,14 @@ function ssGoto(idx){
   SS.idx=Math.max(0,Math.min(idx,SS.slides.length-1));SS.step=0;
   const s=SS.slides[SS.idx];if(!s)return;
   s.el.classList.add('on');
-  if(s.type==='a'){
+  if(s.type==='def'){
+    s.el.querySelectorAll('.def-line-r').forEach(e=>e.classList.remove('on'));
+    const img=document.getElementById('wir-'+s.wi);if(img)img.classList.remove('on');
+    document.getElementById('ss-hint').textContent='→ définition → image → recherche';
+  }else if(s.type==='r'){
+    srReset(s.wi);
+    document.getElementById('ss-hint').textContent='→ photo → sons → graphèmes → vérifier';
+  }else if(s.type==='a'){
     s.el.querySelectorAll('.lc').forEach(e=>e.classList.remove('on'));
     s.el.querySelectorAll('.si').forEach(e=>e.classList.remove('on'));
     s.el.querySelectorAll('.def-line').forEach(e=>e.classList.remove('on'));
@@ -1997,9 +2462,203 @@ function ssClick(){
   const s=SS.slides[SS.idx];if(!s)return;
   if(s.type==='title'){ssGoto(1);return;}
   if(s.type==='som')return;
+  if(s.type==='def'){ssAdvDef(s);return;}
+  if(s.type==='r'){srAdvance(s);return;}
   if(s.type==='a')ssAdvA(s);
   if(s.type==='b')ssAdvB(s);
 }
+
+// SLIDE R (RECHERCHE) - Research/Discovery slide
+let srState={};
+function srReset(wi){
+  if(!srState[wi])srState[wi]={selectedBox:null,sounds:{},graphemes:{},validated:false,allCorrect:false};
+  const st=srState[wi];
+  st.selectedBox=null;st.sounds={};st.graphemes={};st.validated=false;st.allCorrect=false;
+  document.querySelectorAll(`#sr-${wi} .sr-sound-box:not(.sr-silent-box)`).forEach(b=>{b.classList.remove('selected','filled','correct','wrong');b.innerHTML='?';});
+  document.querySelectorAll(`#sr-${wi} .sr-grapheme-char`).forEach(g=>{if(!g.dataset.silent){g.classList.remove('on');g.innerHTML='';}});
+  document.getElementById('sr-popup-'+wi).style.display='none';
+  const overlay=document.getElementById('sr-overlay-'+wi);if(overlay)overlay.style.display='none';
+  document.getElementById('sr-congrats-'+wi).style.display='none';
+  const photo=document.getElementById('sr-photo-'+wi);if(photo)photo.style.opacity='0';
+}
+function ssAdvDef(s){
+  const wi=s.wi,word=s.word;
+  const defs=(word.definition||'').split('\n').filter(l=>l.trim());
+  if(SS.step===0){
+    defs.forEach((_,i)=>{const el=document.getElementById('dlr-'+wi+'-'+i);if(el)el.classList.add('on');});
+    SS.step=1;
+  }else if(SS.step===1){
+    const img=document.getElementById('wir-'+wi);if(img)img.classList.add('on');
+    SS.step=2;
+  }else{
+    ssNext();
+  }
+}
+function srRevealPhoto(wi){
+  const photo=document.getElementById('sr-photo-'+wi);
+  if(photo)photo.style.opacity=photo.style.opacity==='1'?'0.3':'1';
+}
+function srSelectSound(wi,soundKey){
+  const st=srState[wi]||{};
+  if(st.selectedBox===null||st.selectedBox===undefined){toast('Cliquez d\'abord sur une case son');return;}
+  st.sounds[st.selectedBox]=soundKey;
+  const sound=GRAPHEME_DB[soundKey];if(!sound)return;
+  // Update the sound box with the sound image
+  const box=document.getElementById('sr-sb-'+wi+'-'+st.selectedBox);
+  if(box){
+    const folder=appData.settings?.imagesFolder||'images/';
+    box.innerHTML=`<img src="${folder}${sound.img}" style="width:80%;height:80%;object-fit:contain" onerror="this.parentNode.innerHTML='${sound.name}'">`;
+    box.classList.add('filled');box.classList.remove('wrong','correct');
+  }
+  // Show grapheme popup
+  const popup=document.getElementById('sr-popup-'+wi);
+  let popupHTML=`<div class="sr-popup-title">Quelle écriture pour le son ${sound.name} ?</div><div class="sr-grapheme-grid">`;
+  // Sort by force descending
+  const sorted=[...sound.graphemes].sort((a,b)=>b.force-a.force);
+  sorted.forEach(gdata=>{
+    const fontSize=gdata.force>=90?'2.4em':gdata.force>=50?'1.8em':gdata.force>=10?'1.3em':gdata.force>=1?'1em':'0.85em';
+    let graphemeHTML=gdata.colors.map((c,i)=>`<span class="sr-grapheme-choice-letter" style="color:${c};font-size:${fontSize}">${gdata.g[i]||''}</span>`).join('');
+    const forceLabel=gdata.force>0?`<span style="font-size:0.5em;color:#999;margin-left:8px">${gdata.force}%</span>`:'';
+    popupHTML+=`<button class="sr-grapheme-choice" onclick="srSelectGrapheme(${wi},${st.selectedBox},'${soundKey}','${gdata.g}')">${graphemeHTML}${forceLabel}</button>`;
+  });
+  popupHTML+=`</div>`;
+  popup.innerHTML=popupHTML;
+  popup.style.display='block';
+  const overlay=document.getElementById('sr-overlay-'+wi);
+  if(overlay)overlay.style.display='block';
+}
+function srSelectGrapheme(wi,boxId,soundKey,grapheme){
+  const st=srState[wi]||{};
+  // Hide popup and overlay
+  document.getElementById('sr-popup-'+wi).style.display='none';
+  const overlay=document.getElementById('sr-overlay-'+wi);
+  if(overlay)overlay.style.display='none';
+  st.graphemes[boxId]=grapheme;
+  // Get color data from GRAPHEME_DB and distribute letters across individual trait slots
+  const soundData=GRAPHEME_DB[soundKey];
+  let colors=null;
+  if(soundData){
+    const gdata=soundData.graphemes.find(gd=>gd.g===grapheme);
+    if(gdata)colors=gdata.colors;
+  }
+  for(let li=0;li<grapheme.length;li++){
+    const charEl=document.getElementById('sr-gc-'+wi+'-'+boxId+'-'+li);
+    if(charEl){
+      const col=colors&&colors[li]?colors[li]:'#222';
+      charEl.innerHTML=`<span style="color:${col}">${grapheme[li].toUpperCase()}</span>`;
+      charEl.classList.add('on');
+    }
+  }
+  const soundBox=document.getElementById('sr-sb-'+wi+'-'+boxId);
+  if(soundBox){soundBox.classList.add('filled');soundBox.classList.remove('wrong','correct');soundBox.innerHTML=grapheme;}
+  st.selectedBox=null;
+  document.querySelectorAll('#sr-'+wi+' .sr-sound-box').forEach(b=>b.classList.remove('selected'));
+}
+function srAdvance(s){
+  const wi=s.wi,word=s.word;
+  if(!srState[wi])srReset(wi);
+  const st=srState[wi];
+  const ph=word.phonetics||[];
+  // Count non-silent, non-separator groups
+  const nonSilent=ph.filter(g=>!g.silent&&g.letters!==' '&&g.letters!=="'"&&g.letters!=="\u2019");
+  // Phase 0: reveal photo on first click
+  if(SS.step===0){
+    const photo=document.getElementById('sr-photo-'+wi);
+    if(photo)photo.style.opacity='1';
+    SS.step=1;
+    return;
+  }
+  // Phase 1: select sounds and graphemes (interactive, handled by click handlers)
+  if(SS.step===1){
+    let allFilled=true;
+    for(let g of nonSilent){
+      const boxId=ph.indexOf(g);
+      if(!st.sounds[boxId]||!st.graphemes[boxId]){allFilled=false;break;}
+    }
+    if(!allFilled){
+      toast('Complétez tous les sons et graphèmes');
+      return;
+    }
+    // All filled: validate
+    SS.step=2;
+    srValidate(wi);
+    return;
+  }
+  // Phase 2: after validation
+  if(SS.step===2){
+    if(st.allCorrect){
+      ssNext(); // advance to slide A
+    }else{
+      // Reset to phase 1 so user can fix errors
+      SS.step=1;
+      toast('Corrigez les cases rouges');
+    }
+  }
+}
+function srSelectSoundBox(wi,gi,evt){
+  if(evt)evt.stopPropagation();
+  const st=srState[wi]||{};
+  const boxId=gi;
+  document.querySelectorAll(`#sr-${wi} .sr-sound-box`).forEach(b=>b.classList.remove('selected'));
+  st.selectedBox=boxId;
+  const box=document.getElementById('sr-sb-'+wi+'-'+boxId);
+  if(box)box.classList.add('selected');
+  // Close popup if open
+  document.getElementById('sr-popup-'+wi).style.display='none';
+}
+function srValidate(wi){
+  const st=srState[wi]||{};
+  const word=SS.slides[SS.idx]?.word;
+  if(!word)return;
+  const ph=word.phonetics||[];
+  const nonSilent=ph.filter(g=>!g.silent&&g.letters!==' '&&g.letters!=="'"&&g.letters!=="\u2019");
+  let allCorrect=true;
+
+  // Two-step validation: first sounds, then graphemes
+  for(let g of nonSilent){
+    const boxId=ph.indexOf(g);
+    const box=document.getElementById('sr-sb-'+wi+'-'+boxId);
+    if(!box)continue;
+
+    // Step 1: Validate the sound choice
+    let soundKey=st.sounds[boxId];
+    let expectedSoundKey=srMapSoundToKey(g.sound,g.img);
+    let isCorrectSound=soundKey===expectedSoundKey;
+
+    // Step 2: Validate the grapheme against the ACTUAL word letters (case-insensitive)
+    let grapheme=(st.graphemes[boxId]||'').toLowerCase();
+    let actualLetters=g.letters.toLowerCase();
+    let isCorrectGrapheme=grapheme===actualLetters;
+
+    if(isCorrectSound&&isCorrectGrapheme){
+      box.classList.add('correct');
+      box.classList.remove('wrong');
+    }else{
+      box.classList.add('wrong');
+      box.classList.remove('correct');
+      allCorrect=false;
+    }
+  }
+  st.validated=true;
+  st.allCorrect=allCorrect;
+  if(allCorrect){
+    setTimeout(()=>{
+      const congrats=document.getElementById('sr-congrats-'+wi);
+      if(congrats)congrats.style.display='block';
+      setTimeout(()=>{if(congrats)congrats.style.display='none';},2000);
+    },500);
+  }else{
+    // Allow re-selection of wrong boxes: reset validated state for wrong ones
+    st.validated=false;
+    SS.step=1; // Go back to fill phase so user can re-try
+  }
+}
+function srMapSoundToKey(sound,img){
+  if(sound===''||(!sound&&img&&img.indexOf('Lettre_Muette')>-1))return'muette';
+  if(sound==='il')return'il'; // [j] sound
+  return sound;
+}
+
 function ssAdvA(s){
   const wi=s.wi,word=s.word,ph=word.phonetics||[];
   const defs=(word.definition||'').split('\n').filter(l=>l.trim());
@@ -2044,11 +2703,11 @@ function ssAdvB(s){
   else if(SS.step===1){const map={nom:'cbn',verbe:'cbv',adjectif:'cba',autre:'cbo'};const el=document.getElementById((map[word.nature||'nom'])+'-'+wi);if(el){el.classList.add('ok');el.innerHTML='✓';}SS.step=2;}
   else{if(isLast)ssGoto(1);else ssNextWord();}
 }
-function ssGotoWord(wi){ssGoto(2+wi*2);}
+function ssGotoWord(wi){ssGoto(2+wi*4);}
 function ssNext(){ssGoto(SS.idx+1);}
 function ssBack(){ssGoto(SS.idx-1);}
 function ssBack2(){ssGoto(SS.idx-2);}
-function ssNextWord(){const s=SS.slides[SS.idx];if(s&&(s.type==='a'||s.type==='b')){const nx=2+(s.wi+1)*2;ssGoto(nx<SS.slides.length?nx:1);}else ssNext();}
+function ssNextWord(){const s=SS.slides[SS.idx];if(s&&(s.type==='def'||s.type==='r'||s.type==='a'||s.type==='b')){const nx=2+(s.wi+1)*4;ssGoto(nx<SS.slides.length?nx:1);}else ssNext();}
 function ssMenu(){
   document.getElementById('ss-wrap').classList.remove('on');
   restoreAppColors();
@@ -2113,14 +2772,63 @@ function applySeriesColors(series){
 }
 function restoreAppColors(){
   const st=appData.settings||{};
-  applyColors(st.colorPrimary||'#8b7355',st.colorPrimaryDark||'#5c4a2a',st.colorPrimaryLight||'#f2ead8');
+  applyColors(st.colorPrimary||'#36B5A0',st.colorPrimaryDark||'#2A8F7E',st.colorPrimaryLight||'#E0F7F3');
+}
+// ================================================================
+// PALETTE DE COULEURS SÉRIES
+// ================================================================
+const SERIES_COLORS=[
+  {hex:'#36B5A0',name:'Jade'},
+  {hex:'#3B82F6',name:'Ciel'},
+  {hex:'#7AB648',name:'Prairie'},
+  {hex:'#F97316',name:'Mandarine'},
+  {hex:'#8B5CF6',name:'Lavande'},
+  {hex:'#EC4899',name:'Framboise'},
+  {hex:'#EAB308',name:'Tournesol'},
+  {hex:'#EF4444',name:'Coquelicot'},
+  {hex:'#6366F1',name:'Iris'},
+  {hex:'#06B6D4',name:'Lagon'},
+  {hex:'#84CC16',name:'Pomme'},
+  {hex:'#F59E0B',name:'Miel'},
+];
+function initColorPalette(containerId,inputId){
+  const container=document.getElementById(containerId);
+  if(!container)return;
+  const input=document.getElementById(inputId);
+  container.innerHTML='';
+  SERIES_COLORS.forEach(c=>{
+    const dot=document.createElement('div');
+    dot.className='color-dot';
+    dot.style.background=c.hex;
+    dot.title=c.name;
+    dot.dataset.color=c.hex;
+    if(input&&input.value.toUpperCase()===c.hex.toUpperCase())dot.classList.add('sel');
+    dot.onclick=function(){
+      container.querySelectorAll('.color-dot').forEach(d=>d.classList.remove('sel'));
+      dot.classList.add('sel');
+      if(input)input.value=c.hex;
+    };
+    container.appendChild(dot);
+  });
+  // Custom color picker
+  const wrap=document.createElement('div');
+  wrap.className='color-custom-wrap';
+  wrap.title='Couleur personnalisée';
+  const picker=document.createElement('input');
+  picker.type='color';picker.value=input?input.value:'#36B5A0';
+  picker.onchange=picker.oninput=function(){
+    container.querySelectorAll('.color-dot').forEach(d=>d.classList.remove('sel'));
+    if(input)input.value=picker.value;
+  };
+  wrap.appendChild(picker);
+  container.appendChild(wrap);
 }
 // ================================================================
 // EXPORT / IMPORT
 // ================================================================
 let impXlMethod='eo';
 function setImpM(m){impXlMethod=m;document.getElementById('imp-xl-eo').classList.toggle('on',m==='eo');document.getElementById('imp-xl-bm').classList.toggle('on',m==='bm');}
-function openImportModal(){openModal('m-import');updatePathPreview();}
+function openImportModal(){openModal('m-import');updatePathPreview();initColorPalette('imp-xl-palette','imp-xl-color');}
 
 // Génère le chemin image selon la convention : images/05-NomSérie/1-mot.jpg
 function buildImgPath(num, mot, sName){
