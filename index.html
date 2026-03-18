@@ -173,9 +173,9 @@ body{font-family:var(--fn);background:var(--bg);min-height:100vh;color:var(--tex
 /* ============================================= */
 /* ===== SLIDESHOW — RESPONSIVE FULLSCREEN ===== */
 /* ============================================= */
-#ss-wrap{display:none;position:fixed;inset:0;z-index:500;background:var(--bg);flex-direction:column;}
+#ss-wrap{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:500;background:var(--bg);flex-direction:column;}
 #ss-wrap.on{display:flex;}
-#ss-stage{position:relative;flex:1;overflow:hidden;}
+#ss-stage{position:relative;flex:1;min-height:0;overflow:hidden;}
 #ss-nav{
   background:var(--cpd);
   padding:clamp(10px,1.4vh,16px) clamp(16px,2.5vw,28px);
@@ -191,7 +191,7 @@ body{font-family:var(--fn);background:var(--bg);min-height:100vh;color:var(--tex
 .ci{color:rgba(255,255,255,.75);font-size:clamp(12px,1.5vw,16px);text-align:center;flex:1;font-weight:500;}
 
 /* --- Slides base --- */
-.slide{display:none;position:absolute;inset:0;flex-direction:column;background:var(--bg);}
+.slide{display:none;position:absolute;top:0;left:0;right:0;bottom:0;flex-direction:column;background:var(--bg);}
 .slide.on{display:flex;}
 .sh{
   background:linear-gradient(135deg,var(--cp),var(--cpd));color:#fff;display:flex;align-items:center;justify-content:space-between;
@@ -222,7 +222,7 @@ body{font-family:var(--fn);background:var(--bg);min-height:100vh;color:var(--tex
 .som-num{font-weight:700;color:var(--cpd);min-width:clamp(16px,2.5vw,28px);}
 
 /* --- Slide A (phonétique) --- */
-.sab{flex:1;display:flex;flex-direction:column;padding:.8vh 1.5vw .4vh;overflow:hidden;position:relative;}
+.sab{flex:1;display:flex;flex-direction:column;padding:.8vh 1.5vw .4vh;overflow:hidden;position:relative;min-height:0;}
 .def-box{
   background:#fff;border:2px solid var(--cpl);border-radius:8px;
   padding:1vh 1.8vw;font-size:clamp(16px,2.5vw,32px);color:var(--text);line-height:1.4;
@@ -279,7 +279,7 @@ body{font-family:var(--fn);background:var(--bg);min-height:100vh;color:var(--tex
 .si.on{opacity:1;}
 
 /* --- Slide Def (Définition + Image) --- */
-.sdef{flex:1;display:flex;flex-direction:column;padding:2vh 2.5vw 1vh;overflow:hidden;position:relative;align-items:center;justify-content:center;}
+.sdef{flex:1;display:flex;flex-direction:column;padding:2vh 2.5vw 1vh;overflow:hidden;position:relative;align-items:center;justify-content:center;min-height:0;}
 .sdef .def-box-r{
   background:#fff;border:2px solid var(--cpl);border-radius:12px;
   padding:2vh 3vw;font-size:clamp(22px,3.5vw,42px);color:var(--text);line-height:1.5;
@@ -297,7 +297,7 @@ body{font-family:var(--fn);background:var(--bg);min-height:100vh;color:var(--tex
 /* --- Slide R (Recherche) --- */
 .sr-wrap{
   flex:1;display:flex;flex-direction:column;padding:1vh 1.5vw .4vh;
-  gap:1.5vh;overflow:hidden;position:relative;
+  gap:1.5vh;overflow:hidden;position:relative;min-height:0;
 }
 .sr-top-row{
   display:flex;flex-direction:row;flex:1;gap:1.5vw;min-height:0;
@@ -428,7 +428,7 @@ body{font-family:var(--fn);background:var(--bg);min-height:100vh;color:var(--tex
 }
 
 /* --- Slide B (mot complet) --- */
-.sbb{flex:1;display:flex;flex-direction:column;padding:1vh 2vw .5vh;gap:1vh;overflow:hidden;}
+.sbb{flex:1;display:flex;flex-direction:column;padding:1vh 2vw .5vh;gap:1vh;overflow:hidden;min-height:0;}
 .wa{display:flex;flex:1;gap:1.5vw;align-items:stretch;min-height:0;}
 .wcv{
   flex:1.2;display:flex;align-items:center;justify-content:center;
@@ -2308,7 +2308,9 @@ function buildSlideR(word,wi,seriesName,font,folder,wave,shDecos,casse,maxLetter
     g.letters.split('').forEach((letter,li)=>{
       const col=(g.lc&&g.lc[li])||'#222222';
       const notLast=li<numLetters-1;
-      const silentPrefill=g.silent?`<span style="color:#aaaaaa">${letter.toUpperCase()}</span>`:'';
+      const silentDispLetter=casse==='upper'?letter.toUpperCase():letter.toLowerCase();
+      const silentFont=casse==='cursive'?'Cursive Dumont maternelle':casse==='script'?'MDIEcole':'MDIEcole';
+      const silentPrefill=g.silent?`<span style="color:#aaaaaa;font-family:'${silentFont}',MDIEcole,Calibri,sans-serif">${silentDispLetter}</span>`:'';
       const silentOn=g.silent?' on':'';
       groupHTML+=`<div class="sr-letter-slot" style="width:${slotVw}vw;margin:0 ${slotVw*0.03}vw">
         <div class="sr-grapheme-char${silentOn}" id="sr-gc-${wi}-${gi}-${li}" style="font-size:${fontSize}vw;min-height:${charH}vw"${g.silent?' data-silent="1"':''}>${silentPrefill}</div>
@@ -2541,16 +2543,21 @@ function srSelectGrapheme(wi,boxId,soundKey,grapheme){
     const gdata=soundData.graphemes.find(gd=>gd.g===grapheme);
     if(gdata)colors=gdata.colors;
   }
+  // Determine correct case and font based on user's choice at slideshow start
+  const casse=SS.casse||'script';
+  const fontFamily=casse==='cursive'?'Cursive Dumont maternelle':casse==='script'?'MDIEcole':'MDIEcole';
   for(let li=0;li<grapheme.length;li++){
     const charEl=document.getElementById('sr-gc-'+wi+'-'+boxId+'-'+li);
     if(charEl){
       const col=colors&&colors[li]?colors[li]:'#222';
-      charEl.innerHTML=`<span style="color:${col}">${grapheme[li].toUpperCase()}</span>`;
+      const dispLetter=casse==='upper'?grapheme[li].toUpperCase():grapheme[li].toLowerCase();
+      charEl.innerHTML=`<span style="color:${col};font-family:'${fontFamily}',MDIEcole,Calibri,sans-serif">${dispLetter}</span>`;
       charEl.classList.add('on');
     }
   }
+  // Keep the sound image in the sound box — only update classes, don't replace innerHTML
   const soundBox=document.getElementById('sr-sb-'+wi+'-'+boxId);
-  if(soundBox){soundBox.classList.add('filled');soundBox.classList.remove('wrong','correct');soundBox.innerHTML=grapheme;}
+  if(soundBox){soundBox.classList.add('filled');soundBox.classList.remove('wrong','correct');}
   st.selectedBox=null;
   document.querySelectorAll('#sr-'+wi+' .sr-sound-box').forEach(b=>b.classList.remove('selected'));
 }
