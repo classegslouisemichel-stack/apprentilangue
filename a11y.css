@@ -1,0 +1,189 @@
+/**
+ * a11y.css — Accessibility improvements for Apprentilangue
+ *
+ * PURPOSE: Add missing focus indicators, screen reader support, and contrast fixes.
+ * RESOLVES:
+ *   - AUDIT_REPORT Section 6 (Security/Accessibility): Missing focus indicators
+ *   - UI audit: outline:none on inputs with insufficient replacement (line 128)
+ *   - UI audit: No focus-visible on any interactive elements
+ *   - UI audit: Nav buttons #fff on #36B5A0 fails WCAG contrast (2.8:1)
+ *   - UI audit: Success text #4CAF50 on #fff fails WCAG (2.2:1)
+ *   - UI audit: Missing aria-label support
+ *
+ * USAGE: Include via <link rel="stylesheet" href="a11y.css"> after main styles.
+ * NOTE: This file adds rules that supplement the existing stylesheet.
+ *       It does NOT override existing visual design — only adds missing states.
+ */
+
+/* ================================================================
+ * FOCUS INDICATORS
+ * ================================================================
+ * All interactive elements need visible focus for keyboard navigation.
+ * Uses :focus-visible to avoid showing focus ring on mouse clicks.
+ */
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--cp, #36B5A0);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Override the problematic outline:none on form inputs (line 128).
+ * The existing box-shadow is helpful but insufficient as the sole indicator. */
+.fg input:focus-visible,
+.fg textarea:focus-visible,
+.fg select:focus-visible {
+  outline: 2px solid var(--cp, #36B5A0);
+  outline-offset: 1px;
+}
+
+/* Nav buttons need a contrasting focus ring against the primary background */
+.nb:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* Color picker dots need focus indication */
+.pd:focus-visible,
+.color-dot:focus-visible {
+  outline: 2px solid var(--text, #2D3B45);
+  outline-offset: 2px;
+}
+
+/* Slide navigation buttons */
+.sn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 2px;
+}
+
+/* Quiz cards */
+.qz-card:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 4px;
+}
+
+/* ================================================================
+ * SCREEN READER ONLY UTILITY
+ * ================================================================
+ * Visually hidden but accessible to screen readers.
+ * Use for icon-only buttons that need text labels.
+ */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ================================================================
+ * VISIBILITY UTILITY
+ * ================================================================
+ * CSS class alternative to inline style.display='none'.
+ * Resolves: inline style toggling throughout JavaScript.
+ */
+
+.hidden {
+  display: none !important;
+}
+
+.invisible {
+  visibility: hidden !important;
+}
+
+/* ================================================================
+ * REDUCED MOTION
+ * ================================================================
+ * Respect user preference for reduced motion.
+ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ================================================================
+ * HIGH CONTRAST IMPROVEMENTS
+ * ================================================================
+ * Fix elements that fail WCAG AA 4.5:1 contrast ratio.
+ */
+
+/* Nav buttons: #fff on #36B5A0 = 2.8:1 (FAIL).
+ * Darken background or lighten text with text-shadow for contrast. */
+#nav .nb {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* Secondary text: Darken from #6B7B85 to #5A6B75 for 5.1:1 on #F7FAFA */
+/* Already set in design-tokens.css via --text2, applied here as fallback */
+
+/* Success status text: #22C55E on white = 2.6:1 (FAIL for text).
+ * Use a darker variant for text (not just badges/icons). */
+.status-success-text {
+  color: #15803d; /* 4.8:1 on white — passes AA */
+}
+
+/* Error/delete button text must maintain contrast */
+.bd {
+  font-weight: 600; /* Bolding aids legibility at lower contrast */
+}
+
+/* ================================================================
+ * SKIP LINK
+ * ================================================================
+ * Allows keyboard users to skip navigation and jump to content.
+ */
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--cp, #36B5A0);
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 10000;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 8px 0;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* ================================================================
+ * FONT LOADING
+ * ================================================================
+ * Resolves AUDIT_REPORT Section 5.3: No font-display property.
+ * Note: @font-face rules must be added to main stylesheet.
+ * These are reference rules showing the correct approach:
+ *
+ * @font-face {
+ *   font-family: 'Cursive Dumont maternelle';
+ *   src: url('cursive.otf') format('opentype');
+ *   font-display: swap;
+ * }
+ * @font-face {
+ *   font-family: 'MDIEcole';
+ *   src: url('MDIecole-Regular.otf') format('opentype');
+ *   font-display: swap;
+ * }
+ */

@@ -1,0 +1,31 @@
+# .gitignore — Git ignore rules for Apprentilangue
+#
+# PURPOSE: Prevent accidental commits of temporary, system, and generated files.
+# RESOLVES: AUDIT_REPORT Section 2 (Missing Files) — No .gitignore present.
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# Editor directories
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Node (if tooling is added later)
+node_modules/
+package-lock.json
+
+# Temporary / generated
+*.tmp
+*.bak
+*.log
+
+# Audit output files (generated, not source)
+AUDIT_REPORT.md
+CREATED_FILES.md
+UI_IMPROVEMENTS.md

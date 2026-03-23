@@ -1,0 +1,139 @@
+/**
+ * design-tokens.css — Centralized design system tokens for Apprentilangue
+ *
+ * PURPOSE: Single source of truth for colors, spacing, typography, and shadows.
+ * RESOLVES:
+ *   - AUDIT_REPORT Section 4.3: Hardcoded colors throughout CSS and JS
+ *   - UI consistency: 80+ hardcoded color values found outside CSS variables
+ *   - UI consistency: Inconsistent spacing scale (8px, 10px, 12px, 14px mixed)
+ *   - UI consistency: Three different heading sizes with no system
+ *   - UI consistency: Missing semantic color tokens for states
+ *
+ * USAGE: This file defines the complete design token set. Import before main styles.
+ * NOTE: Does NOT replace existing :root block — serves as reference for migration.
+ */
+
+:root {
+  /* ================================================================
+   * COLOR PALETTE — Primary
+   * ================================================================ */
+  --cp: #36B5A0;          /* Primary teal */
+  --cpd: #2A8F7E;         /* Primary dark */
+  --cpl: #E0F7F3;         /* Primary light */
+  --accent: #F97316;      /* Orange accent */
+  --success: #22C55E;     /* Success green */
+
+  /* ================================================================
+   * COLOR PALETTE — Semantic (NEW — replaces hardcoded values)
+   * ================================================================ */
+  --color-delete: #dc3545;       /* Was hardcoded at line 114 */
+  --color-delete-hover: #c82333; /* Was hardcoded at line 115 */
+  --color-orange: #e07a30;       /* Was hardcoded at line 116 */
+  --color-orange-hover: #c96a22; /* Was hardcoded at line 117 */
+  --color-quiz-btn: #5a4ab8;     /* Was hardcoded at line 1913 */
+  --color-separator: #82c4e0;    /* Was hardcoded at lines 254, 346 */
+
+  /* ================================================================
+   * COLOR PALETTE — Surfaces (NEW — replaces hardcoded backgrounds)
+   * ================================================================ */
+  --bg: #F7FAFA;
+  --bg-warm: #f8f5f0;           /* Was repeated inline 6 times */
+  --bg-warm-border: #e0d5c5;    /* Border for warm backgrounds */
+  --bg-hover-light: #faf8f5;    /* Was hardcoded at line 113 */
+  --bg-error-light: #fff0f0;    /* Was hardcoded at line 485 */
+  --bg-code: #f0ede8;           /* Was hardcoded at line 495 */
+  --bg-tip: #fef9e7;            /* Was hardcoded at line 496 */
+  --bg-tip-border: #f0c040;     /* Was hardcoded at line 496 */
+  --card: #ffffff;
+
+  /* ================================================================
+   * COLOR PALETTE — Text
+   * ================================================================ */
+  --text: #2D3B45;
+  --text2: #5A6B75;             /* Darkened from #6B7B85 for WCAG AA */
+  --text-dark: #222;             /* Was hardcoded throughout */
+  --text-disabled: #999;         /* Was hardcoded at lines 1932, 2026 */
+  --text-light: #fff;
+
+  /* ================================================================
+   * COLOR PALETTE — Borders
+   * ================================================================ */
+  --border-light: #eee;         /* Was hardcoded at lines 79, 403 */
+  --border-medium: #ddd;        /* Was hardcoded at lines 105, 108 */
+  --border-disabled: #ccc;      /* Was hardcoded at line 363 */
+
+  /* ================================================================
+   * COLOR PALETTE — Quiz dark mode
+   * ================================================================ */
+  --quiz-bg: #1a1a2e;           /* Was hardcoded at line 510 */
+  --quiz-bg-deep: #0f0f1a;      /* Was hardcoded at line 514 */
+  --quiz-border: rgba(255, 255, 255, 0.12); /* Was hardcoded at line 531 */
+
+  /* ================================================================
+   * COLOR PALETTE — Method badges
+   * ================================================================ */
+  --btn-eo-start: #7ab648;
+  --btn-eo-end: #5a9a30;
+  --btn-bm-start: #4a90d9;
+  --btn-bm-end: #3070b9;
+
+  /* ================================================================
+   * TYPOGRAPHY
+   * ================================================================ */
+  --fn: 'MDIEcole', 'Calibri', Arial, sans-serif;
+  --fn-cursive: 'Cursive Dumont maternelle', cursive;
+
+  /* Font sizes — consistent scale */
+  --fs-xs: clamp(9px, 1vw, 11px);
+  --fs-sm: clamp(10px, 1.2vw, 13px);
+  --fs-base: clamp(13px, 1.4vw, 15px);
+  --fs-md: clamp(15px, 2vw, 19px);
+  --fs-lg: clamp(18px, 2.4vw, 22px);
+  --fs-xl: clamp(22px, 3vw, 30px);
+  --fs-2xl: clamp(36px, 7vw, 80px);
+
+  /* Font weights */
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+
+  /* Line heights */
+  --lh-tight: 1.2;
+  --lh-normal: 1.5;
+  --lh-loose: 1.7;
+
+  /* ================================================================
+   * SPACING SCALE
+   * ================================================================ */
+  --sp-2xs: clamp(2px, 0.25vw, 4px);
+  --sp-xs: clamp(4px, 0.5vw, 8px);
+  --sp-sm: clamp(8px, 1vw, 12px);
+  --sp-md: clamp(12px, 1.5vw, 16px);
+  --sp-lg: clamp(16px, 2.5vw, 24px);
+  --sp-xl: clamp(24px, 4vw, 32px);
+  --sp-2xl: clamp(32px, 5vw, 48px);
+
+  /* ================================================================
+   * BORDERS & RADII
+   * ================================================================ */
+  --radius: 12px;
+  --radius-sm: 7px;
+  --radius-xs: 4px;
+
+  /* ================================================================
+   * SHADOWS
+   * ================================================================ */
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --shadow-nav: 0 2px 16px rgba(0, 0, 0, 0.1);
+
+  /* ================================================================
+   * TRANSITIONS
+   * ================================================================ */
+  --transition: all 0.2s ease;
+  --transition-fast: all 0.1s ease;
+  --transition-slow: all 0.3s ease;
+}

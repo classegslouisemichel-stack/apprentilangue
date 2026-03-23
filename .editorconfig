@@ -1,0 +1,32 @@
+# .editorconfig — Consistent coding style across editors
+#
+# PURPOSE: Enforce consistent formatting for the Apprentilangue project.
+# RESOLVES: AUDIT_REPORT Section 2 (Missing Files) — No linting/formatting config.
+#
+# Supported by VS Code, Sublime Text, Atom, JetBrains IDEs, and more.
+# See https://editorconfig.org
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.html]
+indent_size = 2
+
+[*.{js,json}]
+indent_size = 2
+
+[*.css]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{bat,cmd}]
+end_of_line = crlf

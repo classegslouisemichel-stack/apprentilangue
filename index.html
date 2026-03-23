@@ -6,8 +6,10 @@
 <title>Apprentilangue</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
 <style>
-@font-face{font-family:'Cursive Dumont maternelle';src:url('cursive.otf') format('opentype');}
-@font-face{font-family:'MDIEcole';src:url('MDIecole-Regular.otf') format('opentype'),url('mdi_ecole.ttf') format('truetype');}
+@font-face{font-family:'Cursive Dumont maternelle';src:url('fonts/CursiveDumont.otf') format('opentype'),url('cursive.otf') format('opentype');}
+@font-face{font-family:'MDIEcole';src:url('fonts/MDIecole-Regular.otf') format('opentype'),url('MDIecole-Regular.otf') format('opentype'),url('mdi_ecole.ttf') format('truetype');}
+@font-face{font-family:'MDIEcole';font-weight:bold;src:url('fonts/MDIecole-Bold.otf') format('opentype'),url('MDIecole-Bold.otf') format('opentype');}
+@font-face{font-family:'Belle Allure Ductus';src:url('fonts/BelleAllureDuctus-Normal.otf') format('opentype');}
 :root{
   --cp:#36B5A0;--cpd:#2A8F7E;--cpl:#E0F7F3;
   --accent:#F97316;--success:#22C55E;
@@ -559,6 +561,16 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
   .wa{flex-direction:column;}
   .wib{width:100%;max-height:30vh;}
 }
+
+/* ===== TOOL TABS ===== */
+.tool-tab{
+  background:transparent;color:var(--text2);border:none;border-bottom:3px solid transparent;
+  padding:10px 18px;cursor:pointer;font-size:clamp(12px,1.4vw,14px);font-family:var(--fn);
+  font-weight:600;transition:var(--transition);white-space:nowrap;
+}
+.tool-tab:hover{color:var(--cpd);background:var(--cpl);border-radius:6px 6px 0 0;}
+.tool-tab.active{color:var(--cpd);border-bottom-color:var(--cp);}
+.tool-panel{display:none;}.tool-panel.on{display:block;}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
@@ -566,6 +578,7 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
 <nav id="nav">
   <h1>📖 Apprentilangue</h1>
   <button class="nb active" onclick="goPage('home')">📚 Séries</button>
+  <button class="nb" onclick="goPage('tools')">🖨️ Outils</button>
   <button class="nb" onclick="goPage('settings')">⚙️ Paramètres</button>
   <button class="nb" onclick="openExportModal()" title="Exporter / Partager">⬇️ Export</button>
   <button class="nb" onclick="openImportModal()" title="Importer séries ou mots">⬆️ Import</button>
@@ -580,573 +593,133 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
     <button class="btn" type="button" onclick="openNewSeriesModal()" style="font-size:14px;padding:10px 22px;">+ Nouvelle série</button>
     <a class="btn bo" style="text-decoration:none;padding:9px 18px;font-size:13px" href="modele_import.xlsx" download>📥 Modèle Excel</a>
   </div>
-</div>
 
-<div id="pg-editor" class="pg">
-  <div class="eh">
-    <button class="bo" type="button" onclick="goPage('home')">← Retour</button>
-    <h2 id="editor-title">Éditer</h2>
-    <button class="bo bsm" type="button" onclick="openSeriesSettingsModal()">⚙️ Série</button>
-    <button class="btn bsm" type="button" onclick="openAddWordModal()">+ Mot</button>
-    <button class="btn bsm bor" type="button" onclick="launchSS()">▶ Diaporama</button>
-  </div>
-  <div class="wl" id="words-list"></div>
-</div>
-
-<div id="pg-settings" class="pg">
-  <h2>⚙️ Paramètres globaux</h2>
-  <div class="ss">
-    <h3>🎨 Couleurs</h3>
-    <div class="cr"><label>Principale</label><input type="color" id="col-p" value="#7ab648" oninput="liveCol()"></div>
-    <div class="cr"><label>Secondaire</label><input type="color" id="col-pl" value="#d4edaa" oninput="liveCol()"></div>
-    <div class="cr"><label>Sombre</label><input type="color" id="col-pd" value="#5a8a30" oninput="liveCol()"></div>
-  </div>
-  <div class="ss">
-    <h3>📂 Dossier images</h3>
-    <div class="fg" style="max-width:320px"><label>Chemin</label><input type="text" id="img-folder" value="images/"></div>
-    <p style="font-size:11px;color:#888;margin-top:6px">• Sons EO : <code>images/eo/a-avion.png</code> etc.<br>• Gestes BM : <code>images/borel/a.png</code> etc.</p>
-  </div>
-  <div class="ss">
-    <h3>📖 Dictionnaire — <span style="color:#5a8a30">📗 Enthousiasme Orthographique</span></h3>
-    <div style="max-height:380px;overflow-y:auto;border:1px solid #eee;border-radius:6px;"><table class="dt" id="tbl-eo"></table></div>
-    <div style="margin-top:8px"><button class="bo bsm" type="button" onclick="addEntry('eo')">+ Ajouter un graphème</button></div>
-  </div>
-  <div class="ss">
-    <h3>📖 Dictionnaire — <span style="color:#4a90d9">📘 Borel-Maisonny</span></h3>
-    <div style="max-height:380px;overflow-y:auto;border:1px solid #eee;border-radius:6px;"><table class="dt" id="tbl-bm"></table></div>
-    <div style="margin-top:8px"><button class="bo bsm" type="button" onclick="addEntry('bm')">+ Ajouter un graphème</button></div>
-  </div>
-  <div style="display:flex;gap:10px;margin-top:4px">
-    <button class="btn" type="button" onclick="saveSettings()">💾 Enregistrer</button>
-    <button class="bo" type="button" onclick="resetDicts()">↺ Réinitialiser dicts</button>
-  </div>
-</div>
-
-</div><!-- #app -->
-
-<!-- SLIDESHOW -->
-<div id="ss-wrap">
-  <div id="ss-stage"></div>
-  <div id="ss-nav">
-    <div style="display:flex;gap:clamp(4px,.8vw,8px)">
-      <button class="sn" type="button" onclick="ssMenu()">🏠 Menu</button>
-      <button class="sn" type="button" onclick="ssBack2()">⏮ −2</button>
-      <button class="sn" type="button" onclick="ssBack()">◀ Précédent</button>
-    </div>
-    <span class="ci" id="ss-hint">Cliquez pour révéler</span>
-    <div style="display:flex;gap:clamp(4px,.8vw,8px)">
-      <button class="sn" type="button" onclick="ssGoto(1)">📋 Sommaire</button>
-      <button class="sn" type="button" onclick="ssNextWord()">Mot suivant ⏭</button>
-      <button class="sn" type="button" onclick="ssNext()">Suivant ▶</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: NEW SERIES -->
-
-<!-- MODAL: LANCEMENT DIAPORAMA -->
-<div class="mo" id="m-launch">
-  <div class="mb" style="max-width:360px">
-    <h3>Lancer le diaporama</h3>
-    <div class="fg" style="margin-bottom:16px">
-      <label style="margin-bottom:8px;display:block">Affichage des lettres</label>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
-          <input type="radio" name="ss-casse" value="script" checked> <span style="font-size:22px;font-family:'MDIEcole',sans-serif">abc</span> Scriptes (MDI École)
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
-          <input type="radio" name="ss-casse" value="upper"> <span style="font-size:22px;font-weight:700;letter-spacing:1px">ABC</span> Capitales
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
-          <input type="radio" name="ss-casse" value="cursive"> <span style="font-size:22px;font-family:'Cursive Dumont maternelle',cursive">abc</span> Cursive
-        </label>
+  <!-- Quick access tools -->
+  <div style="margin-top:24px;padding-top:20px;border-top:2px solid var(--cpl);">
+    <h3 style="font-size:16px;color:var(--cpd);margin-bottom:14px;font-weight:700">🖨️ Outils d'impression</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
+      <div onclick="goPage('tools');setTimeout(()=>switchToolTab('labels'),50)" style="background:white;border:1px solid #e0e0e0;border-radius:10px;padding:16px;cursor:pointer;transition:all .2s;box-shadow:var(--shadow)" onmouseenter="this.style.transform='translateY(-2px)';this.style.boxShadow='var(--shadow-lg)'" onmouseleave="this.style.transform='';this.style.boxShadow='var(--shadow)'">
+        <div style="font-size:28px;margin-bottom:6px">🏷️</div>
+        <div style="font-weight:700;font-size:14px;color:var(--text)">Étiquettes</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px">Mots à coller dans les cahiers</div>
+      </div>
+      <div onclick="goPage('tools');setTimeout(()=>switchToolTab('cards'),50)" style="background:white;border:1px solid #e0e0e0;border-radius:10px;padding:16px;cursor:pointer;transition:all .2s;box-shadow:var(--shadow)" onmouseenter="this.style.transform='translateY(-2px)';this.style.boxShadow='var(--shadow-lg)'" onmouseleave="this.style.transform='';this.style.boxShadow='var(--shadow)'">
+        <div style="font-size:28px;margin-bottom:6px">🎴</div>
+        <div style="font-weight:700;font-size:14px;color:var(--text)">Cartes recto-verso</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px">Mot / image + nature</div>
+      </div>
+      <div onclick="goPage('tools');setTimeout(()=>switchToolTab('exercises'),50)" style="background:white;border:1px solid #e0e0e0;border-radius:10px;padding:16px;cursor:pointer;transition:all .2s;box-shadow:var(--shadow)" onmouseenter="this.style.transform='translateY(-2px)';this.style.boxShadow='var(--shadow-lg)'" onmouseleave="this.style.transform='';this.style.boxShadow='var(--shadow)'">
+        <div style="font-size:28px;margin-bottom:6px">✏️</div>
+        <div style="font-weight:700;font-size:14px;color:var(--text)">Fiches d'exercices</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px">Codage phonétique à compléter</div>
       </div>
     </div>
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-launch')">Annuler</button>
-      <button class="btn bor" type="button" onclick="confirmLaunchSS()">▶ Lancer</button>
-    </div>
   </div>
 </div>
 
-<div class="mo" id="m-newseries">
-  <div class="mb" style="max-width:420px">
-    <h3>Nouvelle série</h3>
-    <div class="fg" style="margin-bottom:12px"><label>Nom</label><input type="text" id="ns-name" placeholder="ex: Le Jardin"></div>
-    <div class="fg" style="margin-bottom:12px"><label>Couleur</label>
-  <div class="color-palette" id="ns-palette"></div>
-  <input type="hidden" id="ns-color" value="#36B5A0">
-</div>
-    <div class="fg" style="margin-bottom:12px"><label>Police</label>
-      <select id="ns-font"><option value="MDIEcole">MDI École</option><option value="Calibri">Calibri</option><option value="Arial">Arial</option><option value="Times New Roman">Times New Roman</option></select></div>
-    <div class="fg" style="margin-bottom:4px"><label>Méthode</label>
-      <div class="mt"><button class="mtb on" type="button" id="ns-eo" onclick="setNsM('eo')">📗 Enthousiasme</button><button class="mtb" type="button" id="ns-bm" onclick="setNsM('bm')">📘 Borel-Maisonny</button></div>
-    </div>
-    <div class="fg" style="margin-bottom:4px"><label>🎨 Images décoratives (chemins séparés par ;)</label>
-      <input type="text" id="ns-decos" placeholder="images/deco/fleur.png;images/deco/feuille.png">
-      <span style="font-size:10px;color:#888">Seront affichées dans le bandeau et en fond d'écran (semi-transparent)</span>
-    </div>
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-newseries')">Annuler</button>
-      <button class="btn" type="button" onclick="createSeries()">Créer</button>
-    </div>
-  </div>
-</div>
+<!-- TOOLS PAGE -->
+<div id="pg-tools" class="pg">
+  <div style="padding:clamp(24px,4vw,48px) clamp(20px,3vw,40px);max-width:900px;margin:0 auto;">
+    <h2 style="font-size:clamp(22px,3vw,28px);color:var(--cpd);font-weight:800;margin-bottom:20px;padding-bottom:12px;position:relative">🖨️ Outils d'impression<span style="position:absolute;bottom:0;left:0;width:60px;height:3px;background:var(--cp);border-radius:2px"></span></h2>
 
-<!-- MODAL: SERIES SETTINGS -->
-<div class="mo" id="m-series-settings">
-  <div class="mb" style="max-width:420px">
-    <h3>⚙️ Paramètres de la série</h3>
-    <div class="fg" style="margin-bottom:12px"><label>Nom</label><input type="text" id="es-name"></div>
-    <div class="fg" style="margin-bottom:12px"><label>Couleur</label><input type="color" id="es-color"></div>
-    <div class="fg" style="margin-bottom:12px"><label>Police</label>
-      <select id="es-font"><option value="MDIEcole">MDI École</option><option value="Calibri">Calibri</option><option value="Arial">Arial</option><option value="Times New Roman">Times New Roman</option></select></div>
-    <div class="fg" style="margin-bottom:4px"><label>Méthode</label>
-      <div class="mt"><button class="mtb on" type="button" id="es-eo" onclick="setEsM('eo')">📗 Enthousiasme</button><button class="mtb" type="button" id="es-bm" onclick="setEsM('bm')">📘 Borel-Maisonny</button></div>
-    </div>
-    <div class="fg" style="margin-bottom:4px"><label>🎨 Images décoratives (chemins séparés par ;)</label>
-      <input type="text" id="es-decos" placeholder="images/deco/fleur.png;images/deco/feuille.png">
-      <span style="font-size:10px;color:#888">Seront affichées dans le bandeau et en fond d'écran</span>
-    </div>
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-series-settings')">Annuler</button>
-      <button class="btn" type="button" onclick="saveSeriesSettings()">💾 Enregistrer</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: WORD -->
-<div class="mo" id="m-word">
-  <div class="mb">
-    <h3 id="m-word-title">Mot</h3>
-    <div class="fr">
-      <div class="fg"><label>Mot</label><input type="text" id="f-word" oninput="onWordInput()" style="font-size:19px;font-weight:700;text-transform:uppercase"></div>
-      <div class="fg"><label>Thème</label><input type="text" id="f-theme"></div>
-      <div class="fg" style="flex:.35"><label>N°</label><input type="number" id="f-num" min="1"></div>
-      <div class="fg" style="flex:.35"><label>Total</label><input type="number" id="f-total" value="32"></div>
-    </div>
-    <div class="fr"><div class="fg"><label>Définition</label><textarea id="f-def"></textarea></div></div>
-    <div class="fr">
-      <div class="fg" style="flex:.45"><label>Genre</label><select id="f-gender"><option value="masc">Masculin</option><option value="fem">Féminin</option><option value="both">Les deux</option><option value="none">Aucun</option></select></div>
-      <div class="fg" style="flex:.45"><label>Nature</label><select id="f-nature"><option value="nom">NOM</option><option value="verbe">VERBE</option><option value="adjectif">ADJECTIF</option><option value="autre">AUTRE</option></select></div>
-      <div class="fg"><label>Image</label><input type="text" id="f-img" placeholder="images/mot.png"></div>
-    </div>
-    <div style="display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap">
-      <span style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase">Syllabes :</span>
-      <span id="syll-disp" style="font-size:13px;background:#f0f0f0;padding:2px 10px;border-radius:10px"></span>
-      <button type="button" class="bo bsm" onclick="editSylls()">✏️ Modifier</button>
-    </div>
-    <div class="phs">
-      <h4>🔤 Phonétique — modifier groupes, couleurs et liaisons</h4>
-      <div id="ph-ed"><p style="font-size:12px;color:#aaa">Entrez un mot ci-dessus.</p></div>
-    </div>
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-word')">Annuler</button>
-      <button class="btn" type="button" onclick="saveWord()">💾 Enregistrer</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<!-- MODAL: EXPORT -->
-<div class="mo" id="m-export">
-  <div class="mb" style="max-width:500px">
-    <h3>⬇️ Exporter</h3>
-
-    <div style="background:#f8f5f0;border-radius:8px;padding:14px;margin-bottom:14px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:6px">💾 Sauvegarde locale</div>
-      <p style="font-size:12px;color:#888;margin-bottom:10px">Toutes mes séries dans un fichier .json — pour sauvegarder ou transférer sur un autre ordinateur.</p>
-      <button class="btn" type="button" onclick="exportAllSeries()">⬇️ Télécharger la sauvegarde complète</button>
+    <!-- Tab navigation -->
+    <div style="display:flex;gap:6px;margin-bottom:24px;border-bottom:2px solid #eee;padding-bottom:0">
+      <button id="tool-tab-labels" class="tool-tab active" type="button" onclick="switchToolTab('labels')">🏷️ Étiquettes</button>
+      <button id="tool-tab-cards" class="tool-tab" type="button" onclick="switchToolTab('cards')">🎴 Cartes recto-verso</button>
+      <button id="tool-tab-exercises" class="tool-tab" type="button" onclick="switchToolTab('exercises')">✏️ Fiches d'exercices</button>
     </div>
 
-    <div style="background:#f0f5ff;border-radius:8px;padding:14px;border:1px solid #c5d5e8">
-      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:6px">📤 Partager sur GitHub</div>
-      <p style="font-size:12px;color:#555;margin-bottom:4px">Génère le fichier <code style="background:#E0F7F3;padding:1px 5px;border-radius:3px">series_partagees.json</code> à déposer dans votre dépôt GitHub.</p>
-      <p style="font-size:12px;color:#555;margin-bottom:10px">Toutes vos collègues verront vos séries automatiquement à l'ouverture du site.</p>
-      <div style="background:#FEF3C7;border-radius:8px;padding:8px 10px;font-size:11px;color:#92400E;margin-bottom:10px;border:1px solid #FCD34D">
-        <strong>Étapes :</strong><br>
-        1. Cliquez sur le bouton ci-dessous<br>
-        2. Le fichier <code>series_partagees.json</code> se télécharge<br>
-        3. Dans GitHub, faites glisser ce fichier dans votre dépôt<br>
-        4. Vos collègues verront vos séries dès le rechargement du site
-      </div>
-      <button class="btn" type="button" onclick="exportForGitHub()">📤 Générer series_partagees.json</button>
-    </div>
-
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-export')">Fermer</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: IMPORT -->
-<div class="mo" id="m-import">
-  <div class="mb" style="max-width:560px">
-    <h3>⬆️ Importer</h3>
-
-    <!-- Section 1 : Import séries JSON -->
-    <div style="background:#f8f5f0;border-radius:8px;padding:14px;margin-bottom:16px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:8px">📦 Importer des séries sauvegardées (.json)</div>
-      <p style="font-size:12px;color:#888;margin-bottom:10px">Fichier exporté depuis Apprentilangue (format .json)</p>
-      <label style="display:inline-block;background:#36B5A0;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
-        Choisir un fichier JSON
-        <input type="file" id="imp-json" accept=".json" style="display:none" onchange="importJSON(this)">
-      </label>
-      <span id="imp-json-status" style="font-size:12px;color:#888;margin-left:10px"></span>
-    </div>
-
-    <!-- Section 2 : Import Excel -->
-    <div style="background:#f8f5f0;border-radius:8px;padding:14px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:8px">📊 Importer une liste de mots (.xlsx)</div>
-      <p style="font-size:12px;color:#888;margin-bottom:10px">Utilisez le modèle Excel disponible sur la page d'accueil.</p>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Nom de la nouvelle série</label>
-        <input type="text" id="imp-xl-name" placeholder="ex: LES ÉMOTIONS" oninput="updatePathPreview()" style="font-weight:700;text-transform:uppercase">
-      </div>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Numéro du dossier images <span style="font-weight:400;color:#aaa">(ex: 05 pour images/05-Émotions/)</span></label>
-        <input type="text" id="imp-xl-dossier" placeholder="ex: 05" oninput="updatePathPreview()" style="width:80px">
-        <div style="font-size:11px;color:#aaa;margin-top:3px">
-          Génère automatiquement : <code id="imp-xl-path-preview" style="background:#f0ece5;padding:1px 5px;border-radius:3px">images/05-NomSérie/1-mot.jpg</code>
+    <!-- TAB: LABELS -->
+    <div id="tool-labels" class="tool-panel on">
+      <div style="background:#f8f5f0;border-radius:12px;padding:20px;border:1px solid #e0d5c5">
+        <p style="font-size:13px;color:#666;margin-bottom:16px">Générez des étiquettes-mots au format 1,17 × 9,14 cm pour les cahiers. 5 exemplaires par feuille A4, groupés par tranche de 8 mots.</p>
+        <div class="fg" style="margin-bottom:14px">
+          <label style="font-weight:700">Série</label>
+          <select id="lbl-series" onchange="onLblSeriesChange()" style="width:100%;padding:8px 12px;border-radius:8px;border:1px solid #ddd;font-family:var(--fn)"></select>
         </div>
-      </div>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Couleur de la série</label>
-        <div class="color-palette" id="imp-xl-palette"></div><input type="hidden" id="imp-xl-color" value="#36B5A0">
-      </div>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Police</label>
-        <select id="imp-xl-font">
-          <option value="MDIEcole">MDI École</option>
-          <option value="Calibri">Calibri</option>
-          <option value="Arial">Arial</option>
-          <option value="Times New Roman">Times New Roman</option>
-        </select>
-      </div>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Méthode</label>
-        <div class="mt">
-          <button class="mtb on" type="button" id="imp-xl-eo" onclick="setImpM('eo')">📗 Enthousiasme</button>
-          <button class="mtb" type="button" id="imp-xl-bm" onclick="setImpM('bm')">📘 Borel-Maisonny</button>
+        <div class="fg" style="margin-bottom:14px">
+          <label style="font-weight:700">Tranche de mots</label>
+          <select id="lbl-group" style="width:100%;padding:8px 12px;border-radius:8px;border:1px solid #ddd;font-family:var(--fn)"></select>
         </div>
-      </div>
-      <label style="display:inline-block;background:#36B5A0;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
-        Choisir un fichier Excel
-        <input type="file" id="imp-xl" accept=".xlsx,.xls" style="display:none" onchange="importExcel(this)">
-      </label>
-      <span id="imp-xl-status" style="font-size:12px;color:#888;margin-left:10px"></span>
-    </div>
-
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-import')">Fermer</button>
-    </div>
-  </div>
-</div>
-
-<script></script>
-</head>
-<body>
-<nav id="nav">
-  <h1>📖 Apprentilangue</h1>
-  <button class="nb active" onclick="goPage('home')">📚 Séries</button>
-  <button class="nb" onclick="goPage('settings')">⚙️ Paramètres</button>
-  <button class="nb" onclick="openExportModal()" title="Exporter / Partager">⬇️ Export</button>
-  <button class="nb" onclick="openImportModal()" title="Importer séries ou mots">⬆️ Import</button>
-  <button class="nb" onclick="openGuide()" title="Guide utilisateur">❓ Aide</button>
-</nav>
-<div id="app">
-
-<div id="pg-home" class="pg on">
-  <h2>Mes séries de vocabulaire</h2>
-  <div class="sg" id="series-grid"></div>
-  <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding-top:12px;border-top:1px solid #e8e4de;">
-    <button class="btn" type="button" onclick="openNewSeriesModal()" style="font-size:14px;padding:10px 22px;">+ Nouvelle série</button>
-    <a class="btn bo" style="text-decoration:none;padding:9px 18px;font-size:13px" href="modele_import.xlsx" download>📥 Modèle Excel</a>
-  </div>
-</div>
-
-<div id="pg-editor" class="pg">
-  <div class="eh">
-    <button class="bo" type="button" onclick="goPage('home')">← Retour</button>
-    <h2 id="editor-title">Éditer</h2>
-    <button class="bo bsm" type="button" onclick="openSeriesSettingsModal()">⚙️ Série</button>
-    <button class="btn bsm" type="button" onclick="openAddWordModal()">+ Mot</button>
-    <button class="btn bsm bor" type="button" onclick="launchSS()">▶ Diaporama</button>
-  </div>
-  <div class="wl" id="words-list"></div>
-</div>
-
-<div id="pg-settings" class="pg">
-  <h2>⚙️ Paramètres globaux</h2>
-  <div class="ss">
-    <h3>🎨 Couleurs</h3>
-    <div class="cr"><label>Principale</label><input type="color" id="col-p" value="#7ab648" oninput="liveCol()"></div>
-    <div class="cr"><label>Secondaire</label><input type="color" id="col-pl" value="#d4edaa" oninput="liveCol()"></div>
-    <div class="cr"><label>Sombre</label><input type="color" id="col-pd" value="#5a8a30" oninput="liveCol()"></div>
-  </div>
-  <div class="ss">
-    <h3>📂 Dossier images</h3>
-    <div class="fg" style="max-width:320px"><label>Chemin</label><input type="text" id="img-folder" value="images/"></div>
-    <p style="font-size:11px;color:#888;margin-top:6px">• Sons EO : <code>images/eo/a-avion.png</code> etc.<br>• Gestes BM : <code>images/borel/a.png</code> etc.</p>
-  </div>
-  <div class="ss">
-    <h3>📖 Dictionnaire — <span style="color:#5a8a30">📗 Enthousiasme Orthographique</span></h3>
-    <div style="max-height:380px;overflow-y:auto;border:1px solid #eee;border-radius:6px;"><table class="dt" id="tbl-eo"></table></div>
-    <div style="margin-top:8px"><button class="bo bsm" type="button" onclick="addEntry('eo')">+ Ajouter un graphème</button></div>
-  </div>
-  <div class="ss">
-    <h3>📖 Dictionnaire — <span style="color:#4a90d9">📘 Borel-Maisonny</span></h3>
-    <div style="max-height:380px;overflow-y:auto;border:1px solid #eee;border-radius:6px;"><table class="dt" id="tbl-bm"></table></div>
-    <div style="margin-top:8px"><button class="bo bsm" type="button" onclick="addEntry('bm')">+ Ajouter un graphème</button></div>
-  </div>
-  <div style="display:flex;gap:10px;margin-top:4px">
-    <button class="btn" type="button" onclick="saveSettings()">💾 Enregistrer</button>
-    <button class="bo" type="button" onclick="resetDicts()">↺ Réinitialiser dicts</button>
-  </div>
-</div>
-
-</div><!-- #app -->
-
-<!-- SLIDESHOW -->
-<div id="ss-wrap">
-  <div id="ss-stage"></div>
-  <div id="ss-nav">
-    <div style="display:flex;gap:clamp(4px,.8vw,8px)">
-      <button class="sn" type="button" onclick="ssMenu()">🏠 Menu</button>
-      <button class="sn" type="button" onclick="ssBack2()">⏮ −2</button>
-      <button class="sn" type="button" onclick="ssBack()">◀ Précédent</button>
-    </div>
-    <span class="ci" id="ss-hint">Cliquez pour révéler</span>
-    <div style="display:flex;gap:clamp(4px,.8vw,8px)">
-      <button class="sn" type="button" onclick="ssGoto(1)">📋 Sommaire</button>
-      <button class="sn" type="button" onclick="ssNextWord()">Mot suivant ⏭</button>
-      <button class="sn" type="button" onclick="ssNext()">Suivant ▶</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: NEW SERIES -->
-
-<!-- MODAL: LANCEMENT DIAPORAMA -->
-<div class="mo" id="m-launch">
-  <div class="mb" style="max-width:360px">
-    <h3>Lancer le diaporama</h3>
-    <div class="fg" style="margin-bottom:16px">
-      <label style="margin-bottom:8px;display:block">Affichage des lettres</label>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
-          <input type="radio" name="ss-casse" value="script" checked> <span style="font-size:22px;font-family:'MDIEcole',sans-serif">abc</span> Scriptes (MDI École)
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
-          <input type="radio" name="ss-casse" value="upper"> <span style="font-size:22px;font-weight:700;letter-spacing:1px">ABC</span> Capitales
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
-          <input type="radio" name="ss-casse" value="cursive"> <span style="font-size:22px;font-family:'Cursive Dumont maternelle',cursive">abc</span> Cursive
-        </label>
-      </div>
-    </div>
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-launch')">Annuler</button>
-      <button class="btn bor" type="button" onclick="confirmLaunchSS()">▶ Lancer</button>
-    </div>
-  </div>
-</div>
-
-<div class="mo" id="m-newseries">
-  <div class="mb" style="max-width:420px">
-    <h3>Nouvelle série</h3>
-    <div class="fg" style="margin-bottom:12px"><label>Nom</label><input type="text" id="ns-name" placeholder="ex: Le Jardin"></div>
-    <div class="fg" style="margin-bottom:12px"><label>Couleur</label>
-  <div class="color-palette" id="ns-palette"></div>
-  <input type="hidden" id="ns-color" value="#36B5A0">
-</div>
-    <div class="fg" style="margin-bottom:12px"><label>Police</label>
-      <select id="ns-font"><option value="MDIEcole">MDI École</option><option value="Calibri">Calibri</option><option value="Arial">Arial</option><option value="Times New Roman">Times New Roman</option></select></div>
-    <div class="fg" style="margin-bottom:4px"><label>Méthode</label>
-      <div class="mt"><button class="mtb on" type="button" id="ns-eo" onclick="setNsM('eo')">📗 Enthousiasme</button><button class="mtb" type="button" id="ns-bm" onclick="setNsM('bm')">📘 Borel-Maisonny</button></div>
-    </div>
-    <div class="fg" style="margin-bottom:4px"><label>🎨 Images décoratives (chemins séparés par ;)</label>
-      <input type="text" id="ns-decos" placeholder="images/deco/fleur.png;images/deco/feuille.png">
-      <span style="font-size:10px;color:#888">Seront affichées dans le bandeau et en fond d'écran (semi-transparent)</span>
-    </div>
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-newseries')">Annuler</button>
-      <button class="btn" type="button" onclick="createSeries()">Créer</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: SERIES SETTINGS -->
-<div class="mo" id="m-series-settings">
-  <div class="mb" style="max-width:420px">
-    <h3>⚙️ Paramètres de la série</h3>
-    <div class="fg" style="margin-bottom:12px"><label>Nom</label><input type="text" id="es-name"></div>
-    <div class="fg" style="margin-bottom:12px"><label>Couleur</label><input type="color" id="es-color"></div>
-    <div class="fg" style="margin-bottom:12px"><label>Police</label>
-      <select id="es-font"><option value="MDIEcole">MDI École</option><option value="Calibri">Calibri</option><option value="Arial">Arial</option><option value="Times New Roman">Times New Roman</option></select></div>
-    <div class="fg" style="margin-bottom:4px"><label>Méthode</label>
-      <div class="mt"><button class="mtb on" type="button" id="es-eo" onclick="setEsM('eo')">📗 Enthousiasme</button><button class="mtb" type="button" id="es-bm" onclick="setEsM('bm')">📘 Borel-Maisonny</button></div>
-    </div>
-    <div class="fg" style="margin-bottom:4px"><label>🎨 Images décoratives (chemins séparés par ;)</label>
-      <input type="text" id="es-decos" placeholder="images/deco/fleur.png;images/deco/feuille.png">
-      <span style="font-size:10px;color:#888">Seront affichées dans le bandeau et en fond d'écran</span>
-    </div>
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-series-settings')">Annuler</button>
-      <button class="btn" type="button" onclick="saveSeriesSettings()">💾 Enregistrer</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: WORD -->
-<div class="mo" id="m-word">
-  <div class="mb">
-    <h3 id="m-word-title">Mot</h3>
-    <div class="fr">
-      <div class="fg"><label>Mot</label><input type="text" id="f-word" oninput="onWordInput()" style="font-size:19px;font-weight:700;text-transform:uppercase"></div>
-      <div class="fg"><label>Thème</label><input type="text" id="f-theme"></div>
-      <div class="fg" style="flex:.35"><label>N°</label><input type="number" id="f-num" min="1"></div>
-      <div class="fg" style="flex:.35"><label>Total</label><input type="number" id="f-total" value="32"></div>
-    </div>
-    <div class="fr"><div class="fg"><label>Définition</label><textarea id="f-def"></textarea></div></div>
-    <div class="fr">
-      <div class="fg" style="flex:.45"><label>Genre</label><select id="f-gender"><option value="masc">Masculin</option><option value="fem">Féminin</option><option value="both">Les deux</option><option value="none">Aucun</option></select></div>
-      <div class="fg" style="flex:.45"><label>Nature</label><select id="f-nature"><option value="nom">NOM</option><option value="verbe">VERBE</option><option value="adjectif">ADJECTIF</option><option value="autre">AUTRE</option></select></div>
-      <div class="fg"><label>Image</label><input type="text" id="f-img" placeholder="images/mot.png"></div>
-    </div>
-    <div style="display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap">
-      <span style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase">Syllabes :</span>
-      <span id="syll-disp" style="font-size:13px;background:#f0f0f0;padding:2px 10px;border-radius:10px"></span>
-      <button type="button" class="bo bsm" onclick="editSylls()">✏️ Modifier</button>
-    </div>
-    <div class="phs">
-      <h4>🔤 Phonétique — modifier groupes, couleurs et liaisons</h4>
-      <div id="ph-ed"><p style="font-size:12px;color:#aaa">Entrez un mot ci-dessus.</p></div>
-    </div>
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-word')">Annuler</button>
-      <button class="btn" type="button" onclick="saveWord()">💾 Enregistrer</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<!-- MODAL: EXPORT -->
-<div class="mo" id="m-export">
-  <div class="mb" style="max-width:500px">
-    <h3>⬇️ Exporter</h3>
-
-    <div style="background:#f8f5f0;border-radius:8px;padding:14px;margin-bottom:14px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:6px">💾 Sauvegarde locale</div>
-      <p style="font-size:12px;color:#888;margin-bottom:10px">Toutes mes séries dans un fichier .json — pour sauvegarder ou transférer sur un autre ordinateur.</p>
-      <button class="btn" type="button" onclick="exportAllSeries()">⬇️ Télécharger la sauvegarde complète</button>
-    </div>
-
-    <div style="background:#f0f5ff;border-radius:8px;padding:14px;border:1px solid #c5d5e8">
-      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:6px">📤 Partager sur GitHub</div>
-      <p style="font-size:12px;color:#555;margin-bottom:4px">Génère le fichier <code style="background:#E0F7F3;padding:1px 5px;border-radius:3px">series_partagees.json</code> à déposer dans votre dépôt GitHub.</p>
-      <p style="font-size:12px;color:#555;margin-bottom:10px">Toutes vos collègues verront vos séries automatiquement à l'ouverture du site.</p>
-      <div style="background:#FEF3C7;border-radius:8px;padding:8px 10px;font-size:11px;color:#92400E;margin-bottom:10px;border:1px solid #FCD34D">
-        <strong>Étapes :</strong><br>
-        1. Cliquez sur le bouton ci-dessous<br>
-        2. Le fichier <code>series_partagees.json</code> se télécharge<br>
-        3. Dans GitHub, faites glisser ce fichier dans votre dépôt<br>
-        4. Vos collègues verront vos séries dès le rechargement du site
-      </div>
-      <button class="btn" type="button" onclick="exportForGitHub()">📤 Générer series_partagees.json</button>
-    </div>
-
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-export')">Fermer</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: IMPORT -->
-<div class="mo" id="m-import">
-  <div class="mb" style="max-width:560px">
-    <h3>⬆️ Importer</h3>
-
-    <!-- Section 1 : Import séries JSON -->
-    <div style="background:#f8f5f0;border-radius:8px;padding:14px;margin-bottom:16px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:8px">📦 Importer des séries sauvegardées (.json)</div>
-      <p style="font-size:12px;color:#888;margin-bottom:10px">Fichier exporté depuis Apprentilangue (format .json)</p>
-      <label style="display:inline-block;background:#36B5A0;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
-        Choisir un fichier JSON
-        <input type="file" id="imp-json" accept=".json" style="display:none" onchange="importJSON(this)">
-      </label>
-      <span id="imp-json-status" style="font-size:12px;color:#888;margin-left:10px"></span>
-    </div>
-
-    <!-- Section 2 : Import Excel -->
-    <div style="background:#f8f5f0;border-radius:8px;padding:14px;border:1px solid #e0d5c5">
-      <div style="font-weight:700;font-size:14px;color:#2A8F7E;margin-bottom:8px">📊 Importer une liste de mots (.xlsx)</div>
-      <p style="font-size:12px;color:#888;margin-bottom:10px">Utilisez le modèle Excel disponible sur la page d'accueil.</p>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Nom de la nouvelle série</label>
-        <input type="text" id="imp-xl-name" placeholder="ex: LES ÉMOTIONS" oninput="updatePathPreview()" style="font-weight:700;text-transform:uppercase">
-      </div>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Numéro du dossier images <span style="font-weight:400;color:#aaa">(ex: 05 pour images/05-Émotions/)</span></label>
-        <input type="text" id="imp-xl-dossier" placeholder="ex: 05" oninput="updatePathPreview()" style="width:80px">
-        <div style="font-size:11px;color:#aaa;margin-top:3px">
-          Génère automatiquement : <code id="imp-xl-path-preview" style="background:#f0ece5;padding:1px 5px;border-radius:3px">images/05-NomSérie/1-mot.jpg</code>
+        <div class="fg" style="margin-bottom:14px">
+          <label style="font-weight:700;margin-bottom:8px;display:block">Type d'écriture</label>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
+              <input type="radio" name="lbl-font" value="upper" checked> <span style="font-size:20px;font-weight:700;letter-spacing:1px;font-family:'MDIEcole',sans-serif">ABC</span> CAPITALES
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
+              <input type="radio" name="lbl-font" value="script"> <span style="font-size:20px;font-family:'MDIEcole',sans-serif">abc</span> Scriptes (MDI École)
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
+              <input type="radio" name="lbl-font" value="cursive-dumont"> <span style="font-size:20px;font-family:'Cursive Dumont maternelle',cursive">abc</span> Cursive Dumont
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px">
+              <input type="radio" name="lbl-font" value="cursive-belle"> <span style="font-size:20px;font-family:'Belle Allure Ductus',cursive">abc</span> Belle Allure Ductus
+            </label>
+          </div>
         </div>
+        <button class="btn" type="button" onclick="generateLabels()" style="font-size:15px;padding:12px 28px">🖨️ Générer les étiquettes</button>
       </div>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Couleur de la série</label>
-        <div class="color-palette" id="imp-xl-palette"></div><input type="hidden" id="imp-xl-color" value="#36B5A0">
-      </div>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Police</label>
-        <select id="imp-xl-font">
-          <option value="MDIEcole">MDI École</option>
-          <option value="Calibri">Calibri</option>
-          <option value="Arial">Arial</option>
-          <option value="Times New Roman">Times New Roman</option>
-        </select>
-      </div>
-      <div class="fg" style="margin-bottom:10px">
-        <label>Méthode</label>
-        <div class="mt">
-          <button class="mtb on" type="button" id="imp-xl-eo" onclick="setImpM('eo')">📗 Enthousiasme</button>
-          <button class="mtb" type="button" id="imp-xl-bm" onclick="setImpM('bm')">📘 Borel-Maisonny</button>
+    </div>
+
+    <!-- TAB: CARDS -->
+    <div id="tool-cards" class="tool-panel">
+      <div style="background:#f0f5ff;border-radius:12px;padding:20px;border:1px solid #c5d5e8">
+        <p style="font-size:13px;color:#666;margin-bottom:16px">Cartes recto-verso : écriture (CAPITALES + cursive) au recto, image + point de nature au verso. 8 cartes par feuille A4, optimisées pour impression recto-verso.</p>
+        <div class="fg" style="margin-bottom:14px">
+          <label style="font-weight:700">Série</label>
+          <select id="card-series" onchange="onCardSeriesChange()" style="width:100%;padding:8px 12px;border-radius:8px;border:1px solid #ddd;font-family:var(--fn)"></select>
         </div>
+        <div class="fg" style="margin-bottom:14px">
+          <label style="font-weight:700">Tranche de mots</label>
+          <select id="card-group" style="width:100%;padding:8px 12px;border-radius:8px;border:1px solid #ddd;font-family:var(--fn)"></select>
+        </div>
+        <div class="fg" style="margin-bottom:14px">
+          <label style="font-weight:700;margin-bottom:8px;display:block">Police cursive</label>
+          <div style="display:flex;gap:16px">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px">
+              <input type="radio" name="card-cursive" value="dumont" checked> <span style="font-family:'Cursive Dumont maternelle',cursive;font-size:18px">abc</span> Dumont
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px">
+              <input type="radio" name="card-cursive" value="belle"> <span style="font-family:'Belle Allure Ductus',cursive;font-size:18px">abc</span> Belle Allure
+            </label>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" type="button" onclick="generateCardsFront()" style="font-size:15px;padding:12px 28px">🖨️ Imprimer les RECTOS</button>
+          <button class="btn bor" type="button" onclick="generateCardsBack()" style="font-size:15px;padding:12px 28px">🖨️ Imprimer les VERSOS</button>
+        </div>
+        <p style="font-size:11px;color:#999;margin-top:10px">Imprimez d'abord les rectos, retournez les feuilles bord court, puis imprimez les versos.</p>
       </div>
-      <label style="display:inline-block;background:#36B5A0;color:#fff;padding:8px 16px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">
-        Choisir un fichier Excel
-        <input type="file" id="imp-xl" accept=".xlsx,.xls" style="display:none" onchange="importExcel(this)">
-      </label>
-      <span id="imp-xl-status" style="font-size:12px;color:#888;margin-left:10px"></span>
     </div>
 
-    <div class="mf">
-      <button class="bo" type="button" onclick="closeModal('m-import')">Fermer</button>
+    <!-- TAB: EXERCISES -->
+    <div id="tool-exercises" class="tool-panel">
+      <div style="background:#f5fff0;border-radius:12px;padding:20px;border:1px solid #c5e8c5">
+        <p style="font-size:13px;color:#666;margin-bottom:16px">Fiche d'exercice A4 paysage (imprimable en A5) : l'élève retrouve les graphèmes à partir du codage couleur (traits, points, pointillés) et des cartes sons.</p>
+        <div class="fg" style="margin-bottom:14px">
+          <label style="font-weight:700">Série</label>
+          <select id="ex-series" onchange="onExSeriesChange()" style="width:100%;padding:8px 12px;border-radius:8px;border:1px solid #ddd;font-family:var(--fn)"></select>
+        </div>
+        <div class="fg" style="margin-bottom:14px">
+          <label style="font-weight:700">Sélection des mots</label>
+          <select id="ex-mode" onchange="onExModeChange()" style="width:100%;padding:8px 12px;border-radius:8px;border:1px solid #ddd;font-family:var(--fn)">
+            <option value="group">Par tranche de 8</option>
+            <option value="random">8 mots aléatoires</option>
+            <option value="custom">Sélection manuelle</option>
+          </select>
+        </div>
+        <div id="ex-group-wrap" class="fg" style="margin-bottom:14px">
+          <label style="font-weight:700">Tranche de mots</label>
+          <select id="ex-group" style="width:100%;padding:8px 12px;border-radius:8px;border:1px solid #ddd;font-family:var(--fn)"></select>
+        </div>
+        <div id="ex-custom-wrap" style="display:none;margin-bottom:14px">
+          <label style="font-weight:700;display:block;margin-bottom:8px">Choisir 8 mots</label>
+          <div id="ex-custom-list" style="display:flex;flex-wrap:wrap;gap:6px;max-height:200px;overflow-y:auto"></div>
+        </div>
+        <button class="btn" type="button" onclick="generateExercise()" style="font-size:15px;padding:12px 28px">🖨️ Générer la fiche</button>
+      </div>
     </div>
-  </div>
-</div>
-
-<script></script>
-</head>
-<body>
-<nav id="nav">
-  <h1>📖 Apprentilangue</h1>
-  <button class="nb active" onclick="goPage('home')">📚 Séries</button>
-  <button class="nb" onclick="goPage('settings')">⚙️ Paramètres</button>
-  <button class="nb" onclick="openExportModal()" title="Exporter / Partager">⬇️ Export</button>
-  <button class="nb" onclick="openImportModal()" title="Importer séries ou mots">⬆️ Import</button>
-  <button class="nb" onclick="openGuide()" title="Guide utilisateur">❓ Aide</button>
-</nav>
-<div id="app">
-
-<div id="pg-home" class="pg on">
-  <h2>Mes séries de vocabulaire</h2>
-  <div class="sg" id="series-grid"></div>
-  <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding-top:12px;border-top:1px solid #e8e4de;">
-    <button class="btn" type="button" onclick="openNewSeriesModal()" style="font-size:14px;padding:10px 22px;">+ Nouvelle série</button>
-    <a class="btn bo" style="text-decoration:none;padding:9px 18px;font-size:13px" href="modele_import.xlsx" download>📥 Modèle Excel</a>
   </div>
 </div>
 
@@ -3442,6 +3015,605 @@ document.addEventListener('keydown',function(e){
   if(e.key==='2')qzRevealCard(1);
   if(e.key==='Enter')qzRevealAll();
 });
+
+// ================================================================
+// PRINT TOOLS
+// ================================================================
+
+function switchToolTab(tab){
+  document.querySelectorAll('.tool-tab').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.tool-panel').forEach(e=>e.classList.remove('on'));
+  const tabBtn=document.getElementById('tool-tab-'+tab);
+  const panel=document.getElementById('tool-'+tab);
+  if(tabBtn)tabBtn.classList.add('active');
+  if(panel)panel.classList.add('on');
+}
+
+function populateToolSeriesSelect(selId){
+  const sel=document.getElementById(selId);if(!sel)return;
+  sel.innerHTML='';
+  const all=[...appData.series,...sharedSeries];
+  if(!all.length){sel.innerHTML='<option value="">Aucune série</option>';return;}
+  all.forEach(s=>{
+    const opt=document.createElement('option');
+    opt.value=s.id;opt.textContent=s.name+' ('+s.words.length+' mots)';
+    sel.appendChild(opt);
+  });
+}
+
+function populateGroupSelect(selId, seriesSelId){
+  const sel=document.getElementById(selId);if(!sel)return;
+  const sid=document.getElementById(seriesSelId).value;
+  const all=[...appData.series,...sharedSeries];
+  const s=all.find(x=>x.id===sid);
+  sel.innerHTML='';
+  if(!s||!s.words.length){sel.innerHTML='<option>Aucun mot</option>';return;}
+  const nGroups=Math.ceil(s.words.length/8);
+  const letters='ABCDEFGH';
+  for(let i=0;i<nGroups;i++){
+    const start=i*8+1,end=Math.min((i+1)*8,s.words.length);
+    const opt=document.createElement('option');
+    opt.value=i;opt.textContent='Série '+letters[i]+' — mots '+start+' à '+end;
+    sel.appendChild(opt);
+  }
+}
+
+function renderToolsPage(){
+  populateToolSeriesSelect('lbl-series');
+  populateToolSeriesSelect('card-series');
+  populateToolSeriesSelect('ex-series');
+  onLblSeriesChange();onCardSeriesChange();onExSeriesChange();
+}
+function onLblSeriesChange(){populateGroupSelect('lbl-group','lbl-series');}
+function onCardSeriesChange(){populateGroupSelect('card-group','card-series');}
+function onExSeriesChange(){
+  populateGroupSelect('ex-group','ex-series');
+  renderExCustomList();
+}
+function onExModeChange(){
+  const mode=document.getElementById('ex-mode').value;
+  document.getElementById('ex-group-wrap').style.display=mode==='group'?'':'none';
+  document.getElementById('ex-custom-wrap').style.display=mode==='custom'?'':'none';
+}
+function renderExCustomList(){
+  const div=document.getElementById('ex-custom-list');if(!div)return;
+  const sid=document.getElementById('ex-series').value;
+  const all=[...appData.series,...sharedSeries];
+  const s=all.find(x=>x.id===sid);
+  div.innerHTML='';
+  if(!s)return;
+  s.words.forEach((w,i)=>{
+    const lbl=document.createElement('label');
+    lbl.style.cssText='display:flex;align-items:center;gap:4px;background:#f5f5f5;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:13px;';
+    lbl.innerHTML='<input type="checkbox" class="ex-word-cb" value="'+i+'" onchange="limitExSelection(this)"> '+(w.word||'?');
+    div.appendChild(lbl);
+  });
+}
+function limitExSelection(cb){
+  const cbs=document.querySelectorAll('.ex-word-cb:checked');
+  if(cbs.length>8){cb.checked=false;toast('Maximum 8 mots');}
+}
+
+function getSelectedSeries(selId){
+  const sid=document.getElementById(selId).value;
+  const all=[...appData.series,...sharedSeries];
+  return all.find(x=>x.id===sid);
+}
+
+function getWordsForGroup(series,groupIdx){
+  const start=groupIdx*8;
+  return series.words.slice(start,start+8);
+}
+
+// ── Font utilities for print windows ──
+function getFontFaces(){
+  return `
+    @font-face{font-family:'MDIEcole';src:url('fonts/MDIecole-Regular.otf') format('opentype'),url('MDIecole-Regular.otf') format('opentype');}
+    @font-face{font-family:'MDIEcole';font-weight:bold;src:url('fonts/MDIecole-Bold.otf') format('opentype'),url('MDIecole-Bold.otf') format('opentype');}
+    @font-face{font-family:'Cursive Dumont maternelle';src:url('fonts/CursiveDumont.otf') format('opentype'),url('cursive.otf') format('opentype');}
+    @font-face{font-family:'Belle Allure Ductus';src:url('fonts/BelleAllureDuctus-Normal.otf') format('opentype');}
+  `;
+}
+
+function getFontCSS(fontType){
+  switch(fontType){
+    case 'upper': return {family:"'MDIEcole',sans-serif",transform:'uppercase',weight:'normal'};
+    case 'script': return {family:"'MDIEcole',sans-serif",transform:'none',weight:'normal'};
+    case 'cursive-dumont': return {family:"'Cursive Dumont maternelle',cursive",transform:'none',weight:'normal'};
+    case 'cursive-belle': return {family:"'Belle Allure Ductus',cursive",transform:'none',weight:'normal'};
+    default: return {family:"'MDIEcole',sans-serif",transform:'none',weight:'normal'};
+  }
+}
+
+function openPrintWindow(html,title){
+  const w=window.open('','_blank');
+  if(!w){toast('Popup bloquée — autorisez les popups pour ce site');return null;}
+  w.document.open();w.document.write(html);w.document.close();
+  w.document.title=title||'Impression';
+  return w;
+}
+
+// ================================================================
+// LABEL GENERATOR
+// ================================================================
+function generateLabels(){
+  const series=getSelectedSeries('lbl-series');
+  if(!series){toast('Sélectionnez une série');return;}
+  const groupIdx=parseInt(document.getElementById('lbl-group').value)||0;
+  const fontType=document.querySelector('input[name="lbl-font"]:checked').value;
+  const words=getWordsForGroup(series,groupIdx);
+  if(!words.length){toast('Aucun mot dans cette tranche');return;}
+
+  const fc=getFontCSS(fontType);
+  const isCursive=fontType.startsWith('cursive');
+  const displayWord=(w)=>{
+    const txt=w.word||'';
+    return fontType==='upper'?txt.toUpperCase():txt.toLowerCase();
+  };
+
+  // Page coding: THEME + Série A/B/C/D
+  const seriesLetter=String.fromCharCode(65+groupIdx); // A,B,C,D
+  const theme=(words[0]&&words[0].theme)||series.name||'';
+  const pageCode=theme+' — Série '+seriesLetter;
+
+  // Build 5 student strips
+  // Layout: 2 columns × 2 rows for strips 1-4 (8 labels each, 1 column)
+  // 5th strip: special 2-column × 4-row layout spanning both columns
+  let stripsHTML='';
+  for(let s=0;s<4;s++){
+    let stripContent='';
+    for(let wi=0;wi<words.length;wi++){
+      stripContent+=`<div class="label">
+        <span class="label-text">${displayWord(words[wi])}</span>
+      </div>`;
+    }
+    stripsHTML+=`<div class="strip">${stripContent}</div>`;
+  }
+  // 5th student: split into 2 sub-strips of 4 labels each, side by side
+  const half=Math.ceil(words.length/2);
+  let strip5L='',strip5R='';
+  for(let wi=0;wi<words.length;wi++){
+    const lbl=`<div class="label">
+      <span class="label-text">${displayWord(words[wi])}</span>
+    </div>`;
+    if(wi<half) strip5L+=lbl; else strip5R+=lbl;
+  }
+  stripsHTML+=`<div class="strip-wide"><div class="strip">${strip5L}</div><div class="strip">${strip5R}</div></div>`;
+
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Étiquettes — ${pageCode}</title>
+<style>
+${getFontFaces()}
+@page{size:A4 portrait;margin:4mm 5mm;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:${fc.family};font-weight:${fc.weight};text-transform:${fc.transform};}
+.page-header{
+  text-align:center;font-size:8pt;color:#888;
+  padding:1mm 0 2mm;font-family:Arial,sans-serif;
+  text-transform:none;font-weight:normal;letter-spacing:0;
+}
+.strips-grid{
+  display:grid;
+  grid-template-columns:91.38mm 91.38mm;
+  grid-template-rows:auto auto auto;
+  gap:${isCursive?'4mm':'3mm'} 12mm;
+  justify-content:center;
+}
+.strip{
+  display:flex;flex-direction:column;
+  border:0.5px solid #999;
+}
+.strip-wide{
+  grid-column:1 / -1;
+  display:flex;gap:12mm;
+  justify-content:center;
+}
+.label{
+  width:91.38mm;height:11.72mm;
+  border-bottom:0.3px dashed #bbb;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.strip .label:last-child{border-bottom:none;}
+.label-text{
+  font-size:${isCursive?'5.5mm':'6.5mm'};
+  line-height:${isCursive?'7mm':'11.72mm'};
+  white-space:nowrap;
+  ${isCursive?'padding-top:1mm;':''}
+}
+@media print{
+  body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+</style></head><body>
+<div class="page-header">${pageCode}</div>
+<div class="strips-grid">${stripsHTML}</div>
+<script>window.onafterprint=function(){window.close();};window.onload=function(){setTimeout(function(){window.print();},400);};<\/script>
+</body></html>`;
+
+  openPrintWindow(html,'Étiquettes — '+pageCode);
+}
+
+// ================================================================
+// CARD GENERATOR (RECTO-VERSO)
+// ================================================================
+const NATURE_COLORS={nom:'#4a90d9',verbe:'#e85d9a',adjectif:'#3aaa5a',autre:'#888888'};
+
+function generateCardsFront(){
+  const series=getSelectedSeries('card-series');
+  if(!series){toast('Sélectionnez une série');return;}
+  const groupIdx=parseInt(document.getElementById('card-group').value)||0;
+  const cursiveType=document.querySelector('input[name="card-cursive"]:checked').value;
+  const words=getWordsForGroup(series,groupIdx);
+  if(!words.length){toast('Aucun mot dans cette tranche');return;}
+
+  const cursiveFont=cursiveType==='belle'?"'Belle Allure Ductus',cursive":"'Cursive Dumont maternelle',cursive";
+
+  let cardsHTML='';
+  // 8 cards in a 2×4 grid
+  for(let i=0;i<8;i++){
+    const w=words[i];
+    if(!w){
+      cardsHTML+=`<div class="card front"><div class="card-empty"></div></div>`;
+      continue;
+    }
+    // Scale font: 83mm card width / ~5.5mm per char (capitals) → max ~15 chars at 12mm
+    const wLen=(w.word||'').length;
+    const upperSize=Math.min(12,Math.max(6, 75/wLen))+'mm';
+    const cursiveSize=Math.min(10,Math.max(5, 65/wLen))+'mm';
+    cardsHTML+=`<div class="card front">
+      <div class="card-word-upper" style="font-size:${upperSize}">${(w.word||'').toUpperCase()}</div>
+      <div class="card-word-cursive" style="font-size:${cursiveSize};font-family:${cursiveFont}">${(w.word||'').toLowerCase()}</div>
+    </div>`;
+  }
+
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Cartes RECTO — ${series.name}</title>
+<style>
+${getFontFaces()}
+@page{size:A4 portrait;margin:8mm;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'MDIEcole',sans-serif;}
+.page{
+  width:194mm;height:281mm;
+  display:grid;
+  grid-template-columns:repeat(2,95mm);
+  grid-template-rows:repeat(4,68mm);
+  gap:2mm;
+  justify-content:center;align-content:center;
+}
+.card{
+  border:0.5px solid #999;border-radius:3mm;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:6mm;overflow:hidden;
+}
+.card-word-upper{
+  font-weight:bold;letter-spacing:1mm;
+  text-transform:uppercase;color:#222;margin-bottom:4mm;
+  text-align:center;white-space:nowrap;
+  max-width:83mm;overflow:hidden;
+}
+.card-word-cursive{
+  color:#444;text-align:center;
+  white-space:nowrap;max-width:83mm;overflow:hidden;
+}
+.card-empty{color:#ccc;font-size:10mm;}
+@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="page">${cardsHTML}</div>
+<script>window.onafterprint=function(){window.close();};window.onload=function(){setTimeout(function(){window.print();},400);};<\/script>
+</body></html>`;
+
+  openPrintWindow(html,'Cartes RECTO — '+series.name);
+}
+
+function generateCardsBack(){
+  const series=getSelectedSeries('card-series');
+  if(!series){toast('Sélectionnez une série');return;}
+  const groupIdx=parseInt(document.getElementById('card-group').value)||0;
+  const words=getWordsForGroup(series,groupIdx);
+  if(!words.length){toast('Aucun mot dans cette tranche');return;}
+  const folder=appData.settings.imagesFolder||'images/';
+
+  let cardsHTML='';
+  // For recto-verso with short-edge flip:
+  // The back page must have cards in REVERSE ORDER per ROW
+  // Row 1 front: card0, card1 → Row 1 back: card1, card0
+  // Row 2 front: card2, card3 → Row 2 back: card3, card2
+  const backOrder=[1,0,3,2,5,4,7,6];
+
+  for(let bi=0;bi<8;bi++){
+    const i=backOrder[bi];
+    const w=words[i];
+    if(!w){
+      cardsHTML+=`<div class="card back"><div class="card-empty"></div></div>`;
+      continue;
+    }
+    const natColor=NATURE_COLORS[w.nature]||NATURE_COLORS.autre;
+    const imgSrc=w.image||'';
+    cardsHTML+=`<div class="card back">
+      ${imgSrc?`<img class="card-img" src="${imgSrc}" alt="${w.word}" onerror="this.style.display='none'">`:
+      `<div style="font-size:10mm;color:#ccc">🖼️</div>`}
+      <div class="nature-dot" style="background:${natColor}"></div>
+    </div>`;
+  }
+
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Cartes VERSO — ${series.name}</title>
+<style>
+@page{size:A4 portrait;margin:8mm;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:sans-serif;}
+.page{
+  width:194mm;height:281mm;
+  display:grid;
+  grid-template-columns:repeat(2,95mm);
+  grid-template-rows:repeat(4,68mm);
+  gap:2mm;
+  justify-content:center;align-content:center;
+}
+.card{
+  border:0.5px solid #999;border-radius:3mm;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:6mm;overflow:hidden;position:relative;
+}
+.card-img{
+  max-width:75mm;max-height:48mm;object-fit:contain;
+}
+.nature-dot{
+  width:10mm;height:10mm;border-radius:50%;
+  position:absolute;bottom:4mm;right:4mm;
+}
+.card-empty{color:#ccc;font-size:10mm;}
+@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="page">${cardsHTML}</div>
+<script>window.onafterprint=function(){window.close();};window.onload=function(){setTimeout(function(){window.print();},400);};<\/script>
+</body></html>`;
+
+  openPrintWindow(html,'Cartes VERSO — '+series.name);
+}
+
+// ================================================================
+// EXERCISE SHEET GENERATOR
+// ================================================================
+function generateExercise(){
+  const series=getSelectedSeries('ex-series');
+  if(!series){toast('Sélectionnez une série');return;}
+  const mode=document.getElementById('ex-mode').value;
+  let words=[];
+
+  if(mode==='group'){
+    const groupIdx=parseInt(document.getElementById('ex-group').value)||0;
+    words=getWordsForGroup(series,groupIdx);
+  } else if(mode==='random'){
+    const pool=[...series.words];
+    for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
+    words=pool.slice(0,8);
+  } else if(mode==='custom'){
+    const cbs=document.querySelectorAll('.ex-word-cb:checked');
+    cbs.forEach(cb=>{
+      const idx=parseInt(cb.value);
+      if(series.words[idx])words.push(series.words[idx]);
+    });
+    if(words.length===0){toast('Sélectionnez au moins 1 mot');return;}
+    if(words.length>8){words=words.slice(0,8);}
+  }
+
+  if(!words.length){toast('Aucun mot disponible');return;}
+
+  const folder=appData.settings.imagesFolder||'images/';
+  const method=series.method||'eo';
+  const dict=method==='bm'?AD.bm:AD.eo;
+
+  // Page coding
+  const exGroupIdx=mode==='group'?(parseInt(document.getElementById('ex-group').value)||0):0;
+  const exLetter=String.fromCharCode(65+exGroupIdx);
+  const exTheme=(words[0]&&words[0].theme)||series.name||'';
+  const exCode=exTheme+' — Série '+(mode==='group'?exLetter:'*');
+
+  // Build exercise word blocks — each grapheme is a VERTICAL column:
+  // top = letter trait slots (with liaison dots between letters)
+  // bottom = sound card image centered underneath
+  let wordsHTML='';
+  words.forEach((w,wi)=>{
+    const ph=w.phonetics||[];
+    const rawWord=w.word||'';
+    const splitIdx=Math.max(rawWord.lastIndexOf(' '),rawWord.lastIndexOf("'"),rawWord.lastIndexOf('\u2019'));
+    const lastWordStart=splitIdx>=0?splitIdx+1:0;
+    const lastWord=rawWord.slice(lastWordStart);
+    const sylls=w.syllables||syllabify(lastWord);
+    const syllBounds=new Set();let pos=0;
+    sylls.forEach((s,i)=>{if(i>0)syllBounds.add(pos);pos+=s.length;});
+
+    let columnsHTML='';
+    let lastWordPos=0;
+
+    ph.forEach((g,gi)=>{
+      const isSpace=g.letters===' ';
+      const isApos=g.letters==="'"||g.letters==='\u2019';
+      const isSep=isSpace||isApos;
+
+      if(isSep){
+        if(isSpace){
+          columnsHTML+='<div class="ex-wordsep"></div>';
+        } else {
+          columnsHTML+='<div class="ex-apos-col">\u2019</div>';
+        }
+        lastWordPos=0;
+        return;
+      }
+
+      // Syllable separator before this grapheme
+      if(lastWordPos>0&&syllBounds.has(lastWordPos)){
+        columnsHTML+='<div class="ex-syllsep"></div>';
+      }
+
+      // Traits with liaison dots BETWEEN them at the same level
+      const numLetters=g.letters.length;
+      const isLinked=numLetters>1&&g.linked!==false;
+
+      let traitsRow='';
+      g.letters.split('').forEach((letter,li)=>{
+        const col=(g.lc&&g.lc[li])||'#222222';
+        const notLast=li<numLetters-1;
+        traitsRow+=`<div class="ex-ls${isLinked?' lk':''}"><div class="ex-trait" style="border-bottom-color:${col}"></div></div>`;
+        // Liaison dot between linked letters — same level, overlapping trait height
+        if(notLast&&isLinked){
+          traitsRow+=`<div class="ex-liadot"><div class="ex-dot" style="background:${col}"></div></div>`;
+        }
+      });
+
+      // Sound card image
+      const imgSrc=g.silent?folder+'eo/Lettre_Muette.png':folder+g.img;
+      const silentCls=g.silent?' silent':'';
+
+      columnsHTML+=`<div class="ex-gcol">
+        <div class="ex-traits">${traitsRow}</div>
+        <img class="ex-snd${silentCls}" src="${imgSrc}" alt="${g.sound||''}" onerror="this.style.visibility='hidden'">
+      </div>`;
+
+      lastWordPos+=numLetters;
+    });
+
+    wordsHTML+=`<div class="ex-word-block">
+      <div class="ex-num">${wi+1}</div>
+      <div class="ex-columns">${columnsHTML}</div>
+    </div>`;
+  });
+
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Exercice — ${series.name}</title>
+<style>
+@page{size:A4 landscape;margin:6mm 8mm;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'MDIEcole',Calibri,Arial,sans-serif;font-size:10pt;}
+.sheet{
+  width:283mm;height:190mm;
+  padding:3mm 8mm;
+  display:flex;flex-direction:column;
+  margin:0 auto;
+}
+.sheet-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-bottom:1.5mm;border-bottom:0.5pt solid #ddd;margin-bottom:1.5mm;
+}
+.sheet-title{font-size:11pt;font-weight:bold;color:#333;}
+.sheet-info{font-size:8pt;color:#aaa;font-style:italic;}
+.student-line{
+  font-size:9pt;color:#555;margin-bottom:2mm;
+  display:flex;gap:15mm;align-items:baseline;
+}
+.student-line span{border-bottom:0.5pt dotted #999;min-width:50mm;display:inline-block;}
+/* Exercise grid */
+.ex-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2.5mm 8mm;
+  flex:1;
+  align-content:stretch;
+}
+/* Each word block */
+.ex-word-block{
+  display:flex;align-items:center;gap:2mm;
+  padding:2mm 3mm;
+  border:0.4pt solid #ccc;border-radius:2mm;
+  background:#fafafa;
+}
+.ex-num{
+  font-size:11pt;font-weight:bold;color:#bbb;
+  min-width:5mm;text-align:center;
+}
+/* Horizontal row of grapheme columns */
+.ex-columns{
+  display:flex;align-items:flex-end;
+  justify-content:center;flex:1;
+  gap:1mm;
+}
+/* Each grapheme = vertical column: traits → dots → sound card */
+.ex-gcol{
+  display:flex;flex-direction:column;align-items:center;
+}
+/* Row of letter trait slots */
+.ex-traits{
+  display:flex;align-items:flex-end;gap:0;
+}
+/* Individual letter slot — normal spacing */
+.ex-ls{
+  display:flex;flex-direction:column;align-items:center;
+  width:9mm;
+}
+/* Linked letters: tight so the dot visually connects them */
+.ex-ls.lk{
+  width:7mm;
+}
+/* The colored trait line */
+.ex-trait{
+  width:100%;height:12mm;
+  border-bottom:2.2pt solid #222;
+}
+/* Liaison dot: zero-width container, dot centered exactly ON the trait line */
+.ex-liadot{
+  width:0;position:relative;
+  align-self:flex-end;height:0;
+}
+.ex-dot{
+  width:2mm;height:2mm;border-radius:50%;
+  position:absolute;
+  bottom:-1mm;left:-1mm;
+}
+/* Sound card image below */
+.ex-snd{
+  width:9mm;height:9mm;object-fit:contain;
+  margin-top:1.5mm;
+  border:0.3pt solid #ddd;border-radius:1mm;padding:0.3mm;
+}
+.ex-snd.silent{opacity:0.4;}
+/* Syllable separator */
+.ex-syllsep{
+  align-self:stretch;
+  border-left:1.5pt dashed #888;
+  margin:0 1mm;
+}
+/* Word separator (space) */
+.ex-wordsep{width:5mm;}
+/* Apostrophe */
+.ex-apos-col{
+  font-size:10pt;color:#555;
+  align-self:flex-end;
+  margin-bottom:10mm;
+  padding:0 0.3mm;
+}
+@media print{
+  body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+</style></head><body>
+<div class="sheet">
+  <div class="sheet-header">
+    <div class="sheet-title">${exCode}</div>
+    <div class="sheet-info">Retrouve les lettres grâce au codage</div>
+  </div>
+  <div class="student-line">
+    Prénom : <span>&nbsp;</span>
+    Date : <span style="min-width:35mm">&nbsp;</span>
+  </div>
+  <div class="ex-grid">${wordsHTML}</div>
+</div>
+<script>window.onafterprint=function(){window.close();};window.onload=function(){setTimeout(function(){window.print();},400);};<\/script>
+</body></html>`;
+
+  openPrintWindow(html,'Exercice — '+series.name);
+}
+
+// ================================================================
+// Update goPage to support tools page
+// ================================================================
+const _origGoPage=goPage;
+goPage=function(p){
+  if(p==='tools'){
+    document.querySelectorAll('.pg').forEach(e=>e.classList.remove('on'));
+    document.querySelectorAll('.nb').forEach(e=>e.classList.remove('active'));
+    document.getElementById('pg-tools').classList.add('on');
+    renderToolsPage();
+    return;
+  }
+  _origGoPage(p);
+};
 
 // ================================================================
 // Vérifier les mises à jour en premier
