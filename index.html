@@ -1003,14 +1003,15 @@ const EO0={
   'ê':{s:'è',i:'eo/è-flèche.png',c:['#7DB728']},'eu':{s:'eu',i:'eo/eu-feu.png',c:['#E11683','#222222']},
   'f':{s:'f',i:'eo/f-fée.png',c:['#222222']},'ff':{s:'f',i:'eo/f-fée.png',c:['#7DB728','#222222']},
   'g':{s:'g',i:'eo/g-gorille.png',c:['#222222']},'gn':{s:'gn',i:'eo/gn-montagne.png',c:['#222222','#222222']},
+  'ng':{s:'ng',i:'eo/ng-viking.png',c:['#222222','#222222']},
   'h':{s:'',i:'eo/Lettre_Muette.png',c:['#aaaaaa'],silent:true},'i':{s:'i',i:'eo/i-igloo.png',c:['#222222']},
   'î':{s:'i',i:'eo/i-igloo.png',c:['#222222']},'j':{s:'j',i:'eo/j-jumelles.png',c:['#222222']},
   'k':{s:'k',i:'eo/c-crocodile.png',c:['#7DB728']},'l':{s:'l',i:'eo/l-lunettes.png',c:['#222222']},
   'll':{s:'l',i:'eo/l-lunettes.png',c:['#7DB728','#222222']},'m':{s:'m',i:'eo/m-moto.png',c:['#222222']},
   'mm':{s:'m',i:'eo/m-moto.png',c:['#7DB728','#222222']},'n':{s:'n',i:'eo/n-neige.png',c:['#222222']},
   'nn':{s:'n',i:'eo/n-neige.png',c:['#7DB728','#222222']},'o':{s:'o',i:'eo/o-otarie.png',c:['#222222']},
-  'ô':{s:'o',i:'eo/o-ogre.png',c:['#7DB728']},'p':{s:'p',i:'eo/p-pirate.png',c:['#222222']},
-  'ph':{s:'f',i:'eo/f-fée.png',c:['#7DB728','#222222']},'pp':{s:'p',i:'eo/p-pirate.png',c:['#7DB728','#222222']},
+  'ô':{s:'o',i:'eo/o-otarie.png',c:['#7DB728']},'p':{s:'p',i:'eo/p-pirate.png',c:['#222222']},
+  'ph':{s:'f',i:'eo/f-fée.png',c:['#7DB728','#7DB728']},'pp':{s:'p',i:'eo/p-pirate.png',c:['#7DB728','#222222']},
   'qu':{s:'k',i:'eo/c-crocodile.png',c:['#E11683','#aaaaaa']},'r':{s:'r',i:'eo/r-rat.png',c:['#222222']},
   'rr':{s:'r',i:'eo/r-rat.png',c:['#7DB728','#222222']},'s':{s:'s',i:'eo/s-serpent.png',c:['#222222']},
   'ss':{s:'s',i:'eo/s-serpent.png',c:['#222222','#222222']},'sc':{s:'s',i:'eo/s-serpent.png',c:['#222222','#222222']},
@@ -1027,7 +1028,7 @@ const EO0={
   'un':{s:'in',i:'eo/in-idien.png',c:['#82c4e0','#222222']},
   'ou':{s:'ou',i:'eo/ou-loup.png',c:['#222222','#222222']},'oi':{s:'oi',i:'eo/oi-oie.png',c:['#222222','#222222']},
   'oin':{s:'oin',i:'eo/oin-pointe.png',c:['#222222','#222222','#222222']},
-  'au':{s:'o',i:'eo/o-ogre.png',c:['#222222','#222222']},'eau':{s:'o',i:'eo/o-ogre.png',c:['#222222','#222222','#222222']},
+  'au':{s:'o',i:'eo/o-otarie.png',c:['#222222','#222222']},'eau':{s:'o',i:'eo/o-otarie.png',c:['#222222','#222222','#222222']},
   'ai':{s:'è',i:'eo/è-flèche.png',c:['#222222','#222222']},'ei':{s:'è',i:'eo/è-flèche.png',c:['#222222','#222222']},
   'er':{s:'é',i:'eo/é-étoile.png',c:['#222222','#222222']},'ez':{s:'é',i:'eo/é-étoile.png',c:['#222222','#aaaaaa']},
   'ill':{s:'il',i:'eo/il-oeil.png',c:['#222222','#E11683','#E11683']},'il':{s:'il',i:'eo/il-oeil.png',c:['#222222','#222222']},
@@ -1098,8 +1099,8 @@ const GRAPHEME_DB={
   ]},
   'k':{name:'Crocodile',img:'eo/c-crocodile.png',graphemes:[
     {g:'c',force:74,colors:['#222222']},{g:'qu',force:20,colors:['#E11683','#aaaaaa']},
-    {g:'cc',force:3,colors:['#222222','#222222']},{g:'k',force:1,colors:['#7DB728']},
-    {g:'ck',force:0,colors:['#222222','#222222']},{g:'ch',force:1,colors:['#7DB728','#aaaaaa']}
+    {g:'cc',force:3,colors:['#82c4e0','#aaaaaa']},{g:'k',force:1,colors:['#7DB728']},
+    {g:'ck',force:0,colors:['#82c4e0','#aaaaaa']},{g:'ch',force:1,colors:['#7DB728','#aaaaaa']}
   ]},
   'ch':{name:'Chat',img:'eo/ch-chat.png',graphemes:[
     {g:'ch',force:98,colors:['#222222','#222222']},{g:'sh',force:1,colors:['#E11683','#222222']},
@@ -1131,10 +1132,10 @@ const GRAPHEME_DB={
   ]},
   'f':{name:'Fée',img:'eo/f-fée.png',graphemes:[
     {g:'f',force:80,colors:['#222222']},{g:'ff',force:15,colors:['#7DB728','#222222']},
-    {g:'ph',force:5,colors:['#7DB728','#222222']}
+    {g:'ph',force:5,colors:['#7DB728','#7DB728']}
   ]},
   'g':{name:'Gorille',img:'eo/g-gorille.png',graphemes:[
-    {g:'g',force:82,colors:['#222222']},{g:'gu',force:17,colors:['#222222','#aaaaaa']},
+    {g:'g',force:82,colors:['#222222']},{g:'gu',force:17,colors:['#aaaaaa','#82c4e0']},
     {g:'gg',force:0,colors:['#E11683','#222222']},{g:'c',force:0,colors:['#E11683']}
   ]},
   'gn':{name:'Montagne',img:'eo/gn-montagne.png',graphemes:[
@@ -1146,7 +1147,7 @@ const GRAPHEME_DB={
     {g:'e',force:0,colors:['#7DB728']}
   ]},
   'il':{name:'Oeil',img:'eo/il-oeil.png',graphemes:[
-    {g:'ill',force:83,colors:['#222222','#E11683','#E11683']},{g:'il',force:2,colors:['#222222','#222222']},
+    {g:'ill',force:83,colors:['#aaaaaa','#aaaaaa','#E11683']},{g:'il',force:2,colors:['#aaaaaa','#E11683']},
     {g:'i',force:79,colors:['#E11683']},{g:'y',force:5,colors:['#7DB728']},
     {g:'ï',force:0,colors:['#222222']}
   ]},
@@ -1172,10 +1173,14 @@ const GRAPHEME_DB={
   'ng':{name:'Viking',img:'eo/ng-viking.png',graphemes:[
     {g:'ng',force:100,colors:['#222222','#222222']}
   ]},
-  'o':{name:'Otarie',img:'eo/o-otarie.png',graphemes:[
-    {g:'o',force:81,colors:['#222222']},{g:'au',force:10,colors:['#222222','#222222']},
-    {g:'eau',force:5,colors:['#222222','#222222','#222222']},{g:'ô',force:2,colors:['#7DB728']},
-    {g:'u',force:1,colors:['#82c4e0']},{g:'oo',force:0,colors:['#222222','#82c4e0']}
+  'o':{name:'Otarie (o fermé)',img:'eo/o-otarie.png',graphemes:[
+    {g:'o',force:40,colors:['#222222']},{g:'au',force:28,colors:['#222222','#222222']},
+    {g:'eau',force:18,colors:['#222222','#222222','#222222']},{g:'ô',force:10,colors:['#7DB728']},
+    {g:'oo',force:0,colors:['#222222','#82c4e0']}
+  ]},
+  'ɔ':{name:'Ogre (o ouvert)',img:'eo/o-ogre.png',graphemes:[
+    {g:'o',force:90,colors:['#222222']},{g:'au',force:5,colors:['#222222','#222222']},
+    {g:'u',force:2,colors:['#82c4e0']},{g:'ô',force:1,colors:['#7DB728']}
   ]},
   'oi':{name:'Oie',img:'eo/oi-oie.png',graphemes:[
     {g:'oi',force:95,colors:['#222222','#222222']},{g:'oy',force:31,colors:['#222222','#7DB728']},
@@ -1222,8 +1227,8 @@ const GRAPHEME_DB={
   'gz':{name:'Xylophone',img:'eo/x-xylophone.png',graphemes:[
     {g:'x',force:19,colors:['#222222']},{g:'gz',force:0,colors:['#7DB728','#222222']}
   ]},
-  'y':{name:'Tuyau',img:'eo/y-tuyau-off.svg',graphemes:[
-    {g:'y',force:6,colors:['#222222']},{g:'ill',force:53,colors:['#222222','#E11683','#E11683']}
+  'y':{name:'Tuyau',img:'eo/y-tuyau.png',graphemes:[
+    {g:'y',force:6,colors:['#222222']},{g:'ill',force:53,colors:['#aaaaaa','#aaaaaa','#E11683']}
   ]},
   'z':{name:'Zèbre',img:'eo/z-zèbre.png',graphemes:[
     {g:'z',force:8,colors:['#222222']},{g:'s',force:91,colors:['#E11683']},
@@ -1237,7 +1242,7 @@ const GRAPHEME_DB={
     {g:'z',force:1,colors:['#aaaaaa']},{g:'e',force:1,colors:['#aaaaaa']}
   ]}
 };
-const GRAPHEME_ORDER=['a','an','b','k','ch','d','e','é','è','eu','f','g','gn','i','il','in','j','l','m','n','ng','o','oi','oin','on','ou','p','r','s','t','u','v','ks','gz','y','z','muette'];
+const GRAPHEME_ORDER=['a','an','b','k','ch','d','e','é','è','eu','f','g','gn','i','il','in','j','l','m','n','ng','o','ɔ','oi','oin','on','ou','p','r','s','t','u','v','ks','gz','y','z','muette'];
 
 // ================================================================
 // WORD ANALYSIS
@@ -2585,9 +2590,11 @@ function importExcel(input){
 var COLOR_NAMES={
   'noir':'#222222','black':'#222222',
   'rouge':'#e8002a','red':'#e8002a',
+  'rose':'#E11683','pink':'#E11683',
   'bleu clair':'#82c4e0','bleu':'#82c4e0','blue':'#82c4e0','cyan':'#82c4e0',
   'gris':'#aaaaaa','grey':'#aaaaaa','gray':'#aaaaaa',
-  'vert':'#3aaa5a','green':'#3aaa5a'
+  'vert':'#7DB728','vert clair':'#7DB728','green':'#7DB728',
+  'teal':'#3aaa5a','turquoise':'#3aaa5a'
 };
 function resolveColor(s){
   s=(s||'').trim().toLowerCase();
