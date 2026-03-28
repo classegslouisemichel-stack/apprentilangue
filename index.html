@@ -985,55 +985,12 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:4px;padding:1px 6px;font
   </div>
 </div>
 
+<script src="grapheme-dict.js"></script>
 <script>
-// ================================================================
-// PALETTE
-// ================================================================
-const PAL=[{n:'Noir',h:'#222222'},{n:'Rouge',h:'#e8002a'},{n:'Bleu clair',h:'#82c4e0'},{n:'Gris',h:'#aaaaaa'},{n:'Vert',h:'#3aaa5a'}];
+// PAL, EO0, GRAPHEME_DB, GRAPHEME_ORDER, SILENT_FINAL, TRAIT_COLORS, SONS_EO
+// → chargés depuis grapheme-dict.js (source unique de vérité)
 
-// ================================================================
-// DICTIONNAIRE EO
-// ================================================================
-const EO0={
-  'a':{s:'a',i:'eo/a-avion.png',c:['#222222']},'â':{s:'a',i:'eo/a-avion.png',c:['#7DB728']},
-  'b':{s:'b',i:'eo/b-bottes.png',c:['#222222']},'c':{s:'k',i:'eo/c-crocodile.png',c:['#222222']},
-  'ç':{s:'s',i:'eo/s-serpent.png',c:['#7DB728']},'ch':{s:'ch',i:'eo/ch-chat.png',c:['#222222','#222222']},
-  'd':{s:'d',i:'eo/d-danseuse.png',c:['#222222']},'e':{s:'e',i:'eo/e-chèvre.png',c:['#222222']},
-  'é':{s:'é',i:'eo/é-étoile.png',c:['#222222']},'è':{s:'è',i:'eo/è-flèche.png',c:['#222222']},
-  'ê':{s:'è',i:'eo/è-flèche.png',c:['#7DB728']},'eu':{s:'eu',i:'eo/eu-feu.png',c:['#E11683','#222222']},
-  'f':{s:'f',i:'eo/f-fée.png',c:['#222222']},'ff':{s:'f',i:'eo/f-fée.png',c:['#7DB728','#222222']},
-  'g':{s:'g',i:'eo/g-gorille.png',c:['#222222']},'gn':{s:'gn',i:'eo/gn-montagne.png',c:['#222222','#222222']},
-  'ng':{s:'ng',i:'eo/ng-viking.png',c:['#222222','#222222']},
-  'h':{s:'',i:'eo/Lettre_Muette.png',c:['#aaaaaa'],silent:true},'i':{s:'i',i:'eo/i-igloo.png',c:['#222222']},
-  'î':{s:'i',i:'eo/i-igloo.png',c:['#222222']},'j':{s:'j',i:'eo/j-jumelles.png',c:['#222222']},
-  'k':{s:'k',i:'eo/c-crocodile.png',c:['#7DB728']},'l':{s:'l',i:'eo/l-lunettes.png',c:['#222222']},
-  'll':{s:'l',i:'eo/l-lunettes.png',c:['#7DB728','#222222']},'m':{s:'m',i:'eo/m-moto.png',c:['#222222']},
-  'mm':{s:'m',i:'eo/m-moto.png',c:['#7DB728','#222222']},'n':{s:'n',i:'eo/n-neige.png',c:['#222222']},
-  'nn':{s:'n',i:'eo/n-neige.png',c:['#7DB728','#222222']},'o':{s:'o',i:'eo/o-otarie.png',c:['#222222']},
-  'ô':{s:'o',i:'eo/o-otarie.png',c:['#7DB728']},'p':{s:'p',i:'eo/p-pirate.png',c:['#222222']},
-  'ph':{s:'f',i:'eo/f-fée.png',c:['#7DB728','#7DB728']},'pp':{s:'p',i:'eo/p-pirate.png',c:['#7DB728','#222222']},
-  'qu':{s:'k',i:'eo/c-crocodile.png',c:['#E11683','#aaaaaa']},'r':{s:'r',i:'eo/r-rat.png',c:['#222222']},
-  'rr':{s:'r',i:'eo/r-rat.png',c:['#7DB728','#222222']},'s':{s:'s',i:'eo/s-serpent.png',c:['#222222']},
-  'ss':{s:'s',i:'eo/s-serpent.png',c:['#222222','#222222']},'sc':{s:'s',i:'eo/s-serpent.png',c:['#222222','#222222']},
-  't':{s:'t',i:'eo/t-téléphone.png',c:['#222222']},'tt':{s:'t',i:'eo/t-téléphone.png',c:['#7DB728','#222222']},
-  'u':{s:'u',i:'eo/u-usine.png',c:['#222222']},'û':{s:'u',i:'eo/u-usine.png',c:['#82c4e0']},
-  'v':{s:'v',i:'eo/v-vache.png',c:['#222222']},'w':{s:'v',i:'eo/v-vache.png',c:['#82c4e0']},
-  'x':{s:'ks',i:'eo/x-taxi.png',c:['#222222']},'y':{s:'i',i:'eo/i-igloo.png',c:['#7DB728']},
-  'z':{s:'z',i:'eo/z-zèbre.png',c:['#222222']},
-  'an':{s:'an',i:'eo/an-ange.png',c:['#222222','#222222']},'en':{s:'an',i:'eo/an-ange.png',c:['#E11683','#222222']},
-  'em':{s:'an',i:'eo/an-ange.png',c:['#E11683','#82c4e0']},'am':{s:'an',i:'eo/an-ange.png',c:['#222222','#82c4e0']},
-  'on':{s:'on',i:'eo/on-bonbon.png',c:['#222222','#222222']},'om':{s:'on',i:'eo/on-bonbon.png',c:['#222222','#82c4e0']},
-  'in':{s:'in',i:'eo/in-idien.png',c:['#222222','#222222']},
-  'ain':{s:'in',i:'eo/in-idien.png',c:['#222222','#aaaaaa','#222222']},'ein':{s:'in',i:'eo/in-idien.png',c:['#E11683','#aaaaaa','#222222']},
-  'un':{s:'in',i:'eo/in-idien.png',c:['#82c4e0','#222222']},
-  'ou':{s:'ou',i:'eo/ou-loup.png',c:['#222222','#222222']},'oi':{s:'oi',i:'eo/oi-oie.png',c:['#222222','#222222']},
-  'oin':{s:'oin',i:'eo/oin-pointe.png',c:['#222222','#222222','#222222']},
-  'au':{s:'o',i:'eo/o-otarie.png',c:['#222222','#222222']},'eau':{s:'o',i:'eo/o-otarie.png',c:['#222222','#222222','#222222']},
-  'ai':{s:'è',i:'eo/è-flèche.png',c:['#222222','#222222']},'ei':{s:'è',i:'eo/è-flèche.png',c:['#222222','#222222']},
-  'er':{s:'é',i:'eo/é-étoile.png',c:['#222222','#222222']},'ez':{s:'é',i:'eo/é-étoile.png',c:['#222222','#aaaaaa']},
-  'ill':{s:'il',i:'eo/il-oeil.png',c:['#222222','#E11683','#E11683']},'il':{s:'il',i:'eo/il-oeil.png',c:['#222222','#222222']},
-  'ail':{s:'il',i:'eo/il-oeil.png',c:['#222222','#222222','#222222']},
-};
+// EO0 → chargé depuis grapheme-dict.js
 // DICT BM
 const BM0={
   'a':{s:'a',i:'borel/a.png',c:['#222222']},'â':{s:'a',i:'borel/a.png',c:['#222222']},
@@ -1074,21 +1031,15 @@ const BM0={
   'ill':{s:'il',i:'borel/ill.png',c:['#222222','#222222','#222222']},'il':{s:'il',i:'borel/ill.png',c:['#222222','#222222']},
   'ail':{s:'il',i:'borel/ill.png',c:['#222222','#222222','#222222']},'eil':{s:'il',i:'borel/ill.png',c:['#222222','#222222','#222222']},
 };
-const PAT_EO=['eau','ain','ein','oin','ill','eil','ail','ch','ph','gn','qu','ng',
-  'an','am','en','em','on','om','ou','oi','in','eu','ai','ei','au','un','er','ez','il',
-  'ff','ll','mm','nn','pp','rr','ss','sc','tt','â','ê','î','û','ô','é','è','ç',
-  'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','r','s','t','u','v','w','x','y','z'];
+// PAT_EO → chargé depuis grapheme-dict.js
 const PAT_BM=['eau','ain','ein','oin','ill','eil','ail','ch','ph','gn','qu',
   'an','am','en','em','on','om','ou','oi','in','eu','ai','ei','au','un','er','ez','il',
   'll','ss','ff','rr','mm','nn','tt','pp','â','ê','î','û','ô','é','è','ç',
   'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','r','s','t','u','v','w','x','y','z'];
 
-// GRAPHEME DATABASE FOR RECHERCHE SLIDE
-const GRAPHEME_DB={
-  'a':{name:'Avion',img:'eo/a-avion.png',graphemes:[
-    {g:'a',force:96,colors:['#222222']},{g:'â',force:3,colors:['#7DB728']},
-    {g:'à',force:0,colors:['#7DB728']},{g:'em',force:0,colors:['#E11683','#82c4e0']}
-  ]},
+// GRAPHEME_DB → chargé depuis grapheme-dict.js
+/* Ancien GRAPHEME_DB supprimé — les données sont maintenant dans grapheme-dict.js */
+var _GRAPHEME_DB_REMOVED = true; /*
   'an':{name:'Ange',img:'eo/an-ange.png',graphemes:[
     {g:'an',force:42,colors:['#222222','#222222']},{g:'en',force:36,colors:['#E11683','#222222']},
     {g:'ent',force:12,colors:['#E11683','#222222','#aaaaaa']},{g:'em',force:6,colors:['#E11683','#82c4e0']},
@@ -1241,14 +1192,8 @@ const GRAPHEME_DB={
     {g:'g',force:2,colors:['#aaaaaa']},{g:'c',force:1,colors:['#aaaaaa']},
     {g:'z',force:1,colors:['#aaaaaa']},{g:'e',force:1,colors:['#aaaaaa']}
   ]}
-};
-const GRAPHEME_ORDER=['a','an','b','k','ch','d','e','é','è','eu','f','g','gn','i','il','in','j','l','m','n','ng','o','ɔ','oi','oin','on','ou','p','r','s','t','u','v','ks','gz','y','z','muette'];
-
-// ================================================================
-// WORD ANALYSIS
-// ================================================================
-// Lettres muettes en fin de mot (règle contextuelle)
-const SILENT_FINAL=new Set(['x','s','t','d','z','p','g','c']);
+}; */
+// GRAPHEME_ORDER, SILENT_FINAL → chargés depuis grapheme-dict.js
 // Renvoie true si le groupe est muet en position finale dans le mot donné
 function isSilentFinal(group,word,isLast){
   if(!isLast)return false;
@@ -1260,8 +1205,7 @@ function isSilentFinal(group,word,isLast){
   return false;
 }
 // Image muette (même chemin EO et BM)
-const IMG_MUETTE='eo/Lettre_Muette.png';
-const COL_MUETTE='#aaaaaa';
+// IMG_MUETTE, COL_MUETTE → chargés depuis grapheme-dict.js
 
 function markSilentFinal(groups,word){
   if(!groups.length)return groups;
@@ -1287,13 +1231,13 @@ function analyzeWord(word,method){
     for(const pat of pats){
       if(low.startsWith(pat,i)&&dict[pat]){
         const d=dict[pat];
-        groups.push({letters:word.slice(i,i+pat.length),sound:d.s,img:d.i,lc:[...d.c],silent:!!d.silent,linked:pat.length>1});
+        groups.push({letters:word.slice(i,i+pat.length),sound:d.s,img:d.i,lc:[...d.c],tc:d.tc||couleurTraitPourSon(d.s),silent:!!d.silent,linked:pat.length>1});
         i+=pat.length;matched=true;break;
       }
     }
     if(!matched){
       const ch=low[i],d=dict[ch];
-      groups.push({letters:word[i],sound:d?d.s:ch,img:d?d.i:ch+'.png',lc:[d?d.c[0]:'#222222'],silent:false,linked:false});
+      groups.push({letters:word[i],sound:d?d.s:ch,img:d?d.i:ch+'.png',lc:[d?d.c[0]:'#222222'],tc:d?(d.tc||couleurTraitPourSon(d.s)):'#222222',silent:false,linked:false});
       i++;
     }
   }
@@ -1890,6 +1834,7 @@ function buildSlideR(word,wi,seriesName,font,folder,wave,shDecos,casse,maxLetter
       <div class="sr-letters">`;
     g.letters.split('').forEach((letter,li)=>{
       const col=(g.lc&&g.lc[li])||'#222222';
+      const traitCol=g.tc||col; // Couleur du trait = couleur de la carte son (SVG)
       const notLast=li<numLetters-1;
       const silentDispLetter=casse==='upper'?letter.toUpperCase():letter.toLowerCase();
       const silentFont=casse==='cursive'?'Cursive Dumont maternelle':casse==='script'?'MDIEcole':'MDIEcole';
@@ -1897,9 +1842,9 @@ function buildSlideR(word,wi,seriesName,font,folder,wave,shDecos,casse,maxLetter
       const silentOn=g.silent?' on':'';
       groupHTML+=`<div class="sr-letter-slot" style="width:${u};margin:0 ${slotVw*0.03}vw">
         <div class="sr-grapheme-char${silentOn}" id="sr-gc-${wi}-${gi}-${li}" style="font-size:${fontSize};min-height:${charH}"${g.silent?' data-silent="1"':''}>${silentPrefill}</div>
-        <div class="sr-trait" style="border-bottom-color:${col};width:${u}"></div>
+        <div class="sr-trait" style="border-bottom-color:${traitCol};width:${u}"></div>
       </div>`;
-      if(notLast&&g.linked!==false)groupHTML+=`<div class="sr-liaison" style="background:transparent;width:${liaisonW}vw"><div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:${liaisonDot}vw;height:${liaisonDot}vw;border-radius:50%;background:${col}"></div></div>`;
+      if(notLast&&g.linked!==false)groupHTML+=`<div class="sr-liaison" style="background:transparent;width:${liaisonW}vw"><div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:${liaisonDot}vw;height:${liaisonDot}vw;border-radius:50%;background:${traitCol}"></div></div>`;
     });
     groupHTML+=`</div>`;
     if(g.silent){
