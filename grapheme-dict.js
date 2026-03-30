@@ -72,44 +72,44 @@ var TRAIT_COLORS = {
 // SONS EO — Données complètes des cartes sons
 // ================================================================
 var SONS_EO = {
-  'a':      { nom: 'Avion',      img: 'eo/a-avion.png',       svg: 'Cartes_Son_EO/a-avion-off.svg',        couleur: '#7DB728', ordre: 1 },
-  'an':     { nom: 'Ange',       img: 'eo/an-ange.png',       svg: 'Cartes_Son_EO/an-ange-off.svg',        couleur: '#7DB728', ordre: 2 },
-  'b':      { nom: 'Botte',      img: 'eo/b-bottes.png',      svg: 'Cartes_Son_EO/b-botte-off.svg',        couleur: '#7DB728', ordre: 3 },
-  'k':      { nom: 'Crocodile',  img: 'eo/c-crocodile.png',   svg: 'Cartes_Son_EO/c-crocodile-off.svg',    couleur: '#7DB728', ordre: 4 },
-  'ch':     { nom: 'Chat',       img: 'eo/ch-chat.png',       svg: 'Cartes_Son_EO/ch-chat-off.svg',        couleur: '#7DB728', ordre: 5 },
-  'd':      { nom: 'Danseuse',   img: 'eo/d-danseuse.png',    svg: 'Cartes_Son_EO/d-danseuse-off.svg',     couleur: '#7DB728', ordre: 6 },
-  'e':      { nom: 'Chèvre',     img: 'eo/e-chèvre.png',      svg: 'Cartes_Son_EO/e-chevre-melon-off.svg', couleur: '#7DB728', ordre: 7 },
-  'é':      { nom: 'Étoile',     img: 'eo/é-étoile.png',      svg: 'Cartes_Son_EO/e-etoile-off.svg',       couleur: '#7DB728', ordre: 8 },
-  'è':      { nom: 'Flèche',     img: 'eo/è-flèche.png',      svg: 'Cartes_Son_EO/e-fleche-off.svg',       couleur: '#7DB728', ordre: 9 },
-  'eu':     { nom: 'Feu',        img: 'eo/eu-feu.png',        svg: 'Cartes_Son_EO/eu-feu-off.svg',         couleur: '#7FC7EB', ordre: 10 },
-  'f':      { nom: 'Fée',        img: 'eo/f-fée.png',         svg: 'Cartes_Son_EO/f-fee-off.svg',          couleur: '#7DB728', ordre: 11 },
-  'g':      { nom: 'Gorille',    img: 'eo/g-gorille.png',     svg: 'Cartes_Son_EO/g-gorille-off.svg',      couleur: '#7FC7EB', ordre: 12 },
-  'gn':     { nom: 'Montagne',   img: 'eo/gn-montagne.png',   svg: 'Cartes_Son_EO/gn-montagne-off.svg',    couleur: '#575756', ordre: 13 },
-  'i':      { nom: 'Igloo',      img: 'eo/i-igloo.png',       svg: 'Cartes_Son_EO/i-igloo-off.svg',        couleur: '#7DB728', ordre: 14 },
-  'il':     { nom: 'Oeil',       img: 'eo/il-oeil.png',       svg: 'Cartes_Son_EO/il-oeil-off-2.svg',      couleur: '#7DB728', ordre: 15 },
-  'in':     { nom: 'Indien',     img: 'eo/in-idien.png',      svg: 'Cartes_Son_EO/in-indien-off.svg',      couleur: '#7DB728', ordre: 16 },
-  'j':      { nom: 'Jumelles',   img: 'eo/j-jumelles.png',    svg: 'Cartes_Son_EO/j-jumelles-off.svg',     couleur: '#E11683', ordre: 17 },
-  'l':      { nom: 'Lunettes',   img: 'eo/l-lunettes.png',    svg: 'Cartes_Son_EO/l-lunettes-off.svg',     couleur: '#7DB728', ordre: 18 },
-  'm':      { nom: 'Moto',       img: 'eo/m-moto.png',        svg: 'Cartes_Son_EO/m-moto-off.svg',         couleur: '#7DB728', ordre: 19 },
-  'n':      { nom: 'Neige',      img: 'eo/n-neige.png',       svg: 'Cartes_Son_EO/n-neige-off.svg',        couleur: '#7DB728', ordre: 20 },
-  'ng':     { nom: 'Viking',     img: 'eo/ng-viking.png',     svg: 'Cartes_Son_EO/ng-viking-off.svg',      couleur: '#DE0980', ordre: 21 },
-  'o':      { nom: 'Otarie',     img: 'eo/o-otarie.png',      svg: 'Cartes_Son_EO/o-otarie-off.svg',       couleur: '#7DB728', ordre: 22 },
-  '\u0254': { nom: 'Ogre',       img: 'eo/o-ogre.png',        svg: 'Cartes_Son_EO/o-ogre-off.svg',         couleur: '#7FC7EB', ordre: 23 },
-  'oi':     { nom: 'Oie',        img: 'eo/oi-oie.png',        svg: 'Cartes_Son_EO/oi-oie-off.svg',         couleur: '#7DB728', ordre: 24 },
-  'oin':    { nom: 'Pointe',     img: 'eo/oin-pointe.png',    svg: 'Cartes_Son_EO/oin-pointe-off.svg',     couleur: '#7FC7EB', ordre: 25 },
-  'on':     { nom: 'Bonbon',     img: 'eo/on-bonbon.png',     svg: 'Cartes_Son_EO/on-bonbon-off.svg',      couleur: '#7FC7EB', ordre: 26 },
-  'ou':     { nom: 'Loup',       img: 'eo/ou-loup.png',       svg: 'Cartes_Son_EO/ou-loup-off.svg',        couleur: '#7DB728', ordre: 27 },
-  'p':      { nom: 'Pirate',     img: 'eo/p-pirate.png',      svg: 'Cartes_Son_EO/p-pirate-off.svg',       couleur: '#7DB728', ordre: 28 },
-  'r':      { nom: 'Rat',        img: 'eo/r-rat.png',         svg: 'Cartes_Son_EO/r-rat-off.svg',          couleur: '#7DB728', ordre: 29 },
-  's':      { nom: 'Serpent',     img: 'eo/s-serpent.png',     svg: 'Cartes_Son_EO/s-serpent-off.svg',      couleur: '#7DB728', ordre: 30 },
-  't':      { nom: 'Téléphone',  img: 'eo/t-téléphone.png',   svg: 'Cartes_Son_EO/t-telephone-off.svg',    couleur: '#7DB728', ordre: 31 },
-  'u':      { nom: 'Usine',      img: 'eo/u-usine.png',       svg: 'Cartes_Son_EO/u-usine-off.svg',        couleur: '#7FC7EB', ordre: 32 },
-  'v':      { nom: 'Vache',      img: 'eo/v-vache.png',       svg: 'Cartes_Son_EO/v-vache-off.svg',        couleur: '#7FC7EB', ordre: 33 },
-  'ks':     { nom: 'Taxi',       img: 'eo/x-taxi.png',        svg: 'Cartes_Son_EO/x-taxi-off.svg',         couleur: '#7DB728', ordre: 34 },
-  'gz':     { nom: 'Xylophone',  img: 'eo/x-xylophone.png',   svg: 'Cartes_Son_EO/x-xylophone-off.svg',   couleur: '#7DB728', ordre: 35 },
-  'y':      { nom: 'Tuyau',      img: 'eo/y-tuyau.png',       svg: 'Cartes_Son_EO/y-tuyau-off.svg',        couleur: '#7DB728', ordre: 36 },
-  'z':      { nom: 'Zèbre',      img: 'eo/z-zèbre.png',       svg: 'Cartes_Son_EO/z-zebre-off.svg',        couleur: '#7DB728', ordre: 37 },
-  'muette': { nom: 'Muette',     img: 'eo/Lettre_Muette.png', svg: null,                                    couleur: '#AAAAAA', ordre: 38 }
+  'a':      { nom: 'Avion',      phonetique: '[a]',   img: 'eo/a-avion.png',       svg: 'Cartes_Son_EO/a-avion-off.svg',        couleur: '#7DB728', ordre: 1 },
+  'an':     { nom: 'Ange',       phonetique: '[ɑ̃]',  img: 'eo/an-ange.png',       svg: 'Cartes_Son_EO/an-ange-off.svg',        couleur: '#7DB728', ordre: 2 },
+  'b':      { nom: 'Botte',      phonetique: '[b]',   img: 'eo/b-bottes.png',      svg: 'Cartes_Son_EO/b-botte-off.svg',        couleur: '#7DB728', ordre: 3 },
+  'k':      { nom: 'Crocodile',  phonetique: '[k]',   img: 'eo/c-crocodile.png',   svg: 'Cartes_Son_EO/c-crocodile-off.svg',    couleur: '#7DB728', ordre: 4 },
+  'ch':     { nom: 'Chat',       phonetique: '[ʃ]',   img: 'eo/ch-chat.png',       svg: 'Cartes_Son_EO/ch-chat-off.svg',        couleur: '#7DB728', ordre: 5 },
+  'd':      { nom: 'Danseuse',   phonetique: '[d]',   img: 'eo/d-danseuse.png',    svg: 'Cartes_Son_EO/d-danseuse-off.svg',     couleur: '#7DB728', ordre: 6 },
+  'e':      { nom: 'Chèvre',     phonetique: '[ə]',   img: 'eo/e-chèvre.png',      svg: 'Cartes_Son_EO/e-chevre-melon-off.svg', couleur: '#7DB728', ordre: 7 },
+  'é':      { nom: 'Étoile',     phonetique: '[e]',   img: 'eo/é-étoile.png',      svg: 'Cartes_Son_EO/e-etoile-off.svg',       couleur: '#7DB728', ordre: 8 },
+  'è':      { nom: 'Flèche',     phonetique: '[ɛ]',   img: 'eo/è-flèche.png',      svg: 'Cartes_Son_EO/e-fleche-off.svg',       couleur: '#7DB728', ordre: 9 },
+  'eu':     { nom: 'Feu',        phonetique: '[ø]',   img: 'eo/eu-feu.png',        svg: 'Cartes_Son_EO/eu-feu-off.svg',         couleur: '#7FC7EB', ordre: 10 },
+  'f':      { nom: 'Fée',        phonetique: '[f]',   img: 'eo/f-fée.png',         svg: 'Cartes_Son_EO/f-fee-off.svg',          couleur: '#7DB728', ordre: 11 },
+  'g':      { nom: 'Gorille',    phonetique: '[g]',   img: 'eo/g-gorille.png',     svg: 'Cartes_Son_EO/g-gorille-off.svg',      couleur: '#7FC7EB', ordre: 12 },
+  'gn':     { nom: 'Montagne',   phonetique: '[ɲ]',   img: 'eo/gn-montagne.png',   svg: 'Cartes_Son_EO/gn-montagne-off.svg',    couleur: '#575756', ordre: 13 },
+  'i':      { nom: 'Igloo',      phonetique: '[i]',   img: 'eo/i-igloo.png',       svg: 'Cartes_Son_EO/i-igloo-off.svg',        couleur: '#7DB728', ordre: 14 },
+  'il':     { nom: 'Oeil',       phonetique: '[j]',   img: 'eo/il-oeil.png',       svg: 'Cartes_Son_EO/il-oeil-off-2.svg',      couleur: '#7DB728', ordre: 15 },
+  'in':     { nom: 'Indien',     phonetique: '[ɛ̃]',  img: 'eo/in-idien.png',      svg: 'Cartes_Son_EO/in-indien-off.svg',      couleur: '#7DB728', ordre: 16 },
+  'j':      { nom: 'Jumelles',   phonetique: '[ʒ]',   img: 'eo/j-jumelles.png',    svg: 'Cartes_Son_EO/j-jumelles-off.svg',     couleur: '#E11683', ordre: 17 },
+  'l':      { nom: 'Lunettes',   phonetique: '[l]',   img: 'eo/l-lunettes.png',    svg: 'Cartes_Son_EO/l-lunettes-off.svg',     couleur: '#7DB728', ordre: 18 },
+  'm':      { nom: 'Moto',       phonetique: '[m]',   img: 'eo/m-moto.png',        svg: 'Cartes_Son_EO/m-moto-off.svg',         couleur: '#7DB728', ordre: 19 },
+  'n':      { nom: 'Neige',      phonetique: '[n]',   img: 'eo/n-neige.png',       svg: 'Cartes_Son_EO/n-neige-off.svg',        couleur: '#7DB728', ordre: 20 },
+  'ng':     { nom: 'Viking',     phonetique: '[ŋ]',   img: 'eo/ng-viking.png',     svg: 'Cartes_Son_EO/ng-viking-off.svg',      couleur: '#DE0980', ordre: 21 },
+  'o':      { nom: 'Otarie',     phonetique: '[o]',   img: 'eo/o-otarie.png',      svg: 'Cartes_Son_EO/o-otarie-off.svg',       couleur: '#7DB728', ordre: 22 },
+  '\u0254': { nom: 'Ogre',       phonetique: '[\u0254]',  img: 'eo/o-ogre.png',    svg: 'Cartes_Son_EO/o-ogre-off.svg',         couleur: '#7FC7EB', ordre: 23 },
+  'oi':     { nom: 'Oie',        phonetique: '[wa]',  img: 'eo/oi-oie.png',        svg: 'Cartes_Son_EO/oi-oie-off.svg',         couleur: '#7DB728', ordre: 24 },
+  'oin':    { nom: 'Pointe',     phonetique: '[wɛ̃]', img: 'eo/oin-pointe.png',    svg: 'Cartes_Son_EO/oin-pointe-off.svg',     couleur: '#7FC7EB', ordre: 25 },
+  'on':     { nom: 'Bonbon',     phonetique: '[ɔ̃]',  img: 'eo/on-bonbon.png',     svg: 'Cartes_Son_EO/on-bonbon-off.svg',      couleur: '#7FC7EB', ordre: 26 },
+  'ou':     { nom: 'Loup',       phonetique: '[u]',   img: 'eo/ou-loup.png',       svg: 'Cartes_Son_EO/ou-loup-off.svg',        couleur: '#7DB728', ordre: 27 },
+  'p':      { nom: 'Pirate',     phonetique: '[p]',   img: 'eo/p-pirate.png',      svg: 'Cartes_Son_EO/p-pirate-off.svg',       couleur: '#7DB728', ordre: 28 },
+  'r':      { nom: 'Rat',        phonetique: '[ʁ]',   img: 'eo/r-rat.png',         svg: 'Cartes_Son_EO/r-rat-off.svg',          couleur: '#7DB728', ordre: 29 },
+  's':      { nom: 'Serpent',     phonetique: '[s]',   img: 'eo/s-serpent.png',     svg: 'Cartes_Son_EO/s-serpent-off.svg',      couleur: '#7DB728', ordre: 30 },
+  't':      { nom: 'Téléphone',  phonetique: '[t]',   img: 'eo/t-téléphone.png',   svg: 'Cartes_Son_EO/t-telephone-off.svg',    couleur: '#7DB728', ordre: 31 },
+  'u':      { nom: 'Usine',      phonetique: '[y]',   img: 'eo/u-usine.png',       svg: 'Cartes_Son_EO/u-usine-off.svg',        couleur: '#7FC7EB', ordre: 32 },
+  'v':      { nom: 'Vache',      phonetique: '[v]',   img: 'eo/v-vache.png',       svg: 'Cartes_Son_EO/v-vache-off.svg',        couleur: '#7FC7EB', ordre: 33 },
+  'ks':     { nom: 'Taxi',       phonetique: '[ks]',  img: 'eo/x-taxi.png',        svg: 'Cartes_Son_EO/x-taxi-off.svg',         couleur: '#7DB728', ordre: 34 },
+  'gz':     { nom: 'Xylophone',  phonetique: '[gz]',  img: 'eo/x-xylophone.png',   svg: 'Cartes_Son_EO/x-xylophone-off.svg',   couleur: '#7DB728', ordre: 35 },
+  'y':      { nom: 'Tuyau',      phonetique: '[j]',   img: 'eo/y-tuyau.png',       svg: 'Cartes_Son_EO/y-tuyau-off.svg',        couleur: '#7DB728', ordre: 36 },
+  'z':      { nom: 'Zèbre',      phonetique: '[z]',   img: 'eo/z-zèbre.png',       svg: 'Cartes_Son_EO/z-zebre-off.svg',        couleur: '#7DB728', ordre: 37 },
+  'muette': { nom: 'Muette',     phonetique: '[-]',   img: 'eo/Lettre_Muette.png', svg: null,                                    couleur: '#AAAAAA', ordre: 38 }
 };
 
 // ================================================================
@@ -122,15 +122,18 @@ var EO0 = {
   'â':   { s: 'a',  i: 'eo/a-avion.png',       c: ['#7DB728'],           tc: '#7DB728' },
   // Son [an] — Ange
   'an':  { s: 'an', i: 'eo/an-ange.png',        c: ['#222222','#222222'], tc: '#7DB728' },
-  'en':  { s: 'an', i: 'eo/an-ange.png',        c: ['#E11683','#222222'], tc: '#7DB728' },
+  'en':  { s: 'an', i: 'eo/an-ange.png',        c: ['#E11683','#aaaaaa'], tc: '#7DB728' },
   'em':  { s: 'an', i: 'eo/an-ange.png',        c: ['#E11683','#82c4e0'], tc: '#7DB728' },
-  'am':  { s: 'an', i: 'eo/an-ange.png',        c: ['#222222','#82c4e0'], tc: '#7DB728' },
+  'am':  { s: 'an', i: 'eo/an-ange.png',        c: ['#aaaaaa','#82c4e0'], tc: '#7DB728' },
   // Son [b] — Botte
   'b':   { s: 'b',  i: 'eo/b-bottes.png',       c: ['#222222'],           tc: '#7DB728' },
   // Son [k] — Crocodile
   'c':   { s: 'k',  i: 'eo/c-crocodile.png',    c: ['#222222'],           tc: '#7DB728' },
-  'qu':  { s: 'k',  i: 'eo/c-crocodile.png',    c: ['#E11683','#aaaaaa'], tc: '#7DB728' },
-  'k':   { s: 'k',  i: 'eo/c-crocodile.png',    c: ['#7DB728'],           tc: '#7DB728' },
+  'qu':  { s: 'k',  i: 'eo/c-crocodile.png',    c: ['#82c4e0','#82c4e0'], tc: '#7DB728' },
+  'q':   { s: 'k',  i: 'eo/c-crocodile.png',    c: ['#82c4e0'],           tc: '#7DB728' },
+  'kk':  { s: 'k',  i: 'eo/c-crocodile.png',    c: ['#E11683','#E11683'], tc: '#7DB728' },
+  'cc':  { s: 'k',  i: 'eo/c-crocodile.png',    c: ['#82c4e0','#aaaaaa'], tc: '#7DB728' },
+  'k':   { s: 'k',  i: 'eo/c-crocodile.png',    c: ['#E11683'],           tc: '#7DB728' },
   'ç':   { s: 's',  i: 'eo/s-serpent.png',       c: ['#7DB728'],           tc: '#7DB728' },
   // Son [ch] — Chat
   'ch':  { s: 'ch', i: 'eo/ch-chat.png',         c: ['#222222','#222222'], tc: '#7DB728' },
@@ -138,16 +141,17 @@ var EO0 = {
   'd':   { s: 'd',  i: 'eo/d-danseuse.png',      c: ['#222222'],           tc: '#7DB728' },
   // Son [e] — Chèvre
   'e':   { s: 'e',  i: 'eo/e-chèvre.png',        c: ['#222222'],           tc: '#7DB728' },
+  '\u0153':  { s: 'e',  i: 'eo/e-ch\u00e8vre.png',        c: ['#82c4e0','#aaaaaa'], tc: '#7DB728' },
   // Son [é] — Étoile
   'é':   { s: 'é',  i: 'eo/é-étoile.png',        c: ['#222222'],           tc: '#7DB728' },
   // Son [è] — Flèche
   'è':   { s: 'è',  i: 'eo/è-flèche.png',        c: ['#222222'],           tc: '#7DB728' },
-  'ê':   { s: 'è',  i: 'eo/è-flèche.png',        c: ['#7DB728'],           tc: '#7DB728' },
+  'ê':   { s: 'è',  i: 'eo/è-flèche.png',        c: ['#E11683'],           tc: '#7DB728' },
   // Son [eu] — Feu
-  'eu':  { s: 'eu', i: 'eo/eu-feu.png',          c: ['#E11683','#222222'], tc: '#7FC7EB' },
+  'eu':  { s: 'eu', i: 'eo/eu-feu.png',          c: ['#222222','#222222'], tc: '#7FC7EB' },
   // Son [f] — Fée
   'f':   { s: 'f',  i: 'eo/f-fée.png',           c: ['#222222'],           tc: '#7DB728' },
-  'ff':  { s: 'f',  i: 'eo/f-fée.png',           c: ['#7DB728','#222222'], tc: '#7DB728' },
+  'ff':  { s: 'f',  i: 'eo/f-fée.png',           c: ['#E11683','#aaaaaa'], tc: '#7DB728' },
   'ph':  { s: 'f',  i: 'eo/f-fée.png',           c: ['#7DB728','#7DB728'], tc: '#7DB728' },
   // Son [g] — Gorille
   'g':   { s: 'g',  i: 'eo/g-gorille.png',       c: ['#222222'],           tc: '#7FC7EB' },
@@ -164,31 +168,33 @@ var EO0 = {
   'j':   { s: 'j',  i: 'eo/j-jumelles.png',       c: ['#222222'],           tc: '#E11683' },
   // Son [l] — Lunettes
   'l':   { s: 'l',  i: 'eo/l-lunettes.png',       c: ['#222222'],           tc: '#7DB728' },
-  'll':  { s: 'l',  i: 'eo/l-lunettes.png',       c: ['#7DB728','#222222'], tc: '#7DB728' },
+  'll':  { s: 'l',  i: 'eo/l-lunettes.png',       c: ['#E11683','#aaaaaa'], tc: '#7DB728' },
   // Son [m] — Moto
   'm':   { s: 'm',  i: 'eo/m-moto.png',           c: ['#222222'],           tc: '#7DB728' },
-  'mm':  { s: 'm',  i: 'eo/m-moto.png',           c: ['#7DB728','#222222'], tc: '#7DB728' },
+  'mm':  { s: 'm',  i: 'eo/m-moto.png',           c: ['#82c4e0','#aaaaaa'], tc: '#7DB728' },
   // Son [n] — Neige
   'n':   { s: 'n',  i: 'eo/n-neige.png',          c: ['#222222'],           tc: '#7DB728' },
-  'nn':  { s: 'n',  i: 'eo/n-neige.png',          c: ['#7DB728','#222222'], tc: '#7DB728' },
+  'nn':  { s: 'n',  i: 'eo/n-neige.png',          c: ['#7DB728','#aaaaaa'], tc: '#7DB728' },
   // Son [o] — Otarie (fermé)
   'o':   { s: 'o',  i: 'eo/o-otarie.png',         c: ['#222222'],           tc: '#7DB728' },
-  'ô':   { s: 'o',  i: 'eo/o-otarie.png',         c: ['#7DB728'],           tc: '#7DB728' },
-  'au':  { s: 'o',  i: 'eo/o-otarie.png',         c: ['#222222','#222222'], tc: '#7DB728' },
-  'eau': { s: 'o',  i: 'eo/o-otarie.png',         c: ['#222222','#222222','#222222'], tc: '#7DB728' },
+  'ô':   { s: 'o',  i: 'eo/o-otarie.png',         c: ['#82c4e0'],           tc: '#7DB728' },
+  'au':  { s: 'o',  i: 'eo/o-otarie.png',         c: ['#7DB728','#82c4e0'], tc: '#7DB728' },
+  'eau': { s: 'o',  i: 'eo/o-otarie.png',         c: ['#E11683','#7DB728','#82c4e0'], tc: '#7DB728' },
+  'aw':  { s: 'o',  i: 'eo/o-otarie.png',         c: ['#7DB728','#82c4e0'], tc: '#7DB728' },
+  'al':  { s: 'o',  i: 'eo/o-otarie.png',         c: ['#7DB728','#E11683'], tc: '#7DB728' },
   // Son [p] — Pirate
   'p':   { s: 'p',  i: 'eo/p-pirate.png',         c: ['#222222'],           tc: '#7DB728' },
-  'pp':  { s: 'p',  i: 'eo/p-pirate.png',         c: ['#7DB728','#222222'], tc: '#7DB728' },
+  'pp':  { s: 'p',  i: 'eo/p-pirate.png',         c: ['#7DB728','#aaaaaa'], tc: '#7DB728' },
   // Son [r] — Rat
   'r':   { s: 'r',  i: 'eo/r-rat.png',            c: ['#222222'],           tc: '#7DB728' },
-  'rr':  { s: 'r',  i: 'eo/r-rat.png',            c: ['#7DB728','#222222'], tc: '#7DB728' },
+  'rr':  { s: 'r',  i: 'eo/r-rat.png',            c: ['#E11683','#aaaaaa'], tc: '#7DB728' },
   // Son [s] — Serpent
   's':   { s: 's',  i: 'eo/s-serpent.png',         c: ['#222222'],           tc: '#7DB728' },
-  'ss':  { s: 's',  i: 'eo/s-serpent.png',         c: ['#222222','#222222'], tc: '#7DB728' },
-  'sc':  { s: 's',  i: 'eo/s-serpent.png',         c: ['#222222','#222222'], tc: '#7DB728' },
+  'ss':  { s: 's',  i: 'eo/s-serpent.png',         c: ['#E11683','#aaaaaa'], tc: '#7DB728' },
+  'sc':  { s: 's',  i: 'eo/s-serpent.png',         c: ['#aaaaaa','#82c4e0'], tc: '#7DB728' },
   // Son [t] — Téléphone
   't':   { s: 't',  i: 'eo/t-téléphone.png',      c: ['#222222'],           tc: '#7DB728' },
-  'tt':  { s: 't',  i: 'eo/t-téléphone.png',      c: ['#7DB728','#222222'], tc: '#7DB728' },
+  'tt':  { s: 't',  i: 'eo/t-téléphone.png',      c: ['#7DB728','#aaaaaa'], tc: '#7DB728' },
   // Son [u] — Usine
   'u':   { s: 'u',  i: 'eo/u-usine.png',          c: ['#222222'],           tc: '#7FC7EB' },
   'û':   { s: 'u',  i: 'eo/u-usine.png',          c: ['#82c4e0'],           tc: '#7FC7EB' },
@@ -202,23 +208,27 @@ var EO0 = {
   // Son [z] — Zèbre
   'z':   { s: 'z',  i: 'eo/z-zèbre.png',          c: ['#222222'],           tc: '#7DB728' },
   // Digraphes voyelles
-  'ai':  { s: 'è',  i: 'eo/è-flèche.png',         c: ['#222222','#222222'], tc: '#7DB728' },
-  'ei':  { s: 'è',  i: 'eo/è-flèche.png',         c: ['#222222','#222222'], tc: '#7DB728' },
+  'ai':  { s: 'è',  i: 'eo/è-flèche.png',         c: ['#7DB728','#E11683'], tc: '#7DB728' },
+  'ei':  { s: 'è',  i: 'eo/è-flèche.png',         c: ['#E11683','#E11683'], tc: '#7DB728' },
   'er':  { s: 'é',  i: 'eo/é-étoile.png',         c: ['#222222','#222222'], tc: '#7DB728' },
-  'ez':  { s: 'é',  i: 'eo/é-étoile.png',         c: ['#222222','#aaaaaa'], tc: '#7DB728' },
+  'ez':  { s: 'é',  i: 'eo/é-étoile.png',         c: ['#E11683','#7DB728'], tc: '#7DB728' },
   // Nasales
   'on':  { s: 'on', i: 'eo/on-bonbon.png',        c: ['#222222','#222222'], tc: '#7FC7EB' },
-  'om':  { s: 'on', i: 'eo/on-bonbon.png',        c: ['#222222','#82c4e0'], tc: '#7FC7EB' },
+  'om':  { s: 'on', i: 'eo/on-bonbon.png',        c: ['#aaaaaa','#82c4e0'], tc: '#7FC7EB' },
   'in':  { s: 'in', i: 'eo/in-idien.png',         c: ['#222222','#222222'], tc: '#7DB728' },
-  'ain': { s: 'in', i: 'eo/in-idien.png',         c: ['#222222','#aaaaaa','#222222'], tc: '#7DB728' },
-  'ein': { s: 'in', i: 'eo/in-idien.png',         c: ['#E11683','#aaaaaa','#222222'], tc: '#7DB728' },
-  'un':  { s: 'in', i: 'eo/in-idien.png',         c: ['#82c4e0','#222222'], tc: '#7DB728' },
+  'ain': { s: 'in', i: 'eo/in-idien.png',         c: ['#7DB728','#aaaaaa','#aaaaaa'], tc: '#7DB728' },
+  'ein': { s: 'in', i: 'eo/in-idien.png',         c: ['#E11683','#aaaaaa','#aaaaaa'], tc: '#7DB728' },
+  'un':  { s: 'in', i: 'eo/in-idien.png',         c: ['#82c4e0','#aaaaaa'], tc: '#7DB728' },
+  'yn':  { s: 'in', i: 'eo/in-idien.png',         c: ['#7DB728','#aaaaaa'], tc: '#7DB728' },
+  'um':  { s: 'in', i: 'eo/in-idien.png',         c: ['#82c4e0','#82c4e0'], tc: '#7DB728' },
+  'aim': { s: 'in', i: 'eo/in-idien.png',         c: ['#7DB728','#aaaaaa','#82c4e0'], tc: '#7DB728' },
   // Semi-voyelles
   'ou':  { s: 'ou', i: 'eo/ou-loup.png',          c: ['#222222','#222222'], tc: '#7DB728' },
+  'oo':  { s: 'ou', i: 'eo/ou-loup.png',          c: ['#aaaaaa','#82c4e0'], tc: '#7DB728' },
   'oi':  { s: 'oi', i: 'eo/oi-oie.png',           c: ['#222222','#222222'], tc: '#7DB728' },
   'oin': { s: 'oin',i: 'eo/oin-pointe.png',       c: ['#222222','#222222','#222222'], tc: '#7FC7EB' },
   // Son [il] — Oeil
-  'ill': { s: 'il', i: 'eo/il-oeil.png',          c: ['#222222','#E11683','#E11683'], tc: '#7DB728' },
+  'ill': { s: 'il', i: 'eo/il-oeil.png',          c: ['#aaaaaa','#aaaaaa','#E11683'], tc: '#7DB728' },
   'il':  { s: 'il', i: 'eo/il-oeil.png',          c: ['#222222','#222222'], tc: '#7DB728' },
   'ail': { s: 'il', i: 'eo/il-oeil.png',          c: ['#222222','#222222','#222222'], tc: '#7DB728' }
 };
@@ -227,10 +237,10 @@ var EO0 = {
 // PATTERNS DE RECONNAISSANCE (du plus long au plus court)
 // ================================================================
 var PAT_EO = [
-  'eau','ain','ein','oin','ill','eil','ail','ch','ph','gn','qu','ng',
-  'an','am','en','em','on','om','ou','oi','in','eu','ai','ei','au','un','er','ez','il',
-  'ff','ll','mm','nn','pp','rr','ss','sc','tt',
-  '\u00e2','\u00ea','\u00ee','\u00fb','\u00f4','\u00e9','\u00e8','\u00e7',
+  'eau','ain','aim','ein','oin','ill','eil','ail','ch','ph','gn','qu','ng',
+  'an','am','en','em','on','om','ou','oo','oi','in','eu','ai','ei','au','aw','al','un','um','yn','er','ez','il',
+  'kk','cc','ff','ll','mm','nn','pp','rr','ss','sc','tt',
+  '\u00e2','\u00ea','\u00ee','\u00fb','\u00f4','\u00e9','\u00e8','\u00e7','\u0153',
   'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','r','s','t','u','v','w','x','y','z'
 ];
 
@@ -247,41 +257,43 @@ var GRAPHEME_DB = {
   ]},
   'an': { name: 'Ange', img: 'eo/an-ange.png', graphemes: [
     { g: 'an',  force: 42, colors: ['#222222','#222222'] },
-    { g: 'en',  force: 36, colors: ['#E11683','#222222'] },
-    { g: 'ent', force: 12, colors: ['#E11683','#222222','#aaaaaa'] },
+    { g: 'en',  force: 36, colors: ['#E11683','#aaaaaa'] },
+    { g: 'ent', force: 12, colors: ['#E11683','#aaaaaa','#7DB728'] },
     { g: 'em',  force: 6,  colors: ['#E11683','#82c4e0'] },
-    { g: 'am',  force: 3,  colors: ['#222222','#82c4e0'] },
-    { g: 'aon', force: 0,  colors: ['#222222','#aaaaaa','#222222'] }
+    { g: 'am',  force: 3,  colors: ['#aaaaaa','#82c4e0'] },
+    { g: 'aon', force: 0,  colors: ['#aaaaaa','#82c4e0','#aaaaaa'] }
   ]},
   'b': { name: 'Botte', img: 'eo/b-bottes.png', graphemes: [
     { g: 'b',  force: 99, colors: ['#222222'] },
-    { g: 'bb', force: 1,  colors: ['#7DB728','#222222'] }
+    { g: 'bb', force: 1,  colors: ['#82c4e0','#aaaaaa'] }
   ]},
   'k': { name: 'Crocodile', img: 'eo/c-crocodile.png', graphemes: [
     { g: 'c',  force: 74, colors: ['#222222'] },
-    { g: 'qu', force: 20, colors: ['#E11683','#aaaaaa'] },
+    { g: 'qu', force: 20, colors: ['#82c4e0','#82c4e0'] },
     { g: 'cc', force: 3,  colors: ['#82c4e0','#aaaaaa'] },
-    { g: 'k',  force: 1,  colors: ['#7DB728'] },
-    { g: 'ck', force: 0,  colors: ['#82c4e0','#aaaaaa'] },
-    { g: 'ch', force: 1,  colors: ['#7DB728','#aaaaaa'] }
+    { g: 'k',  force: 1,  colors: ['#E11683'] },
+    { g: 'q',  force: 0,  colors: ['#82c4e0'] },
+    { g: 'kk', force: 0,  colors: ['#E11683','#E11683'] },
+    { g: 'ck', force: 0,  colors: ['#aaaaaa','#E11683'] },
+    { g: 'ch', force: 1,  colors: ['#7DB728','#7DB728'] }
   ]},
   'ch': { name: 'Chat', img: 'eo/ch-chat.png', graphemes: [
     { g: 'ch', force: 98, colors: ['#222222','#222222'] },
-    { g: 'sh', force: 1,  colors: ['#E11683','#222222'] },
-    { g: 'sc', force: 0,  colors: ['#E11683','#222222'] }
+    { g: 'sh', force: 1,  colors: ['#E11683','#aaaaaa'] },
+    { g: 'sc', force: 0,  colors: ['#E11683','#aaaaaa'] }
   ]},
   'd': { name: 'Danseuse', img: 'eo/d-danseuse.png', graphemes: [
     { g: 'd',  force: 99, colors: ['#222222'] },
-    { g: 'dd', force: 1,  colors: ['#7DB728','#222222'] }
+    { g: 'dd', force: 1,  colors: ['#E11683','#aaaaaa'] }
   ]},
   'e': { name: 'Ch\u00e8vre', img: 'eo/e-ch\u00e8vre.png', graphemes: [
     { g: 'e',   force: 92, colors: ['#222222'] },
-    { g: 'eu',  force: 7,  colors: ['#E11683','#222222'] },
-    { g: 'oeu', force: 0,  colors: ['#E11683','#E11683','#222222'] },
+    { g: 'eu',  force: 7,  colors: ['#aaaaaa','#82c4e0'] },
+    { g: 'oeu', force: 0,  colors: ['#82c4e0','#aaaaaa','#82c4e0'] },
     { g: 'u',   force: 0,  colors: ['#82c4e0'] },
     { g: 'i',   force: 0,  colors: ['#E11683'] },
-    { g: 'ai',  force: 0,  colors: ['#222222','#222222'] },
-    { g: 'o',   force: 0,  colors: ['#7DB728'] }
+    { g: 'ai',  force: 0,  colors: ['#7DB728','#E11683'] },
+    { g: '\u0153',  force: 0,  colors: ['#82c4e0','#aaaaaa'] }
   ]},
   '\u00e9': { name: '\u00c9toile', img: 'eo/\u00e9-\u00e9toile.png', graphemes: [
     { g: '\u00e9',  force: 51, colors: ['#222222'] },
@@ -298,24 +310,24 @@ var GRAPHEME_DB = {
     { g: 'ay', force: 10, colors: ['#222222','#7DB728'] },
     { g: 'et', force: 9,  colors: ['#222222','#aaaaaa'] },
     { g: '\u00ea',  force: 4,  colors: ['#7DB728'] },
-    { g: 'ei', force: 2,  colors: ['#222222','#222222'] },
+    { g: 'ei', force: 2,  colors: ['#E11683','#E11683'] },
     { g: 'ey', force: 0,  colors: ['#222222','#7DB728'] }
   ]},
   'eu': { name: 'Feu', img: 'eo/eu-feu.png', graphemes: [
-    { g: 'eu',  force: 96, colors: ['#E11683','#222222'] },
-    { g: 'oeu', force: 3,  colors: ['#E11683','#222222','#222222'] },
+    { g: 'eu',  force: 96, colors: ['#222222','#222222'] },
+    { g: 'oeu', force: 3,  colors: ['#82c4e0','#aaaaaa','#aaaaaa'] },
     { g: '\u00fb',   force: 0,  colors: ['#82c4e0'] }
   ]},
   'f': { name: 'F\u00e9e', img: 'eo/f-f\u00e9e.png', graphemes: [
     { g: 'f',  force: 80, colors: ['#222222'] },
-    { g: 'ff', force: 15, colors: ['#7DB728','#222222'] },
+    { g: 'ff', force: 15, colors: ['#E11683','#aaaaaa'] },
     { g: 'ph', force: 5,  colors: ['#7DB728','#7DB728'] }
   ]},
   'g': { name: 'Gorille', img: 'eo/g-gorille.png', graphemes: [
     { g: 'g',  force: 82, colors: ['#222222'] },
     { g: 'gu', force: 17, colors: ['#aaaaaa','#82c4e0'] },
-    { g: 'gg', force: 0,  colors: ['#E11683','#222222'] },
-    { g: 'c',  force: 0,  colors: ['#E11683'] }
+    { g: 'gg', force: 0,  colors: ['#E11683','#aaaaaa'] },
+    { g: 'c',  force: 0,  colors: ['#82c4e0'] }
   ]},
   'gn': { name: 'Montagne', img: 'eo/gn-montagne.png', graphemes: [
     { g: 'gn', force: 100, colors: ['#222222','#222222'] }
@@ -325,98 +337,104 @@ var GRAPHEME_DB = {
     { g: 'y',  force: 2,  colors: ['#7DB728'] },
     { g: '\u00ef',  force: 0,  colors: ['#222222'] },
     { g: 'ee', force: 0,  colors: ['#E11683','#E11683'] },
-    { g: 'e',  force: 0,  colors: ['#7DB728'] }
+    { g: 'e',  force: 0,  colors: ['#E11683'] }
   ]},
   'il': { name: 'Oeil', img: 'eo/il-oeil.png', graphemes: [
     { g: 'ill', force: 83, colors: ['#aaaaaa','#aaaaaa','#E11683'] },
-    { g: 'il',  force: 2,  colors: ['#aaaaaa','#E11683'] },
+    { g: 'il',  force: 2,  colors: ['#222222','#222222'] },
     { g: 'i',   force: 79, colors: ['#E11683'] },
     { g: 'y',   force: 5,  colors: ['#7DB728'] },
     { g: '\u00ef',   force: 0,  colors: ['#222222'] }
   ]},
   'in': { name: 'Indien', img: 'eo/in-idien.png', graphemes: [
     { g: 'in',  force: 62, colors: ['#222222','#222222'] },
-    { g: 'en',  force: 11, colors: ['#E11683','#222222'] },
-    { g: 'ain', force: 10, colors: ['#222222','#aaaaaa','#222222'] },
-    { g: 'im',  force: 9,  colors: ['#222222','#82c4e0'] },
-    { g: 'ein', force: 4,  colors: ['#222222','#aaaaaa','#222222'] },
-    { g: 'un',  force: 2,  colors: ['#222222','#222222'] },
-    { g: 'ym',  force: 1,  colors: ['#7DB728','#82c4e0'] }
+    { g: 'en',  force: 11, colors: ['#E11683','#aaaaaa'] },
+    { g: 'ain', force: 10, colors: ['#7DB728','#aaaaaa','#aaaaaa'] },
+    { g: 'im',  force: 9,  colors: ['#aaaaaa','#82c4e0'] },
+    { g: 'ein', force: 4,  colors: ['#E11683','#aaaaaa','#aaaaaa'] },
+    { g: 'un',  force: 2,  colors: ['#82c4e0','#aaaaaa'] },
+    { g: 'ym',  force: 1,  colors: ['#aaaaaa','#82c4e0'] },
+    { g: 'yn',  force: 0,  colors: ['#7DB728','#aaaaaa'] },
+    { g: 'um',  force: 0,  colors: ['#82c4e0','#82c4e0'] },
+    { g: 'aim', force: 0,  colors: ['#7DB728','#aaaaaa','#82c4e0'] }
   ]},
   'j': { name: 'Jumelles', img: 'eo/j-jumelles.png', graphemes: [
     { g: 'j',  force: 20, colors: ['#222222'] },
     { g: 'g',  force: 74, colors: ['#E11683'] },
-    { g: 'ge', force: 6,  colors: ['#E11683','#aaaaaa'] }
+    { g: 'ge', force: 6,  colors: ['#E11683','#E11683'] }
   ]},
   'l': { name: 'Lunettes', img: 'eo/l-lunettes.png', graphemes: [
     { g: 'l',  force: 90, colors: ['#222222'] },
-    { g: 'll', force: 10, colors: ['#7DB728','#222222'] }
+    { g: 'll', force: 10, colors: ['#E11683','#aaaaaa'] }
   ]},
   'm': { name: 'Moto', img: 'eo/m-moto.png', graphemes: [
     { g: 'm',  force: 93, colors: ['#222222'] },
-    { g: 'mm', force: 7,  colors: ['#7DB728','#222222'] }
+    { g: 'mm', force: 7,  colors: ['#82c4e0','#aaaaaa'] }
   ]},
   'n': { name: 'Neige', img: 'eo/n-neige.png', graphemes: [
     { g: 'n',  force: 85, colors: ['#222222'] },
-    { g: 'nn', force: 15, colors: ['#7DB728','#222222'] }
+    { g: 'nn', force: 15, colors: ['#7DB728','#aaaaaa'] }
   ]},
   'ng': { name: 'Viking', img: 'eo/ng-viking.png', graphemes: [
     { g: 'ng', force: 100, colors: ['#222222','#222222'] }
   ]},
   'o': { name: 'Otarie (o ferm\u00e9)', img: 'eo/o-otarie.png', graphemes: [
     { g: 'o',   force: 40, colors: ['#222222'] },
-    { g: 'au',  force: 28, colors: ['#222222','#222222'] },
-    { g: 'eau', force: 18, colors: ['#222222','#222222','#222222'] },
+    { g: 'au',  force: 28, colors: ['#7DB728','#82c4e0'] },
+    { g: 'eau', force: 18, colors: ['#E11683','#7DB728','#82c4e0'] },
     { g: '\u00f4',   force: 10, colors: ['#7DB728'] },
-    { g: 'oo',  force: 0,  colors: ['#222222','#82c4e0'] }
+    { g: 'aw',  force: 0,  colors: ['#7DB728','#82c4e0'] },
+    { g: 'al',  force: 0,  colors: ['#7DB728','#E11683'] }
   ]},
   '\u0254': { name: 'Ogre (o ouvert)', img: 'eo/o-ogre.png', graphemes: [
     { g: 'o',  force: 90, colors: ['#222222'] },
-    { g: 'au', force: 5,  colors: ['#222222','#222222'] },
     { g: 'u',  force: 2,  colors: ['#82c4e0'] },
-    { g: '\u00f4',  force: 1,  colors: ['#7DB728'] }
+    { g: 'oo', force: 0,  colors: ['#82c4e0','#aaaaaa'] }
   ]},
   'oi': { name: 'Oie', img: 'eo/oi-oie.png', graphemes: [
     { g: 'oi',  force: 95, colors: ['#222222','#222222'] },
-    { g: 'oy',  force: 31, colors: ['#222222','#7DB728'] },
-    { g: 'oua', force: 3,  colors: ['#222222','#222222','#222222'] },
-    { g: 'a',   force: 1,  colors: ['#222222'] }
+    { g: 'oy',  force: 31, colors: ['#aaaaaa','#7DB728'] },
+    { g: 'oua', force: 3,  colors: ['#aaaaaa','#82c4e0','#7DB728'] },
+    { g: 'a',   force: 1,  colors: ['#7DB728'] }
   ]},
   'oin': { name: 'Pointe', img: 'eo/oin-pointe.png', graphemes: [
     { g: 'oin',  force: 85, colors: ['#222222','#222222','#222222'] },
-    { g: 'ouin', force: 15, colors: ['#222222','#82c4e0','#222222','#222222'] }
+    { g: 'ouin', force: 15, colors: ['#aaaaaa','#82c4e0','#aaaaaa','#aaaaaa'] }
   ]},
   'on': { name: 'Bonbon', img: 'eo/on-bonbon.png', graphemes: [
     { g: 'on', force: 86, colors: ['#222222','#222222'] },
-    { g: 'om', force: 13, colors: ['#222222','#82c4e0'] },
-    { g: 'un', force: 0,  colors: ['#222222','#222222'] }
+    { g: 'om', force: 13, colors: ['#aaaaaa','#82c4e0'] },
+    { g: 'un', force: 0,  colors: ['#82c4e0','#aaaaaa'] }
   ]},
   'ou': { name: 'Loup', img: 'eo/ou-loup.png', graphemes: [
     { g: 'ou',  force: 98, colors: ['#222222','#222222'] },
-    { g: 'oo',  force: 1,  colors: ['#222222','#222222'] },
-    { g: 'ow',  force: 0,  colors: ['#222222','#222222'] },
+    { g: 'oo',  force: 1,  colors: ['#aaaaaa','#82c4e0'] },
+    { g: 'ow',  force: 0,  colors: ['#aaaaaa','#82c4e0'] },
     { g: 'o\u00f9',  force: 0,  colors: ['#222222','#7DB728'] },
     { g: 'o\u00fb',  force: 0,  colors: ['#222222','#82c4e0'] }
   ]},
   'p': { name: 'Pirate', img: 'eo/p-pirate.png', graphemes: [
     { g: 'p',  force: 95, colors: ['#222222'] },
-    { g: 'pp', force: 5,  colors: ['#7DB728','#222222'] }
+    { g: 'pp', force: 5,  colors: ['#7DB728','#aaaaaa'] }
   ]},
   'r': { name: 'Rat', img: 'eo/r-rat.png', graphemes: [
     { g: 'r',  force: 97, colors: ['#222222'] },
-    { g: 'rr', force: 3,  colors: ['#7DB728','#222222'] }
+    { g: 'rr', force: 3,  colors: ['#E11683','#aaaaaa'] }
   ]},
   's': { name: 'Serpent', img: 'eo/s-serpent.png', graphemes: [
     { g: 's',  force: 46, colors: ['#222222'] },
-    { g: 'c',  force: 23, colors: ['#E11683'] },
-    { g: 'ss', force: 20, colors: ['#222222','#222222'] },
+    { g: 'c',  force: 23, colors: ['#82c4e0'] },
+    { g: 'ss', force: 20, colors: ['#E11683','#aaaaaa'] },
     { g: 't',  force: 8,  colors: ['#7DB728'] },
-    { g: 'sc', force: 1,  colors: ['#222222','#222222'] },
-    { g: '\u00e7',  force: 1,  colors: ['#7DB728'] }
+    { g: 'sc', force: 1,  colors: ['#aaaaaa','#82c4e0'] },
+    { g: '\u00e7',  force: 1,  colors: ['#7DB728'] },
+    { g: 'x',  force: 0,  colors: ['#82c4e0'] },
+    { g: 'z',  force: 0,  colors: ['#7DB728'] },
+    { g: 'cc', force: 0,  colors: ['#82c4e0','#82c4e0'] }
   ]},
   't': { name: 'T\u00e9l\u00e9phone', img: 'eo/t-t\u00e9l\u00e9phone.png', graphemes: [
     { g: 't',  force: 92, colors: ['#222222'] },
-    { g: 'tt', force: 8,  colors: ['#7DB728','#222222'] }
+    { g: 'tt', force: 8,  colors: ['#7DB728','#aaaaaa'] }
   ]},
   'u': { name: 'Usine', img: 'eo/u-usine.png', graphemes: [
     { g: 'u',  force: 99, colors: ['#222222'] },
@@ -429,22 +447,22 @@ var GRAPHEME_DB = {
   ]},
   'ks': { name: 'Taxi', img: 'eo/x-taxi.png', graphemes: [
     { g: 'x',  force: 44, colors: ['#222222'] },
-    { g: 'ct', force: 25, colors: ['#7DB728','#222222'] },
+    { g: 'ct', force: 25, colors: ['#82c4e0','#7DB728'] },
     { g: 'cc', force: 11, colors: ['#82c4e0','#82c4e0'] },
-    { g: 'cs', force: 0,  colors: ['#222222','#222222'] }
+    { g: 'cs', force: 0,  colors: ['#82c4e0','#E11683'] }
   ]},
   'gz': { name: 'Xylophone', img: 'eo/x-xylophone.png', graphemes: [
     { g: 'x',  force: 19, colors: ['#222222'] },
-    { g: 'gz', force: 0,  colors: ['#7DB728','#222222'] }
+    { g: 'gz', force: 0,  colors: ['#E11683','#7DB728'] }
   ]},
   'y': { name: 'Tuyau', img: 'eo/y-tuyau.png', graphemes: [
     { g: 'y',   force: 6,  colors: ['#222222'] },
-    { g: 'ill', force: 53, colors: ['#aaaaaa','#aaaaaa','#E11683'] }
+    { g: 'ill', force: 53, colors: ['#aaaaaa','#E11683','#E11683'] }
   ]},
   'z': { name: 'Z\u00e8bre', img: 'eo/z-z\u00e8bre.png', graphemes: [
     { g: 'z',  force: 8,  colors: ['#222222'] },
     { g: 's',  force: 91, colors: ['#E11683'] },
-    { g: 'zz', force: 0,  colors: ['#7DB728','#222222'] },
+    { g: 'zz', force: 0,  colors: ['#7DB728','#aaaaaa'] },
     { g: 'x',  force: 0,  colors: ['#82c4e0'] }
   ]},
   'muette': { name: 'Muette', img: 'eo/Lettre_Muette.png', graphemes: [

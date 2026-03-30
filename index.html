@@ -1084,7 +1084,7 @@ const BM0={
   'x':{s:'ks',i:'borel/ks.png',c:['#222222']},'z':{s:'z',i:'borel/z.png',c:['#222222']},
   'ch':{s:'ch',i:'borel/ch.png',c:['#222222','#222222']},'ph':{s:'f',i:'borel/f.png',c:['#222222','#222222']},
   'gn':{s:'gn',i:'borel/gn.png',c:['#222222','#222222']},'qu':{s:'k',i:'borel/k.png',c:['#222222','#aaaaaa']},
-  'll':{s:'l',i:'borel/l.png',c:['#222222','#222222']},'ss':{s:'s',i:'borel/s.png',c:['#222222','#222222']},
+  'll':{s:'l',i:'borel/l.png',c:['#222222','#222222']},'ss':{s:'s',i:'borel/s.png',c:['#E11683','#aaaaaa']},
   'ff':{s:'f',i:'borel/f.png',c:['#222222','#222222']},'rr':{s:'r',i:'borel/r.png',c:['#222222','#222222']},
   'mm':{s:'m',i:'borel/m.png',c:['#222222','#222222']},'nn':{s:'n',i:'borel/n.png',c:['#222222','#222222']},
   'tt':{s:'t',i:'borel/t.png',c:['#222222','#222222']},'pp':{s:'p',i:'borel/p.png',c:['#222222','#222222']},
@@ -1097,9 +1097,9 @@ const BM0={
   'ou':{s:'ou',i:'borel/ou.png',c:['#222222','#222222']},'oi':{s:'oi',i:'borel/oi.png',c:['#222222','#222222']},
   'oin':{s:'oin',i:'borel/oin.png',c:['#222222','#222222','#222222']},
   'eu':{s:'eu',i:'borel/eu.png',c:['#222222','#222222']},
-  'ai':{s:'è',i:'borel/e_accent_grave.png',c:['#222222','#222222']},'ei':{s:'è',i:'borel/e_accent_grave.png',c:['#222222','#222222']},
+  'ai':{s:'è',i:'borel/e_accent_grave.png',c:['#7DB728','#E11683']},'ei':{s:'è',i:'borel/e_accent_grave.png',c:['#E11683','#E11683']},
   'au':{s:'o',i:'borel/o.png',c:['#222222','#222222']},'eau':{s:'o',i:'borel/o.png',c:['#222222','#222222','#222222']},
-  'er':{s:'é',i:'borel/e_accent_aigu.png',c:['#222222','#222222']},'ez':{s:'é',i:'borel/e_accent_aigu.png',c:['#222222','#222222']},
+  'er':{s:'é',i:'borel/e_accent_aigu.png',c:['#222222','#222222']},'ez':{s:'é',i:'borel/e_accent_aigu.png',c:['#E11683','#7DB728']},
   'ill':{s:'il',i:'borel/ill.png',c:['#222222','#222222','#222222']},'il':{s:'il',i:'borel/ill.png',c:['#222222','#222222']},
   'ail':{s:'il',i:'borel/ill.png',c:['#222222','#222222','#222222']},'eil':{s:'il',i:'borel/ill.png',c:['#222222','#222222','#222222']},
 };
@@ -1113,29 +1113,29 @@ const PAT_BM=['eau','ain','ein','oin','ill','eil','ail','ch','ph','gn','qu',
 /* Ancien GRAPHEME_DB supprimé — les données sont maintenant dans grapheme-dict.js */
 var _GRAPHEME_DB_REMOVED = true; /*
   'an':{name:'Ange',img:'eo/an-ange.png',graphemes:[
-    {g:'an',force:42,colors:['#222222','#222222']},{g:'en',force:36,colors:['#E11683','#222222']},
-    {g:'ent',force:12,colors:['#E11683','#222222','#aaaaaa']},{g:'em',force:6,colors:['#E11683','#82c4e0']},
-    {g:'am',force:3,colors:['#222222','#82c4e0']},{g:'aon',force:0,colors:['#222222','#aaaaaa','#222222']}
+    {g:'an',force:42,colors:['#222222','#222222']},{g:'en',force:36,colors:['#E11683','#aaaaaa']},
+    {g:'ent',force:12,colors:['#E11683','#aaaaaa','#7DB728']},{g:'em',force:6,colors:['#E11683','#82c4e0']},
+    {g:'am',force:3,colors:['#aaaaaa','#82c4e0']},{g:'aon',force:0,colors:['#aaaaaa','#82c4e0','#aaaaaa']}
   ]},
   'b':{name:'Botte',img:'eo/b-bottes.png',graphemes:[
-    {g:'b',force:99,colors:['#222222']},{g:'bb',force:1,colors:['#7DB728','#222222']}
+    {g:'b',force:99,colors:['#222222']},{g:'bb',force:1,colors:['#82c4e0','#aaaaaa']}
   ]},
   'k':{name:'Crocodile',img:'eo/c-crocodile.png',graphemes:[
-    {g:'c',force:74,colors:['#222222']},{g:'qu',force:20,colors:['#E11683','#aaaaaa']},
-    {g:'cc',force:3,colors:['#82c4e0','#aaaaaa']},{g:'k',force:1,colors:['#7DB728']},
-    {g:'ck',force:0,colors:['#82c4e0','#aaaaaa']},{g:'ch',force:1,colors:['#7DB728','#aaaaaa']}
+    {g:'c',force:74,colors:['#222222']},{g:'qu',force:20,colors:['#82c4e0','#82c4e0']},
+    {g:'cc',force:3,colors:['#82c4e0','#aaaaaa']},{g:'k',force:1,colors:['#E11683']},
+    {g:'ck',force:0,colors:['#aaaaaa','#E11683']},{g:'ch',force:1,colors:['#7DB728','#7DB728']}
   ]},
   'ch':{name:'Chat',img:'eo/ch-chat.png',graphemes:[
-    {g:'ch',force:98,colors:['#222222','#222222']},{g:'sh',force:1,colors:['#E11683','#222222']},
-    {g:'sc',force:0,colors:['#E11683','#222222']}
+    {g:'ch',force:98,colors:['#222222','#222222']},{g:'sh',force:1,colors:['#E11683','#aaaaaa']},
+    {g:'sc',force:0,colors:['#E11683','#aaaaaa']}
   ]},
   'd':{name:'Danseuse',img:'eo/d-danseuse.png',graphemes:[
-    {g:'d',force:99,colors:['#222222']},{g:'dd',force:1,colors:['#7DB728','#222222']}
+    {g:'d',force:99,colors:['#222222']},{g:'dd',force:1,colors:['#E11683','#aaaaaa']}
   ]},
   'e':{name:'Chèvre',img:'eo/e-chèvre.png',graphemes:[
-    {g:'e',force:92,colors:['#222222']},{g:'eu',force:7,colors:['#E11683','#222222']},
-    {g:'oeu',force:0,colors:['#E11683','#E11683','#222222']},{g:'u',force:0,colors:['#82c4e0']},
-    {g:'i',force:0,colors:['#E11683']},{g:'ai',force:0,colors:['#222222','#222222']},
+    {g:'e',force:92,colors:['#222222']},{g:'eu',force:7,colors:['#aaaaaa','#82c4e0']},
+    {g:'oeu',force:0,colors:['#82c4e0','#aaaaaa','#82c4e0']},{g:'u',force:0,colors:['#82c4e0']},
+    {g:'i',force:0,colors:['#E11683']},{g:'ai',force:0,colors:['#7DB728','#E11683']},
     {g:'o',force:0,colors:['#7DB728']}
   ]},
   'é':{name:'Étoile',img:'eo/é-étoile.png',graphemes:[
@@ -1147,19 +1147,19 @@ var _GRAPHEME_DB_REMOVED = true; /*
     {g:'e',force:51,colors:['#E11683']},{g:'ai',force:18,colors:['#222222','#222222']},
     {g:'è',force:15,colors:['#222222']},{g:'ay',force:10,colors:['#222222','#7DB728']},
     {g:'et',force:9,colors:['#222222','#aaaaaa']},{g:'ê',force:4,colors:['#7DB728']},
-    {g:'ei',force:2,colors:['#222222','#222222']},{g:'ey',force:0,colors:['#222222','#7DB728']}
+    {g:'ei',force:2,colors:['#E11683','#E11683']},{g:'ey',force:0,colors:['#222222','#7DB728']}
   ]},
   'eu':{name:'Feu',img:'eo/eu-feu.png',graphemes:[
-    {g:'eu',force:96,colors:['#E11683','#222222']},{g:'oeu',force:3,colors:['#E11683','#222222','#222222']},
+    {g:'eu',force:96,colors:['#222222','#222222']},{g:'oeu',force:3,colors:['#82c4e0','#aaaaaa','#aaaaaa']},
     {g:'û',force:0,colors:['#82c4e0']}
   ]},
   'f':{name:'Fée',img:'eo/f-fée.png',graphemes:[
-    {g:'f',force:80,colors:['#222222']},{g:'ff',force:15,colors:['#7DB728','#222222']},
+    {g:'f',force:80,colors:['#222222']},{g:'ff',force:15,colors:['#E11683','#aaaaaa']},
     {g:'ph',force:5,colors:['#7DB728','#7DB728']}
   ]},
   'g':{name:'Gorille',img:'eo/g-gorille.png',graphemes:[
     {g:'g',force:82,colors:['#222222']},{g:'gu',force:17,colors:['#aaaaaa','#82c4e0']},
-    {g:'gg',force:0,colors:['#E11683','#222222']},{g:'c',force:0,colors:['#E11683']}
+    {g:'gg',force:0,colors:['#E11683','#aaaaaa']},{g:'c',force:0,colors:['#82c4e0']}
   ]},
   'gn':{name:'Montagne',img:'eo/gn-montagne.png',graphemes:[
     {g:'gn',force:100,colors:['#222222','#222222']}
@@ -1170,28 +1170,28 @@ var _GRAPHEME_DB_REMOVED = true; /*
     {g:'e',force:0,colors:['#7DB728']}
   ]},
   'il':{name:'Oeil',img:'eo/il-oeil.png',graphemes:[
-    {g:'ill',force:83,colors:['#aaaaaa','#aaaaaa','#E11683']},{g:'il',force:2,colors:['#aaaaaa','#E11683']},
+    {g:'ill',force:83,colors:['#aaaaaa','#aaaaaa','#E11683']},{g:'il',force:2,colors:['#222222','#222222']},
     {g:'i',force:79,colors:['#E11683']},{g:'y',force:5,colors:['#7DB728']},
     {g:'ï',force:0,colors:['#222222']}
   ]},
   'in':{name:'Indien',img:'eo/in-idien.png',graphemes:[
-    {g:'in',force:62,colors:['#222222','#222222']},{g:'en',force:11,colors:['#E11683','#222222']},
-    {g:'ain',force:10,colors:['#222222','#aaaaaa','#222222']},{g:'im',force:9,colors:['#222222','#82c4e0']},
-    {g:'ein',force:4,colors:['#222222','#aaaaaa','#222222']},{g:'un',force:2,colors:['#222222','#222222']},
-    {g:'ym',force:1,colors:['#7DB728','#82c4e0']}
+    {g:'in',force:62,colors:['#222222','#222222']},{g:'en',force:11,colors:['#E11683','#aaaaaa']},
+    {g:'ain',force:10,colors:['#7DB728','#aaaaaa','#aaaaaa']},{g:'im',force:9,colors:['#aaaaaa','#82c4e0']},
+    {g:'ein',force:4,colors:['#E11683','#aaaaaa','#aaaaaa']},{g:'un',force:2,colors:['#82c4e0','#aaaaaa']},
+    {g:'ym',force:1,colors:['#aaaaaa','#82c4e0']}
   ]},
   'j':{name:'Jumelle',img:'eo/j-jumelles.png',graphemes:[
     {g:'j',force:20,colors:['#222222']},{g:'g',force:74,colors:['#E11683']},
-    {g:'ge',force:6,colors:['#E11683','#aaaaaa']}
+    {g:'ge',force:6,colors:['#E11683','#E11683']}
   ]},
   'l':{name:'Lunettes',img:'eo/l-lunettes.png',graphemes:[
-    {g:'l',force:90,colors:['#222222']},{g:'ll',force:10,colors:['#7DB728','#222222']}
+    {g:'l',force:90,colors:['#222222']},{g:'ll',force:10,colors:['#E11683','#aaaaaa']}
   ]},
   'm':{name:'Moto',img:'eo/m-moto.png',graphemes:[
-    {g:'m',force:93,colors:['#222222']},{g:'mm',force:7,colors:['#7DB728','#222222']}
+    {g:'m',force:93,colors:['#222222']},{g:'mm',force:7,colors:['#82c4e0','#aaaaaa']}
   ]},
   'n':{name:'Neige',img:'eo/n-neige.png',graphemes:[
-    {g:'n',force:85,colors:['#222222']},{g:'nn',force:15,colors:['#7DB728','#222222']}
+    {g:'n',force:85,colors:['#222222']},{g:'nn',force:15,colors:['#7DB728','#aaaaaa']}
   ]},
   'ng':{name:'Viking',img:'eo/ng-viking.png',graphemes:[
     {g:'ng',force:100,colors:['#222222','#222222']}
@@ -1206,35 +1206,35 @@ var _GRAPHEME_DB_REMOVED = true; /*
     {g:'u',force:2,colors:['#82c4e0']},{g:'ô',force:1,colors:['#7DB728']}
   ]},
   'oi':{name:'Oie',img:'eo/oi-oie.png',graphemes:[
-    {g:'oi',force:95,colors:['#222222','#222222']},{g:'oy',force:31,colors:['#222222','#7DB728']},
-    {g:'oua',force:3,colors:['#222222','#222222','#222222']},{g:'a',force:1,colors:['#222222']}
+    {g:'oi',force:95,colors:['#222222','#222222']},{g:'oy',force:31,colors:['#aaaaaa','#7DB728']},
+    {g:'oua',force:3,colors:['#aaaaaa','#82c4e0','#7DB728']},{g:'a',force:1,colors:['#7DB728']}
   ]},
   'oin':{name:'Pointe',img:'eo/oin-pointe.png',graphemes:[
     {g:'oin',force:85,colors:['#222222','#222222','#222222']},
-    {g:'ouin',force:15,colors:['#222222','#82c4e0','#222222','#222222']}
+    {g:'ouin',force:15,colors:['#aaaaaa','#82c4e0','#aaaaaa','#aaaaaa']}
   ]},
   'on':{name:'Bonbon',img:'eo/on-bonbon.png',graphemes:[
-    {g:'on',force:86,colors:['#222222','#222222']},{g:'om',force:13,colors:['#222222','#82c4e0']},
-    {g:'un',force:0,colors:['#222222','#222222']}
+    {g:'on',force:86,colors:['#222222','#222222']},{g:'om',force:13,colors:['#aaaaaa','#82c4e0']},
+    {g:'un',force:0,colors:['#82c4e0','#aaaaaa']}
   ]},
   'ou':{name:'Loup',img:'eo/ou-loup.png',graphemes:[
-    {g:'ou',force:98,colors:['#222222','#222222']},{g:'oo',force:1,colors:['#222222','#222222']},
-    {g:'ow',force:0,colors:['#222222','#222222']},{g:'où',force:0,colors:['#222222','#7DB728']},
+    {g:'ou',force:98,colors:['#222222','#222222']},{g:'oo',force:1,colors:['#aaaaaa','#82c4e0']},
+    {g:'ow',force:0,colors:['#aaaaaa','#82c4e0']},{g:'où',force:0,colors:['#222222','#7DB728']},
     {g:'oû',force:0,colors:['#222222','#82c4e0']}
   ]},
   'p':{name:'Pirate',img:'eo/p-pirate.png',graphemes:[
-    {g:'p',force:95,colors:['#222222']},{g:'pp',force:5,colors:['#7DB728','#222222']}
+    {g:'p',force:95,colors:['#222222']},{g:'pp',force:5,colors:['#7DB728','#aaaaaa']}
   ]},
   'r':{name:'Rat',img:'eo/r-rat.png',graphemes:[
-    {g:'r',force:97,colors:['#222222']},{g:'rr',force:3,colors:['#7DB728','#222222']}
+    {g:'r',force:97,colors:['#222222']},{g:'rr',force:3,colors:['#E11683','#aaaaaa']}
   ]},
   's':{name:'Serpent',img:'eo/s-serpent.png',graphemes:[
-    {g:'s',force:46,colors:['#222222']},{g:'c',force:23,colors:['#E11683']},
-    {g:'ss',force:20,colors:['#222222','#222222']},{g:'t',force:8,colors:['#7DB728']},
-    {g:'sc',force:1,colors:['#222222','#222222']},{g:'ç',force:1,colors:['#7DB728']}
+    {g:'s',force:46,colors:['#222222']},{g:'c',force:23,colors:['#82c4e0']},
+    {g:'ss',force:20,colors:['#E11683','#aaaaaa']},{g:'t',force:8,colors:['#7DB728']},
+    {g:'sc',force:1,colors:['#aaaaaa','#82c4e0']},{g:'ç',force:1,colors:['#7DB728']}
   ]},
   't':{name:'Téléphone',img:'eo/t-téléphone.png',graphemes:[
-    {g:'t',force:92,colors:['#222222']},{g:'tt',force:8,colors:['#7DB728','#222222']}
+    {g:'t',force:92,colors:['#222222']},{g:'tt',force:8,colors:['#7DB728','#aaaaaa']}
   ]},
   'u':{name:'Usine',img:'eo/u-usine.png',graphemes:[
     {g:'u',force:99,colors:['#222222']},{g:'û',force:0,colors:['#82c4e0']},
@@ -1244,18 +1244,18 @@ var _GRAPHEME_DB_REMOVED = true; /*
     {g:'v',force:99,colors:['#222222']},{g:'w',force:1,colors:['#82c4e0']}
   ]},
   'ks':{name:'Taxi',img:'eo/x-taxi.png',graphemes:[
-    {g:'x',force:44,colors:['#222222']},{g:'ct',force:25,colors:['#7DB728','#222222']},
-    {g:'cc',force:11,colors:['#82c4e0','#82c4e0']},{g:'cs',force:0,colors:['#222222','#222222']}
+    {g:'x',force:44,colors:['#222222']},{g:'ct',force:25,colors:['#82c4e0','#7DB728']},
+    {g:'cc',force:11,colors:['#82c4e0','#82c4e0']},{g:'cs',force:0,colors:['#82c4e0','#E11683']}
   ]},
   'gz':{name:'Xylophone',img:'eo/x-xylophone.png',graphemes:[
-    {g:'x',force:19,colors:['#222222']},{g:'gz',force:0,colors:['#7DB728','#222222']}
+    {g:'x',force:19,colors:['#222222']},{g:'gz',force:0,colors:['#E11683','#7DB728']}
   ]},
   'y':{name:'Tuyau',img:'eo/y-tuyau.png',graphemes:[
-    {g:'y',force:6,colors:['#222222']},{g:'ill',force:53,colors:['#aaaaaa','#aaaaaa','#E11683']}
+    {g:'y',force:6,colors:['#222222']},{g:'ill',force:53,colors:['#aaaaaa','#E11683','#E11683']}
   ]},
   'z':{name:'Zèbre',img:'eo/z-zèbre.png',graphemes:[
     {g:'z',force:8,colors:['#222222']},{g:'s',force:91,colors:['#E11683']},
-    {g:'zz',force:0,colors:['#7DB728','#222222']},{g:'x',force:0,colors:['#82c4e0']}
+    {g:'zz',force:0,colors:['#7DB728','#aaaaaa']},{g:'x',force:0,colors:['#82c4e0']}
   ]},
   'muette':{name:'Muette',img:'eo/Lettre_Muette.png',graphemes:[
     {g:'h',force:60,colors:['#aaaaaa']},{g:'x',force:10,colors:['#aaaaaa']},
