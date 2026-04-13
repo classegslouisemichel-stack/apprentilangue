@@ -564,36 +564,147 @@ kbd{background:#eee;border:1px solid #ccc;border-radius:3px;padding:1px 6px;font
 .guide-zoom li{margin-bottom:3px;}
 
 /* ===== QUIZ ===== */
-#qz-wrap{display:none;position:fixed;inset:0;z-index:600;background:#1A2332;flex-direction:column;}
+/* ===== Quiz — refonte projection vidéo ===== */
+#qz-wrap{
+  display:none;position:fixed;inset:0;z-index:600;
+  background:linear-gradient(160deg,#FEF7ED 0%,#FDE8D0 40%,#F9DCC4 100%);
+  flex-direction:column;overflow:hidden;
+}
 #qz-wrap.on{display:flex;}
-#qz-stage{flex:1;display:flex;align-items:stretch;gap:0;overflow:hidden;}
+#qz-wrap::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 15% 85%,rgba(196,150,60,.07) 0%,transparent 55%),
+    radial-gradient(ellipse at 85% 15%,rgba(90,158,111,.07) 0%,transparent 55%);
+}
+
+/* Barre de progression */
+#qz-progress-bar{height:7px;background:rgba(59,80,104,.08);flex-shrink:0;overflow:hidden;}
+#qz-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--success));border-radius:0 4px 4px 0;transition:width .5s cubic-bezier(.4,0,.2,1);}
+
+/* Scène — une seule carte centrée */
+#qz-stage{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  position:relative;padding:clamp(12px,2vh,32px);overflow:hidden;
+}
+
+/* Conteneur perspective pour le flip 3D */
+.qz-card-container{
+  perspective:1200px;
+  width:clamp(260px,42vw,520px);height:clamp(260px,50vh,520px);
+  flex-shrink:0;
+}
+.qz-card-container.entering{animation:qzCardEnter .38s ease-out;}
+@keyframes qzCardEnter{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+
+/* Carte flip 3D */
+.qz-card{
+  width:100%;height:100%;position:relative;cursor:pointer;
+  transform-style:preserve-3d;
+  transition:transform .65s cubic-bezier(.4,.15,.2,1);
+}
+.qz-card.flipped{transform:rotateY(180deg);}
+
+/* Faces communes */
+.qz-face{
+  position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border-radius:28px;overflow:hidden;
+  box-shadow:0 16px 48px rgba(59,80,104,.14),0 4px 14px rgba(59,80,104,.06);
+}
+
+/* Face avant — mystère */
+.qz-face-front{
+  background:linear-gradient(150deg,#3B5068 0%,#4A6A88 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(10px,2vh,20px);
+}
+.qz-mystery{
+  font-size:clamp(72px,14vw,160px);
+  animation:qzPulse 2.2s ease-in-out infinite;
+  filter:drop-shadow(0 6px 24px rgba(196,150,60,.35));
+}
+@keyframes qzPulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.06);opacity:1}}
+.qz-mystery-num{
+  font-family:var(--fn-heading);font-weight:700;
+  font-size:clamp(15px,2.2vw,26px);color:rgba(255,255,255,.45);
+  letter-spacing:4px;text-transform:uppercase;
+}
+
+/* Face arrière — image */
+.qz-face-back{
+  transform:rotateY(180deg);background:#fff;
+  display:flex;align-items:center;justify-content:center;padding:clamp(10px,2vw,20px);
+}
+.qz-face-back img{
+  max-width:96%;max-height:96%;object-fit:contain;border-radius:14px;
+  transition:transform .3s;
+}
+.qz-card.flipped:hover .qz-face-back img{transform:scale(1.02);}
+
+/* Zone du mot — sous la carte */
+#qz-word-area{
+  position:absolute;bottom:clamp(56px,10vh,100px);left:50%;
+  transform:translateX(-50%) translateY(18px);
+  text-align:center;opacity:0;pointer-events:none;
+  transition:opacity .45s ease,transform .45s ease;
+}
+#qz-word-area.revealed{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto;}
+#qz-word-text{
+  font-family:var(--fn);font-weight:800;
+  font-size:clamp(32px,6.5vw,72px);color:var(--cpd);
+  background:rgba(255,255,255,.88);backdrop-filter:blur(10px);
+  padding:clamp(6px,1.2vh,14px) clamp(20px,3.5vw,44px);
+  border-radius:18px;border:2px solid rgba(196,150,60,.18);
+  box-shadow:0 8px 28px rgba(59,80,104,.08);
+  white-space:nowrap;
+  letter-spacing:1px;
+}
+#qz-word-series{
+  font-family:var(--fn);font-size:clamp(11px,1.4vw,16px);
+  color:var(--text2);margin-top:8px;font-weight:600;
+}
+
+/* Barre de navigation bas */
 #qz-nav{
-  background:#141D28;padding:clamp(6px,1vh,10px) clamp(12px,2vw,22px);
-  display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0;
-  border-top:2px solid var(--accent);
+  background:rgba(255,255,255,.72);backdrop-filter:blur(14px);
+  padding:clamp(8px,1.2vh,14px) clamp(14px,2.8vw,28px);
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  flex-shrink:0;border-top:1px solid rgba(59,80,104,.07);
+  position:relative;z-index:2;
 }
 .qn{
-  background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.1);
-  padding:clamp(4px,.7vh,8px) clamp(10px,1.8vw,18px);border-radius:var(--radius);
-  cursor:pointer;font-size:clamp(12px,1.4vw,14px);font-family:var(--fn);
-  transition:var(--transition);
+  background:rgba(59,80,104,.06);color:var(--cpd);
+  border:1px solid rgba(59,80,104,.1);
+  padding:clamp(6px,1vh,10px) clamp(14px,2vw,22px);
+  border-radius:12px;cursor:pointer;
+  font-size:clamp(13px,1.5vw,16px);font-family:var(--fn);font-weight:600;
+  transition:all .2s ease;
 }
-.qn:hover{background:rgba(255,255,255,.18);}
-#qz-counter{color:rgba(255,255,255,.45);font-size:clamp(11px,1.3vw,14px);}
+.qn:hover{background:rgba(59,80,104,.13);transform:translateY(-1px);}
+#qz-counter{
+  font-family:var(--fn-heading);font-weight:600;
+  color:var(--text2);font-size:clamp(13px,1.5vw,16px);
+}
 
-/* Quiz image cards */
-.qz-card{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;border-right:1px solid rgba(255,255,255,.06);}
-.qz-card:last-child{border-right:none;}
-.qz-card-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;padding:clamp(12px,2vw,24px);}
-.qz-img-wrap{position:relative;display:flex;align-items:center;justify-content:center;width:100%;flex:1;min-height:0;}
-.qz-img{max-width:92%;max-height:100%;object-fit:contain;border-radius:6px;border:2px solid rgba(255,255,255,.1);transition:transform .2s;box-shadow:0 4px 20px rgba(0,0,0,.4);}
-.qz-card:hover .qz-img{transform:scale(1.02);}
-.qz-overlay{position:absolute;inset:0;background:#1A2332;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:opacity .35s;}
-.qz-overlay-icon{font-size:clamp(48px,8vw,80px);opacity:.6;}
-.qz-overlay.revealed{opacity:0;pointer-events:none;}
-.qz-word{font-size:clamp(24px,4vw,42px);font-weight:700;color:#fff;text-align:center;margin-top:clamp(8px,1.5vh,16px);opacity:0;transition:opacity .35s;text-shadow:0 2px 6px rgba(0,0,0,.4);pointer-events:none;}
-.qz-word.revealed{opacity:1;pointer-events:auto;}
-.qz-num{position:absolute;top:12px;left:14px;background:rgba(255,255,255,.1);color:#fff;font-size:12px;font-weight:600;border-radius:var(--radius);padding:3px 10px;}
+/* Célébration — étoiles */
+.qz-star{
+  position:absolute;pointer-events:none;z-index:10;
+  font-size:clamp(18px,2.8vw,32px);
+  animation:qzStarBurst .9s ease-out forwards;
+}
+@keyframes qzStarBurst{
+  0%{opacity:1;transform:translate(0,0) scale(0) rotate(0deg)}
+  50%{opacity:1;transform:translate(var(--tx),var(--ty)) scale(1.3) rotate(180deg)}
+  100%{opacity:0;transform:translate(calc(var(--tx)*1.6),calc(var(--ty)*1.6)) scale(.4) rotate(400deg)}
+}
+/* Célébration — confettis */
+.qz-confetti{
+  position:absolute;pointer-events:none;z-index:10;border-radius:2px;
+  animation:qzFall 1.3s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes qzFall{
+  0%{opacity:1;transform:translateY(0) rotate(0deg) scale(1)}
+  100%{opacity:0;transform:translateY(140px) rotate(720deg) scale(.2)}
+}
 
 /* Quiz config modal */
 .qz-series-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--radius);background:#F5F6F8;margin-bottom:8px;border:1px solid var(--border);transition:var(--transition);}
@@ -2897,7 +3008,7 @@ restoreAppColors();
 // ================================================================
 // QUIZ
 // ================================================================
-let QZ={words:[],pairs:[],pairIdx:0,revealed:[0,0]}; // 0=hidden, 1=image shown, 2=word shown
+let QZ={words:[],idx:0,step:0,title:''};
 let qzCurrentSeriesId=null;
 
 function getAllSeries(){
@@ -2997,115 +3108,139 @@ function qzLaunchMega(){
 
 function qzStart(words,title){
   QZ.words=qzShuffle(words);
-  QZ.pairIdx=0;
+  QZ.idx=0;
+  QZ.step=0;
   QZ.title=title;
-  buildQzStage();
   document.getElementById('qz-wrap').classList.add('on');
-  qzShowPair(0);
+  qzShowWord(0);
 }
 
-function buildQzStage(){
-  const stage=document.getElementById('qz-stage');
-  stage.innerHTML='';
-  // Pre-build 2 card slots
-  for(let i=0;i<2;i++){
-    const card=document.createElement('div');
-    card.className='qz-card';
-    card.id='qz-card-'+i;
-    card.onclick=(function(idx){return function(){qzRevealCard(idx);};})(i);
-    card.innerHTML=`<div class="qz-card-inner">
-      <div class="qz-img-wrap">
-        <img class="qz-img" id="qz-img-${i}" src="" alt="" onerror="this.style.opacity='.3'">
-        <div class="qz-overlay" id="qz-ov-${i}"><div class="qz-overlay-icon">👆</div></div>
-      </div>
-      <div class="qz-word" id="qz-word-${i}"></div>
-    </div>`;
-    stage.appendChild(card);
-  }
+function qzShowWord(idx){
+  QZ.idx=idx;
+  QZ.step=0;
+  var w=QZ.words[idx];
+  var total=QZ.words.length;
+
+  // Barre de progression
+  document.getElementById('qz-progress-fill').style.width=((idx/total)*100)+'%';
+  // Compteur
+  document.getElementById('qz-counter').textContent='Mot '+(idx+1)+' / '+total+' — '+QZ.title;
+  // Label mystère
+  document.getElementById('qz-mystery-label').textContent='MOT '+(idx+1);
+
+  // Réinitialiser la carte sans animation de flip
+  var card=document.getElementById('qz-card');
+  card.style.transition='none';
+  card.classList.remove('flipped');
+  document.getElementById('qz-word-area').classList.remove('revealed');
+
+  // Charger le contenu
+  var img=document.getElementById('qz-img');
+  img.src=w.image;img.alt=w.word;img.style.opacity='1';
+  document.getElementById('qz-word-text').textContent=w.word;
+  document.getElementById('qz-word-series').textContent=w._seriesName?'('+w._seriesName+')':'';
+
+  // Animation d'entrée de la carte
+  var container=document.getElementById('qz-container');
+  container.classList.remove('entering');
+
+  // Forcer reflow puis réactiver les transitions
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      card.style.transition='';
+      container.classList.add('entering');
+    });
+  });
 }
 
-function qzShowPair(pairIdx){
-  QZ.pairIdx=pairIdx;
-  QZ.revealed=[0,0];
-  const words=QZ.words;
-  const i0=pairIdx*2, i1=pairIdx*2+1;
-  const total=Math.ceil(words.length/2);
-  document.getElementById('qz-counter').textContent=(pairIdx+1)+' / '+total+' — '+QZ.title;
-
-  for(let slot=0;slot<2;slot++){
-    const wi=[i0,i1][slot];
-    const card=document.getElementById('qz-card-'+slot);
-    const img=document.getElementById('qz-img-'+slot);
-    const ov=document.getElementById('qz-ov-'+slot);
-    const wrd=document.getElementById('qz-word-'+slot);
-
-    if(wi<words.length){
-      const w=words[wi];
-      card.style.visibility='visible';
-      img.src=w.image;img.alt=w.word;img.style.opacity='1';
-      wrd.textContent=w.word+(w._seriesName?'\n('+w._seriesName+')':'');
-      wrd.style.whiteSpace='pre';
-      ov.classList.remove('revealed');
-      wrd.classList.remove('revealed');
-      // Reset overlay icon
-      ov.querySelector('.qz-overlay-icon').textContent='👆';
-    } else {
-      card.style.visibility='hidden';
-    }
-  }
-}
-
-function qzRevealCard(slot){
-  const step=QZ.revealed[slot];
-  if(step===0){
-    // Step 1: reveal image (remove overlay)
-    QZ.revealed[slot]=1;
-    document.getElementById('qz-ov-'+slot).classList.add('revealed');
-  } else if(step===1){
-    // Step 2: reveal word
-    QZ.revealed[slot]=2;
-    document.getElementById('qz-word-'+slot).classList.add('revealed');
+function qzRevealStep(){
+  if(QZ.step===0){
+    // Étape 1 : retourner la carte → révéler l'image
+    QZ.step=1;
+    document.getElementById('qz-card').classList.add('flipped');
+  } else if(QZ.step===1){
+    // Étape 2 : afficher le mot + célébration
+    QZ.step=2;
+    document.getElementById('qz-word-area').classList.add('revealed');
+    qzCelebrate();
   }
 }
 
 function qzRevealAll(){
-  for(let slot=0;slot<2;slot++){
-    // Force both steps
-    QZ.revealed[slot]=2;
-    document.getElementById('qz-ov-'+slot).classList.add('revealed');
-    document.getElementById('qz-word-'+slot).classList.add('revealed');
+  var needFlip=QZ.step<1;
+  if(QZ.step>=2)return;
+  if(needFlip){
+    document.getElementById('qz-card').classList.add('flipped');
   }
+  QZ.step=2;
+  // Délai pour laisser le flip finir si on vient de l'étape 0
+  setTimeout(function(){
+    document.getElementById('qz-word-area').classList.add('revealed');
+    qzCelebrate();
+  },needFlip?400:0);
 }
 
 function qzNext(){
-  const total=Math.ceil(QZ.words.length/2);
-  if(QZ.pairIdx+1>=total){
-    // Restart with new shuffle
+  if(QZ.idx+1>=QZ.words.length){
     QZ.words=qzShuffle(QZ.words);
-    qzShowPair(0);
+    qzShowWord(0);
     toast('Tour terminé ! Nouveau mélange 🔀');
-  }else{
-    qzShowPair(QZ.pairIdx+1);
+  } else {
+    qzShowWord(QZ.idx+1);
   }
+}
+
+function qzPrev(){
+  if(QZ.idx>0) qzShowWord(QZ.idx-1);
 }
 
 function qzClose(){
   document.getElementById('qz-wrap').classList.remove('on');
 }
 
-// Keyboard support for quiz
+function qzCelebrate(){
+  var stage=document.getElementById('qz-stage');
+  var emojis=['⭐','✨','🌟','💫','🎉'];
+  var colors=['#C4963C','#5A9E6F','#3B5068','#E88A5C','#8B6BA8','#E85D7A'];
+  // Étoiles qui partent du centre
+  for(var i=0;i<10;i++){
+    var star=document.createElement('div');
+    star.className='qz-star';
+    star.textContent=emojis[i%emojis.length];
+    star.style.left='50%';star.style.top='45%';
+    var angle=(i/10)*Math.PI*2;
+    var dist=80+Math.random()*60;
+    star.style.setProperty('--tx',(Math.cos(angle)*dist)+'px');
+    star.style.setProperty('--ty',(Math.sin(angle)*dist)+'px');
+    star.style.animationDelay=(i*50)+'ms';
+    stage.appendChild(star);
+    (function(el){setTimeout(function(){el.remove();},1300);})(star);
+  }
+  // Confettis qui tombent
+  for(var j=0;j<24;j++){
+    var c=document.createElement('div');
+    c.className='qz-confetti';
+    c.style.left=(15+Math.random()*70)+'%';
+    c.style.top=(5+Math.random()*25)+'%';
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDelay=(Math.random()*450)+'ms';
+    c.style.width=(5+Math.random()*9)+'px';
+    c.style.height=(5+Math.random()*9)+'px';
+    c.style.borderRadius=Math.random()>.5?'50%':'2px';
+    stage.appendChild(c);
+    (function(el){setTimeout(function(){el.remove();},1900);})(c);
+  }
+}
+
+// Raccourcis clavier quiz
 document.addEventListener('keydown',function(e){
   if(!document.getElementById('qz-wrap').classList.contains('on'))return;
   if(e.key==='Escape'){qzClose();return;}
   if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();qzNext();return;}
-  if(e.key==='ArrowLeft'){
-    const prev=QZ.pairIdx-1;
-    if(prev>=0)qzShowPair(prev);
-    return;
+  if(e.key==='ArrowLeft'){e.preventDefault();qzPrev();return;}
+  if(e.key==='Enter'||e.key==='ArrowUp'||e.key==='ArrowDown'||e.key==='1'||e.key==='2'){
+    e.preventDefault();qzRevealStep();
   }
-  if(e.key==='1'||e.key==='ArrowUp')qzRevealCard(0);
-  if(e.key==='2')qzRevealCard(1);
-  if(e.key==='Enter')qzRevealAll();
 });
 
 // ================================================================
@@ -3822,21 +3957,19 @@ loadSharedSeries(function(){renderHome();});
       </div>
 
       <h3>9. Utiliser le quiz</h3>
-      <p>Le quiz affiche les <strong>images des mots en très grand format</strong> (2 par page) pour une révision rapide en classe.</p>
+      <p>Le quiz affiche <strong>un mot à la fois en plein écran</strong>, idéal pour la projection au vidéoprojecteur.</p>
       <ol>
         <li>Sur la carte d'une série, cliquez sur <strong>🎯 Quiz</strong></li>
         <li>Choisissez jusqu'à quel numéro de mot inclure (ex : 1 à 12 si les élèves ont appris 12 mots)</li>
         <li>Cliquez sur <strong>▶ Lancer ce quiz</strong></li>
       </ol>
-      <p>Dans le quiz : chaque image est masquée, <strong>cliquez dessus pour la révéler</strong> (mot affiché en dessous). Utilisez <kbd>→</kbd> ou le bouton <strong>Suivant</strong> pour passer à la paire suivante.</p>
+      <p>Chaque mot passe par <strong>3 étapes</strong> : une carte mystère <strong>❓</strong> crée le suspense, un premier clic <strong>retourne la carte</strong> pour révéler l'image, un second clic <strong>affiche le mot</strong> avec une petite célébration. Utilisez <kbd>→</kbd> ou <strong>Suivant</strong> pour passer au mot suivant.</p>
       <div class="guide-tip">💡 <strong>Méga-quiz</strong> : cochez plusieurs séries dans la fenêtre de configuration pour mélanger des mots de différentes séries. Idéal pour une révision globale !</div>
       <table class="guide-table">
         <tr><th>Touche</th><th>Action</th></tr>
-        <tr><td><kbd>→</kbd> ou <kbd>Espace</kbd></td><td>Paire suivante</td></tr>
-        <tr><td><kbd>←</kbd></td><td>Paire précédente</td></tr>
-        <tr><td><kbd>Entrée</kbd></td><td>Révéler les 2 images</td></tr>
-        <tr><td><kbd>1</kbd></td><td>Révéler l'image gauche</td></tr>
-        <tr><td><kbd>2</kbd></td><td>Révéler l'image droite</td></tr>
+        <tr><td><kbd>→</kbd> ou <kbd>Espace</kbd></td><td>Mot suivant</td></tr>
+        <tr><td><kbd>←</kbd></td><td>Mot précédent</td></tr>
+        <tr><td><kbd>Entrée</kbd> / <kbd>↑</kbd> / <kbd>↓</kbd></td><td>Révéler l'étape suivante</td></tr>
         <tr><td><kbd>Échap</kbd></td><td>Quitter le quiz</td></tr>
       </table>
 
@@ -3848,11 +3981,28 @@ loadSharedSeries(function(){renderHome();});
 
 <!-- QUIZ OVERLAY -->
 <div id="qz-wrap">
-  <div id="qz-stage"></div>
+  <div id="qz-progress-bar"><div id="qz-progress-fill"></div></div>
+  <div id="qz-stage">
+    <div class="qz-card-container" id="qz-container">
+      <div class="qz-card" id="qz-card" onclick="qzRevealStep()">
+        <div class="qz-face qz-face-front">
+          <div class="qz-mystery">❓</div>
+          <div class="qz-mystery-num" id="qz-mystery-label">MOT 1</div>
+        </div>
+        <div class="qz-face qz-face-back">
+          <img id="qz-img" src="" alt="" onerror="this.style.opacity='.3'">
+        </div>
+      </div>
+    </div>
+    <div id="qz-word-area">
+      <div id="qz-word-text"></div>
+      <div id="qz-word-series"></div>
+    </div>
+  </div>
   <div id="qz-nav">
     <button class="qn" type="button" onclick="qzClose()">✕ Quitter</button>
     <span id="qz-counter"></span>
-    <div style="display:flex;gap:7px">
+    <div style="display:flex;gap:8px">
       <button class="qn" type="button" onclick="qzRevealAll()">👁 Tout révéler</button>
       <button class="qn" type="button" onclick="qzNext()">Suivant ▶</button>
     </div>
